@@ -9194,11 +9194,11 @@ __metadata:
   linkType: hard
 
 "@types/react-resizable@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "@types/react-resizable@npm:3.0.3"
+  version: 3.0.8
+  resolution: "@types/react-resizable@npm:3.0.8"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 10c0/7ee40113239bd4f6600038eb6d6dda35aa65fbc4c438ae548792ba81d0bc8e095db320de8d8b9b5e4265dc557414050f49a102f5aa106d0086452943fd8a9b6b
+  checksum: 10c0/77d7896703531a32e8efdf0c7208c0f6af8eadf3d8dc5fd2b5e6032ed834f4d8ea52f14ebee8b39af6fb63642bbaacf785dd9962b1f284f070a63143251315fb
   languageName: node
   linkType: hard
 
