@@ -9112,11 +9112,11 @@ __metadata:
   linkType: hard
 
 "@types/plotly.js@npm:^1.54.21, @types/plotly.js@npm:^1.54.6":
-  version: 1.54.21
-  resolution: "@types/plotly.js@npm:1.54.21"
+  version: 1.54.22
+  resolution: "@types/plotly.js@npm:1.54.22"
   dependencies:
     "@types/d3": "npm:^3"
-  checksum: 10c0/21e32bda75cf811cf609d7858821a13c9516718293bae0ba7ec265a5e3fb5f3151cefb8d90da2e65c28fc175352e16aa9833ed96d0acbd07475e2a5cff5eaa28
+  checksum: 10c0/bb9888d6f74dea0ad7b19c35d8cbf46154212d3517cb34edbe80b72098d02bb005013e10bc8e93b34de2dee8741a4ed71b7c765d0d5109e168ca2ef067c374b8
   languageName: node
   linkType: hard
 
