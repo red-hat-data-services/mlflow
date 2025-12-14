@@ -148,7 +148,7 @@
     "@types/use-sync-external-store": "^0.0.3",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "argparse": "^2.0.1",
     "babel-plugin-formatjs": "^10.2.14",
     "babel-plugin-react-require": "^3.1.3",
