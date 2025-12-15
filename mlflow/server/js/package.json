@@ -63,7 +63,7 @@
     "papaparse": "^5.3.2",
     "parcoord-es": "^2.2.10",
     "pdfjs-dist": "^5.3.31",
-    "plotly.js": "2.5.1",
+    "plotly.js": "2.35.3",
     "prop-types": "^15.8.1",
     "qs": "6.10.5",
     "rc-image": "~5.2.4",
