@@ -2,13 +2,14 @@ FROM registry.access.redhat.com/ubi9/nodejs-20:9.6 AS ui-builder
 WORKDIR /opt/app-root/src
 USER 0
 
-# 1. Source cachi2.env so corepack/yarn know where to look (if they need to fetch the engine)
-RUN . /cachi2/cachi2.env && corepack enable
+# 1. Source Cachi2 environment variables (sets npm registry to local).
+# 2. Install yarn globally using npm (this requires 'yarn' to be in your package.json devDependencies so Cachi2 downloads it).
+RUN . /cachi2/cachi2.env && npm install -g yarn
 
 COPY --chown=1001:0 mlflow/server/js/ .
 USER 1001
 
-# 2. Source cachi2.env so 'yarn install' uses the offline cache instead of the internet
+# 3. Source Cachi2 again for the actual project build
 RUN . /cachi2/cachi2.env && yarn install --silent \
     && yarn build
 
@@ -17,7 +18,7 @@ WORKDIR /src
 USER 0
 COPY --chown=1001:0 . .
 
-# 3. Source cachi2.env so 'pip' uses the offline cache for 'build' and its dependencies
+# 4. Source Cachi2 for Python build tools
 RUN . /cachi2/cachi2.env && set -eux; \
     python -m pip install --no-cache-dir build; \
     python -m build --wheel --outdir /tmp/dist; \
@@ -33,7 +34,7 @@ USER 0
 COPY --from=python-builder /tmp/dist/mlflow-*.whl /tmp/dist/
 COPY --from=python-builder /tmp/dist/mlflow_kubernetes_workspace_provider-*.whl /tmp/dist/
 
-# 4. Source cachi2.env so 'pip' can find dependencies (pandas, numpy, etc.) in the offline cache
+# 5. Source Cachi2 for installing the final wheels and their dependencies (pandas, numpy, etc.)
 RUN . /cachi2/cachi2.env && python -m pip install --no-cache-dir /tmp/dist/mlflow-*.whl /tmp/dist/mlflow_kubernetes_workspace_provider-*.whl \
     && rm -f /tmp/dist/mlflow-*.whl /tmp/dist/mlflow_kubernetes_workspace_provider-*.whl
 
@@ -50,7 +51,7 @@ RUN set -eux; \
 
 EXPOSE 5000
 
-# Default command.
+# Default command. Override in Kubernetes as needed.
 USER 1001
 CMD ["mlflow", "server", "--host", "0.0.0.0", "--port", "5000", "--app-name", "kubernetes-auth", "--enable-workspaces", "--workspace-store-uri", "kubernetes://", "--serve-artifacts"]
 
