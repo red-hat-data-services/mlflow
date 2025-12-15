@@ -2371,6 +2371,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.18.0":
+  version: 7.28.4
+  resolution: "@babel/runtime@npm:7.28.4"
+  checksum: 10c0/792ce7af9750fb9b93879cc9d1db175701c4689da890e6ced242ea0207c9da411ccf16dc04e689cc01158b28d7898c40d75598f4559109f761c12ce01e959bf7
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.12.7, @babel/template@npm:^7.18.10, @babel/template@npm:^7.27.1, @babel/template@npm:^7.27.2":
   version: 7.27.2
   resolution: "@babel/template@npm:7.27.2"
@@ -4641,7 +4648,7 @@ __metadata:
     prettier: "npm:2.8.0"
     prop-types: "npm:^15.8.1"
     qs: "npm:6.10.5"
-    rc-image: "npm:~5.2.4"
+    rc-image: "npm:~5.18.0"
     react: "npm:^18.2.0"
     react-17: "npm:react@^17.0.2"
     react-dnd: "npm:^15.1.1"
@@ -6562,6 +6569,20 @@ __metadata:
   version: 1.1.1
   resolution: "@radix-ui/rect@npm:1.1.1"
   checksum: 10c0/0dac4f0f15691199abe6a0e067821ddd9d0349c0c05f39834e4eafc8403caf724106884035ae91bbc826e10367e6a5672e7bec4d4243860fa7649de246b1f60b
+  languageName: node
+  linkType: hard
+
+"@rc-component/portal@npm:^1.0.0-8, @rc-component/portal@npm:^1.0.2":
+  version: 1.1.2
+  resolution: "@rc-component/portal@npm:1.1.2"
+  dependencies:
+    "@babel/runtime": "npm:^7.18.0"
+    classnames: "npm:^2.3.2"
+    rc-util: "npm:^5.24.4"
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 10c0/3c0297356635d47f364be79de02bb16009f06b1ce82124c3e63da9a71b8e7d3ea2c147e4703ead9cae0f662435a21e9feb30d2edf7197108bc3dbf969f3ca51f
   languageName: node
   linkType: hard
 
@@ -13348,7 +13369,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:2.x, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1":
+"classnames@npm:2.x, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1, classnames@npm:^2.3.2":
   version: 2.5.1
   resolution: "classnames@npm:2.5.1"
   checksum: 10c0/afff4f77e62cea2d79c39962980bf316bacb0d7c49e13a21adaadb9221e1c6b9d3cdb829d8bb1b23c406f4e740507f37e1dcf506f7e3b7113d17c5bab787aa69
@@ -28904,6 +28925,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rc-dialog@npm:~9.1.0":
+  version: 9.1.0
+  resolution: "rc-dialog@npm:9.1.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.10.1"
+    "@rc-component/portal": "npm:^1.0.0-8"
+    classnames: "npm:^2.2.6"
+    rc-motion: "npm:^2.3.0"
+    rc-util: "npm:^5.21.0"
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 10c0/93d60c93367a19981d5ad2b7ff5cbfc538ead313ccef4ca257e8e8675e49b5e5a963d188518a6f58005c480e1d75c341f22887893e441d5899e4e6bb087eebe0
+  languageName: node
+  linkType: hard
+
 "rc-drawer@npm:~4.3.0":
   version: 4.3.1
   resolution: "rc-drawer@npm:4.3.1"
@@ -28943,6 +28980,23 @@ __metadata:
     react: ">= 16.9.0"
     react-dom: ">= 16.9.0"
   checksum: 10c0/08150eed5870d4785e44b0e0d1a343b12b9e28d8dbd07ad8ef1ac4989d11be3e0cdb529b9ca60f59aa27b1c249da6efe01c73df12d3660f205e27cf85153f2db
+  languageName: node
+  linkType: hard
+
+"rc-image@npm:~5.18.0":
+  version: 5.18.1
+  resolution: "rc-image@npm:5.18.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.11.2"
+    "@rc-component/portal": "npm:^1.0.2"
+    classnames: "npm:^2.2.6"
+    rc-dialog: "npm:~9.1.0"
+    rc-motion: "npm:^2.6.2"
+    rc-util: "npm:^5.0.6"
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 10c0/b4391eaede94b7f535b4c832f0899de996573a4f88ed098d66b7f03d5ce708948a542bf5c919971de6110af5e456475e0c142a245ced41136edbf3107d77fac1
   languageName: node
   linkType: hard
 
@@ -29021,6 +29075,20 @@ __metadata:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
   checksum: 10c0/fc41d553ce68135f87edbaf59a982f461c715cc90be263348c912530b6f417a1311c27a2a5abb8714f6462e2513ef568b537028acbfe57c01c20a0bf316f85eb
+  languageName: node
+  linkType: hard
+
+"rc-motion@npm:^2.6.2":
+  version: 2.9.5
+  resolution: "rc-motion@npm:2.9.5"
+  dependencies:
+    "@babel/runtime": "npm:^7.11.1"
+    classnames: "npm:^2.2.1"
+    rc-util: "npm:^5.44.0"
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 10c0/84b12b2443dc1b929c8a688e8c9834a44cf88897402e9363fcea80b77f2803b2de83b24dac5873a8695304827e02fb3103c74349d0451ed247cb366553f9d88e
   languageName: node
   linkType: hard
 
@@ -29341,7 +29409,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-util@npm:^5.0.5, rc-util@npm:^5.19.2, rc-util@npm:^5.6.1":
+"rc-util@npm:^5.0.5, rc-util@npm:^5.19.2, rc-util@npm:^5.21.0, rc-util@npm:^5.24.4, rc-util@npm:^5.44.0, rc-util@npm:^5.6.1":
   version: 5.44.4
   resolution: "rc-util@npm:5.44.4"
   dependencies:
