@@ -4586,7 +4586,7 @@ __metadata:
     classnames: "npm:^2.2.6"
     confusing-browser-globals: "npm:^1.0.11"
     cookie: "npm:0.3.1"
-    cronstrue: "npm:^1.94.0"
+    cronstrue: "npm:^3.0.0"
     d3-array: "npm:^3.2.4"
     d3-scale: "npm:^2.1.0"
     dateformat: "npm:3.0.3"
@@ -14289,10 +14289,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cronstrue@npm:^1.94.0":
-  version: 1.94.0
-  resolution: "cronstrue@npm:1.94.0"
-  checksum: 10c0/ddd1fc33c64b6200523d42100891b4c0807b929c6eaa0fecf86c64572f57de663570b3df28d45bfef7fe33e368a365edb6e8b970121f34f560290c419de14c96
+"cronstrue@npm:^3.0.0":
+  version: 3.9.0
+  resolution: "cronstrue@npm:3.9.0"
+  bin:
+    cronstrue: bin/cli.js
+  checksum: 10c0/391ae21c28846ed5c17562f0a8b3ff696f7f34cb6222601281e58dd27e468b5a54a07cfe4f3d89f5d07453015057e6e02db1cb802276754a6de43eb4ba45b128
   languageName: node
   linkType: hard
 
