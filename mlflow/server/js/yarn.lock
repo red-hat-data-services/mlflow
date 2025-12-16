@@ -4551,7 +4551,7 @@ __metadata:
     "@storybook/node-logger": "npm:^6.5.5"
     "@storybook/preset-create-react-app": "npm:^4.1.0"
     "@storybook/react": "npm:^6.5.5"
-    "@tanstack/react-query": "npm:^4.29.17"
+    "@tanstack/react-query": "npm:^5.0.0"
     "@tanstack/react-table": "npm:^8.8.2"
     "@tanstack/react-virtual": "npm:^3.8.1"
     "@testing-library/dom": "npm:^10.4.0"
@@ -8325,30 +8325,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:4.29.17":
-  version: 4.29.17
-  resolution: "@tanstack/query-core@npm:4.29.17"
-  checksum: 10c0/050a2c24ad3776552d0739d5812040363a6dc0044638dfde3b663ff63a39d25320f7b69decdca5df13cdaec4f6ae61dca4b23eb07c09bc760ad7af81856c534d
+"@tanstack/query-core@npm:5.90.12":
+  version: 5.90.12
+  resolution: "@tanstack/query-core@npm:5.90.12"
+  checksum: 10c0/60d5dd23d7801118d6ef84a3d76e798aaf6eb851ee5227629a1dc798fa01ac9560580553413208fcc8a003fb12a89e83d6dd1f38ebc3bd9b6e8838cfaaa45fef
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^4.29.17":
-  version: 4.29.17
-  resolution: "@tanstack/react-query@npm:4.29.17"
+"@tanstack/react-query@npm:^5.0.0":
+  version: 5.90.12
+  resolution: "@tanstack/react-query@npm:5.90.12"
   dependencies:
-    "@tanstack/query-core": "npm:4.29.17"
-    client-only: "npm:0.0.1"
-    use-sync-external-store: "npm:^1.2.0"
+    "@tanstack/query-core": "npm:5.90.12"
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-native: "*"
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 10c0/2c314205ff02217db23b3d3189723c17927be83e97dd5af52e7dcd729a4fdec759b7114c81c75735f8bdbce5d47434178d81dce5a97a37f3aebcafd2fb3a1d28
+    react: ^18 || ^19
+  checksum: 10c0/da01ec2819d301e4be89731e82d3f091fa4f1ab2745be324e5166f9df77e2aaf1c362b0fa61aab226bb01634873f1a00562f7d7f405867fe23bdd47fe4d00fda
   languageName: node
   linkType: hard
 
@@ -13445,13 +13436,6 @@ __metadata:
   version: 3.0.0
   resolution: "cli-width@npm:3.0.0"
   checksum: 10c0/125a62810e59a2564268c80fdff56c23159a7690c003e34aeb2e68497dccff26911998ff49c33916fcfdf71e824322cc3953e3f7b48b27267c7a062c81348a9a
-  languageName: node
-  linkType: hard
-
-"client-only@npm:0.0.1":
-  version: 0.0.1
-  resolution: "client-only@npm:0.0.1"
-  checksum: 10c0/9d6cfd0c19e1c96a434605added99dff48482152af791ec4172fb912a71cff9027ff174efd8cdb2160cc7f377543e0537ffc462d4f279bc4701de3f2a3c4b358
   languageName: node
   linkType: hard
 
