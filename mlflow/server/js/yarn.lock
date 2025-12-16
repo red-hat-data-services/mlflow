@@ -4594,7 +4594,7 @@ __metadata:
     enzyme: "npm:^3.11.0"
     eslint: "npm:^8.56.0"
     eslint-config-prettier: "npm:^8.5.0"
-    eslint-config-standard: "npm:10.2.1"
+    eslint-config-standard: "npm:17.1.0"
     eslint-import-resolver-webpack: "npm:0.8.4"
     eslint-loader: "npm:2.1.1"
     eslint-plugin-chai-expect: "npm:1.1.1"
@@ -16754,16 +16754,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-standard@npm:10.2.1":
-  version: 10.2.1
-  resolution: "eslint-config-standard@npm:10.2.1"
+"eslint-config-standard@npm:17.1.0":
+  version: 17.1.0
+  resolution: "eslint-config-standard@npm:17.1.0"
   peerDependencies:
-    eslint: ">=3.19.0"
-    eslint-plugin-import: ">=2.2.0"
-    eslint-plugin-node: ">=4.2.2"
-    eslint-plugin-promise: ">=3.5.0"
-    eslint-plugin-standard: ">=3.0.0"
-  checksum: 10c0/5be390cef2e026549aad2c94679aaccb5a8ae1be16ba2b67d6fbb013d43fa16322fa05ce691f98c13774d434f93420d8a7677e388a695879ce367852a05f7bca
+    eslint: ^8.0.1
+    eslint-plugin-import: ^2.25.2
+    eslint-plugin-n: "^15.0.0 || ^16.0.0 "
+    eslint-plugin-promise: ^6.0.0
+  checksum: 10c0/d32f37ec4bea541debd3a8c9e05227673a9b1a9977da078195ee55fb371813ddf1349c75f2c33d76699fe3412f1e303181795f146e8d0e546b94fa0dce2bfbf9
   languageName: node
   linkType: hard
 
