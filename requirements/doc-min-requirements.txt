@@ -12,6 +12,6 @@ sphinx-reredirects==0.1.3
 # Pin sphinxcontrib packages. Their newer versions are incompatible with sphinx==4.2.0.
 sphinxcontrib-applehelp<1.0.8
 sphinxcontrib-devhelp<1.0.6
-sphinxcontrib-htmlhelp<2.0.4
+sphinxcontrib-htmlhelp<2.1.1
 sphinxcontrib-serializinghtml<1.1.10
 sphinxcontrib-qthelp<1.0.7
