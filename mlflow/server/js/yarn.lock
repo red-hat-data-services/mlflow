@@ -4589,7 +4589,7 @@ __metadata:
     cronstrue: "npm:^1.94.0"
     d3-array: "npm:^3.2.4"
     d3-scale: "npm:^2.1.0"
-    dateformat: "npm:3.0.3"
+    dateformat: "npm:5.0.3"
     diff: "npm:5.1.0"
     enzyme: "npm:^3.11.0"
     eslint: "npm:^8.56.0"
@@ -15170,10 +15170,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dateformat@npm:3.0.3":
-  version: 3.0.3
-  resolution: "dateformat@npm:3.0.3"
-  checksum: 10c0/2effb8bef52ff912f87a05e4adbeacff46353e91313ad1ea9ed31412db26849f5a0fcc7e3ce36dbfb84fc6c881a986d5694f84838ad0da7000d5150693e78678
+"dateformat@npm:5.0.3":
+  version: 5.0.3
+  resolution: "dateformat@npm:5.0.3"
+  checksum: 10c0/ccc7a5351080f7ae00496e246ed4d3afdba770f9a8267348d0d04387e23414ef219d9bb6f273a6d628c0ff5f0255ab75977d668dc7ab066b916a196950bdde9a
   languageName: node
   linkType: hard
 
