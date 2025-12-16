@@ -4560,7 +4560,7 @@ __metadata:
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/d3-array": "npm:^3.2.1"
     "@types/d3-scale": "npm:^2.1.0"
-    "@types/diff": "npm:^5.1.0"
+    "@types/diff": "npm:^8.0.0"
     "@types/file-saver": "npm:^2.0.3"
     "@types/invariant": "npm:^2.2.35"
     "@types/jest": "npm:^29.5.14"
@@ -4590,7 +4590,7 @@ __metadata:
     d3-array: "npm:^3.2.4"
     d3-scale: "npm:^2.1.0"
     dateformat: "npm:3.0.3"
-    diff: "npm:5.1.0"
+    diff: "npm:8.0.2"
     enzyme: "npm:^3.11.0"
     eslint: "npm:^8.56.0"
     eslint-config-prettier: "npm:^8.5.0"
@@ -8715,10 +8715,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/diff@npm:^5.1.0":
-  version: 5.2.3
-  resolution: "@types/diff@npm:5.2.3"
-  checksum: 10c0/dd2e99e272a7023f3e5c71099599553c7d6c9a6b9d67f202b593b8d59b0528361eba39a8674ab18eba76217b6bad8f1a09417a9a571daaf7c0f49d67d4f305e2
+"@types/diff@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@types/diff@npm:8.0.0"
+  dependencies:
+    diff: "npm:*"
+  checksum: 10c0/c6e3376abeac8bc77b33252afc239a3cfc2729ecf59abcf00fa0f0eca8c505fd3a375a99a64afecdbb97fbec77b9a6aa8a8918f4d53fd5b45638d609343717cc
   languageName: node
   linkType: hard
 
@@ -15586,10 +15588,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"diff@npm:5.1.0":
-  version: 5.1.0
-  resolution: "diff@npm:5.1.0"
-  checksum: 10c0/77a0d9beb9ed54796154ac2511872288432124ac90a1cabb1878783c9b4d81f1847f3b746a0630b1e836181461d2c76e1e6b95559bef86ed16294d114862e364
+"diff@npm:*, diff@npm:8.0.2":
+  version: 8.0.2
+  resolution: "diff@npm:8.0.2"
+  checksum: 10c0/abfb387f033e089df3ec3be960205d17b54df8abf0924d982a7ced3a94c557a4e6cbff2e78b121f216b85f466b3d8d041673a386177c311aaea41459286cc9bc
   languageName: node
   linkType: hard
 
