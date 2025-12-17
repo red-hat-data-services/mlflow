@@ -4617,7 +4617,7 @@ __metadata:
     fast-glob: "npm:^3.2.11"
     file-saver: "npm:^2.0.5"
     font-awesome: "npm:4.7.0"
-    graphql: "npm:^15.5.0"
+    graphql: "npm:^16.0.0"
     graphql-codegen-typescript-operation-types: "npm:^2.0.1"
     http-proxy-middleware: "npm:^1.0.3"
     immutable: "npm:3.8.1"
@@ -19597,10 +19597,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:^15.5.0":
-  version: 15.5.3
-  resolution: "graphql@npm:15.5.3"
-  checksum: 10c0/992d71d24ca2331d17de1eec978f1a438c6719c161c858eae67a1b5ef41e994052fbd93622636997795ab0e2c300c19fb5f67c9551023475161ed040f6c81b91
+"graphql@npm:^16.0.0":
+  version: 16.12.0
+  resolution: "graphql@npm:16.12.0"
+  checksum: 10c0/b6fffa4e8a4e4a9933ebe85e7470b346dbf49050c1a482fac5e03e4a1a7bed2ecd3a4c97e29f04457af929464bc5e4f2aac991090c2f320111eef26e902a5c75
   languageName: node
   linkType: hard
 
