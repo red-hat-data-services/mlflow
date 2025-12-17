@@ -11,7 +11,7 @@ COPY --chown=1001:0 mlflow/server/js/ .
 USER 1001
 
 # 3. Source Cachi2 again for the actual project build
-RUN . /cachi2/cachi2.env && yarn install --immutable && yarn build
+# RUN . /cachi2/cachi2.env && yarn install --immutable && yarn build
 
 FROM registry.access.redhat.com/ubi9/python-311:9.6 AS python-builder
 WORKDIR /src
