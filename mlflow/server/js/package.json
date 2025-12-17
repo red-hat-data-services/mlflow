@@ -213,8 +213,8 @@
     "rc-virtual-list@^3.2.0": "patch:rc-virtual-list@npm%3A3.2.0#yarn/patches/rc-virtual-list-npm-3.2.0-5efaefc12e.patch",
     "rc-virtual-list@^3.0.3": "patch:rc-virtual-list@npm%3A3.2.0#yarn/patches/rc-virtual-list-npm-3.2.0-5efaefc12e.patch",
     "rc-virtual-list@^3.0.1": "patch:rc-virtual-list@npm%3A3.2.0#yarn/patches/rc-virtual-list-npm-3.2.0-5efaefc12e.patch",
-    "box-intersect": "https://codeload.github.com/plotly/box-intersect/tar.gz/6deda2d28ec87932aceda0d03348931f4eee8c23",
-    "json-bigint": "https://codeload.github.com/databricks/json-bigint/tar.gz/a1defaf9cd8dd749f0fd4d5f83a22cd846789658"
+    "box-intersect": "npm:box-intersect@https://codeload.github.com/plotly/box-intersect/tar.gz/6deda2d28ec87932aceda0d03348931f4eee8c23",
+    "json-bigint": "npm:json-bigint@https://codeload.github.com/databricks/json-bigint/tar.gz/a1defaf9cd8dd749f0fd4d5f83a22cd846789658"
   },
   "//": "homepage is hard to configure without resorting to env variables and doesn't play nicely with other webpack settings. This field should be removed.",
   "homepage": "static-files",
