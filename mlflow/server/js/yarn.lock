@@ -12420,7 +12420,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"box-intersect@npm:box-intersect@https://codeload.github.com/plotly/box-intersect/tar.gz/6deda2d28ec87932aceda0d03348931f4eee8c23":
+"box-intersect@https://codeload.github.com/plotly/box-intersect/tar.gz/6deda2d28ec87932aceda0d03348931f4eee8c23":
   version: 1.1.0
   resolution: "box-intersect@https://codeload.github.com/plotly/box-intersect/tar.gz/6deda2d28ec87932aceda0d03348931f4eee8c23"
   dependencies:
@@ -22966,7 +22966,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-bigint@npm:json-bigint@https://codeload.github.com/databricks/json-bigint/tar.gz/a1defaf9cd8dd749f0fd4d5f83a22cd846789658":
+"json-bigint@https://codeload.github.com/databricks/json-bigint/tar.gz/a1defaf9cd8dd749f0fd4d5f83a22cd846789658":
   version: 0.2.3
   resolution: "json-bigint@https://codeload.github.com/databricks/json-bigint/tar.gz/a1defaf9cd8dd749f0fd4d5f83a22cd846789658"
   dependencies:
