@@ -4605,7 +4605,6 @@ __metadata:
     eslint-plugin-import: "npm:^2.26.0"
     eslint-plugin-jest: "npm:^26.5.3"
     eslint-plugin-jsx-a11y: "npm:^6.7.1"
-    eslint-plugin-mlflow: "file:./custom-eslint-rules"
     eslint-plugin-no-lookahead-lookbehind-regexp: "npm:^0.1.0"
     eslint-plugin-no-only-tests: "npm:^2.6.0"
     eslint-plugin-node: "npm:5.2.1"
@@ -4687,6 +4686,7 @@ __metadata:
     wavesurfer.js: "npm:^7.8.8"
     webpack: "npm:^5.69.0"
     whatwg-fetch: "npm:^3.6.17"
+    yarn: "npm:1.22.19"
     zustand: "npm:^4.5.6"
   languageName: unknown
   linkType: soft
@@ -12426,17 +12426,7 @@ __metadata:
   dependencies:
     bit-twiddle: "npm:^1.0.2"
     typedarray-pool: "npm:^1.1.0"
-  checksum: 10c0/1aa6f7647910da231b6b277499da3ab429c1cc9e62c9224baeb88c13bc7e218dd87d16cf636463db4eb4f3ea755037b5b12bae4e6d4cc225320bc118b27fc218
-  languageName: node
-  linkType: hard
-
-"box-intersect@npm:^1.0.1":
-  version: 1.0.2
-  resolution: "box-intersect@npm:1.0.2"
-  dependencies:
-    bit-twiddle: "npm:^1.0.2"
-    typedarray-pool: "npm:^1.1.0"
-  checksum: 10c0/18369b26a3ffb6d8ed28020f8af709700406e7900df094f90d275edd41477eeeb18af14246f9e856d6ab7742442e889ce380ceaec769946afad2a795fb39cf47
+  checksum: 10c0/51cea1d4de51391c46090f8a08fd451ed027e90c4d77a9f1252c0ed969cce11e3d6edabf96821022accec4b35e386a336afc3a57d12f5fa7e62187c5e40a7aac
   languageName: node
   linkType: hard
 
@@ -16459,13 +16449,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-mlflow@file:./custom-eslint-rules::locator=%40mlflow%2Fmlflow%40workspace%3A.":
-  version: 1.0.0
-  resolution: "eslint-plugin-mlflow@file:./custom-eslint-rules#./custom-eslint-rules::hash=846381&locator=%40mlflow%2Fmlflow%40workspace%3A."
-  checksum: 10c0/1980e25c7226c86939094554563bbaae5e36a2f682f2f99b3681eb75345a6ab567957704317842581f38d71009fd945303aa6f046ebb411cf03a2d193d8a13ae
-  languageName: node
-  linkType: hard
- 
 "es-array-method-boxes-properly@npm:^1.0.0":
   version: 1.0.0
   resolution: "es-array-method-boxes-properly@npm:1.0.0"
@@ -20567,7 +20550,7 @@ __metadata:
   dependencies:
     robust-orientation: "npm:^1.1.2"
     simplicial-complex: "npm:^1.0.0"
-  checksum: 10c0/de63af40f51ac8116b6942facb5d5f39715f67ec17df7c60459581c8e06a6cbc6f92684138781eee88da27b822e6fd113f4d5c880de3e23251998374bacf3d63
+  checksum: 10c0/73a49f4da3259350eecb0b72df61c4bf3dd9022150b1f6cd194b7638af399c64e96ee2750ddefe0c858f4eaa60223835a19e0c83e24e55910330e95f2231fb6a
   languageName: node
   linkType: hard
 
@@ -22988,7 +22971,7 @@ __metadata:
   resolution: "json-bigint@https://codeload.github.com/databricks/json-bigint/tar.gz/a1defaf9cd8dd749f0fd4d5f83a22cd846789658"
   dependencies:
     bignumber.js: "npm:^4.0.0"
-  checksum: 10c0/04b331f206ed3cfc3aada5647fc797cb2ba87c05b003458bc87dd1af2f0b6d459e88fb33df5a70ec73f429249af11de1a90efbb1f86d6977e021cead64c37946
+  checksum: 10c0/5a59fc82df3d80a372c1cc05e5cb48825080e043a6cb72748dc15f0ffc427ace5fd79bd0854a83f09060208d69ec7bb07e72b0026df23ac3eec16811c2a54477
   languageName: node
   linkType: hard
 
@@ -25396,7 +25379,7 @@ __metadata:
   resolution: "ndarray-extract-contour@https://codeload.github.com/plotly/ndarray-extract-contour/tar.gz/7fd14e1e27348ce3cd665a54044aeaa56631ebe9"
   dependencies:
     typedarray-pool: "npm:^1.0.0"
-  checksum: 10c0/f16683ea6ef5cce5bdbfdd0c9dfb3eaa69b004a22c0f1ec39d8e4ba674c2ed1f1c48d89c5468111a64755ae38b779c1714d4d2fe8d1c0319c321883af03764d6
+  checksum: 10c0/29bbc3577e4c53356f839306d354bab7f58f2d1ffbba706b2452018c0e86f2f9a07b24c79d088bf13c858a6497fa681504ce535680504ce1af8e082c671158e8
   languageName: node
   linkType: hard
 
@@ -25414,7 +25397,7 @@ __metadata:
   resolution: "ndarray-gradient@https://codeload.github.com/plotly/ndarray-gradient/tar.gz/aa6fdc88f99f85972ca91043a66251d43d4431d3"
   dependencies:
     dup: "npm:^1.0.0"
-  checksum: 10c0/586eb8fa6b65b5a9dc74d73954cc549a9ab9bb44d0a83002150156e6af5b88716265dc9b02648f0de615bcae1fe1cc4932aaca15a16a81ffaa3df6edfc0b6b2b
+  checksum: 10c0/ef37688577caac342ecd0496531d40f94b2b6b89c13b035b0f8dd1650e908fcd402982fb373977c258db6cd4d1f99bc9382462bfd6c073e293fbf7fabc681c1a
   languageName: node
   linkType: hard
 
@@ -25438,7 +25421,7 @@ __metadata:
 "ndarray-ops@https://codeload.github.com/plotly/ndarray-ops/tar.gz/b5fe1e58468a5e3f26fb618c19e8b0cc9eff1691":
   version: 1.3.0
   resolution: "ndarray-ops@https://codeload.github.com/plotly/ndarray-ops/tar.gz/b5fe1e58468a5e3f26fb618c19e8b0cc9eff1691"
-  checksum: 10c0/c4b8101013c3442a50e5ebd8ef9a8a2c93cc167d820bd5c4f4cfc07a85a5139d6ddd2cbf0abb541424d81a7e05a9dc489ff4a5d90a40f084367e9194a5e98a95
+  checksum: 10c0/ccb21f7eabf34191eb58e5bc5a87b87614802db56f0bde0833c1f2b448c595f5451af9ad646fd9dee4f5eb07ec23ad4265bd696c6334e59d9acf9d79eb2ece12
   languageName: node
   linkType: hard
 
@@ -25456,7 +25439,7 @@ __metadata:
   resolution: "ndarray-pack@https://codeload.github.com/plotly/ndarray-pack/tar.gz/ba2b7a1599e7b4437006a3fa90e067d03af1e6ec"
   dependencies:
     ndarray: "npm:^1.0.13"
-  checksum: 10c0/9ad31e9b883eea1a7be45cff3293bd8f2623e2e2fb64aea5c89e6252bb300bd6151ab7e4f09f2501643d85442a4b4790bac585582e6ee3e79074c15f67156b4c
+  checksum: 10c0/87deebefdc27a5b785a01ea8440a7e5e817568395653264e8af712eda8d5fcc902e7a56e1709ddacb1cb5afd1385595ba7604e9dd66b67a86e5814794a312d33
   languageName: node
   linkType: hard
 
@@ -25486,7 +25469,7 @@ __metadata:
   resolution: "ndarray-sort@https://codeload.github.com/plotly/ndarray-sort/tar.gz/d07cb45b614bb64357a7aea8830de2937b91d519"
   dependencies:
     typedarray-pool: "npm:^1.0.0"
-  checksum: 10c0/6a578f8b6940dd2066d2665a8cbb2136cff3cd3a784400475582e8020ac56ce2da6b3925c8f9e776a461aa1c9da5a6327a22dfa2b2759d8e081501194d1c126b
+  checksum: 10c0/a4cb5f5e5659a1d5aa7f23792c313f70d51bb088da301c3f0f19c0c05da41d5bc7c6f467dfe2222da5cbdc076abd9c95eccaa23b9982ea67cef3c983be3e6ab8
   languageName: node
   linkType: hard
 
@@ -25504,7 +25487,7 @@ __metadata:
   resolution: "ndarray@https://codeload.github.com/plotly/ndarray/tar.gz/6123ae3ab0806828b689fca410a3dd5d0246c186"
   dependencies:
     is-buffer: "npm:^1.0.2"
-  checksum: 10c0/131879392ca9971e024b8727d56bc697b4526c7e0eb63664cc72c58970afc5a1f95151c74b9a8d38b63a0387d8827c56f508204256ca0fce75972aaae72ec5cd
+  checksum: 10c0/91652ed4bd32e9c0e7d037ca19f6c1f23e69411837acf5b8910c3af98ccf98a7f94a3068914e9cd6605753749ef5c80482ac3a240de68e6e34a12b9e1cb44f78
   languageName: node
   linkType: hard
 
@@ -27183,9 +27166,8 @@ __metadata:
     regl-scatter2d: "npm:^3.2.8"
     regl-splom: "npm:^1.0.14"
     right-now: "npm:^1.0.0"
-    robust-determinant: "github:plotly/robust-determinant#v1.2.1"
-    robust-in-sphere: "npm:1.2.1"
     robust-determinant: "https://codeload.github.com/plotly/robust-determinant/tar.gz/e68340ca884dbb90e5d90d1a812bcbaf8af2b246"
+    robust-in-sphere: "npm:1.2.1"
     robust-linear-solve: "https://codeload.github.com/plotly/robust-linear-solve/tar.gz/239021e085a9987615f3334d02dcabb2d4c61ec4"
     robust-orientation: "npm:1.2.1"
     simplicial-complex-contour: "https://codeload.github.com/plotly/simplicial-complex-contour/tar.gz/c6fb05096d9b7575387447df0bd5e711fd31b676"
@@ -31013,7 +30995,7 @@ __metadata:
     robust-scale: "npm:^1.0.0"
     robust-sum: "npm:^1.0.0"
     two-product: "npm:^1.0.0"
-  checksum: 10c0/7b1ea299ec92a19e8f10fe32736ae85fb53bf85d87559f93f7839afd3cee3659c6baa86a70efeb31456b6e7307b9a9005c5b1e6dfb56f680aa15570d8203f6dc
+  checksum: 10c0/ecd38b98f80dcda6199be224e4a0d9742599aaec4ff97198455625b2cb7705eefbdbd04e327a80d1177a2e99b9149aebd5c227eb4f4b963eea338d1ff27e48f6
   languageName: node
   linkType: hard
 
@@ -31056,7 +31038,7 @@ __metadata:
   resolution: "robust-linear-solve@https://codeload.github.com/plotly/robust-linear-solve/tar.gz/239021e085a9987615f3334d02dcabb2d4c61ec4"
   dependencies:
     robust-determinant: "npm:^1.1.0"
-  checksum: 10c0/1ed55ec5a1dc8485575040a8913f3e6323bc78bac02d820906afb9885d6850940799c0ae9d8a3a776ef199fbb445c0e9dc1f7b5617224677e2b1fc6b38634576
+  checksum: 10c0/03b5c76ba462469d5c2ac2588a55bdefef112f02662f3972230f815510c748ef07c993012c0217a9758fe7aafd02b9272bbfd6ec14d00dc1b2e41d0a884b7631
   languageName: node
   linkType: hard
 
@@ -31959,7 +31941,7 @@ __metadata:
   dependencies:
     ndarray: "npm:^1.0.15"
     ndarray-sort: "npm:^1.0.0"
-  checksum: 10c0/b2f2e1006fa905990b0dbf32ed7e2178f98b97bfba85e630be37754777a94d25723c2fee3e4891a73c888720f46413a6996c2b8bd22e782980b3a1876412cd45
+  checksum: 10c0/2d78961ea9674e26344044b3a662620813f523e09d0c5fcb477b1aab8519fe51448406a3b3a414d435e4ae80ad1944b9f31e5776b54a3222e043072a8a0c9df3
   languageName: node
   linkType: hard
 
@@ -33154,7 +33136,7 @@ __metadata:
   dependencies:
     ndarray-extract-contour: "npm:^1.0.0"
     zero-crossings: "npm:^1.0.0"
-  checksum: 10c0/56f56a755749270da337b1a00d61b31a9f6f015c3256b3d2bf7bc738f9e0d2ed67e36992028fe92f93077548aaa243ec4560c2ec261a041ab6e7e6e46e586c5f
+  checksum: 10c0/9c7a00da46860aaf9299ba877f3680e19b01d4628ab009ae513d2ffef83da51e5d7d34d0b3d25ffaa9381f4262af62aa47cdec2449dabd4368aeb8265a380620
   languageName: node
   linkType: hard
 
@@ -36785,6 +36767,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"yarn@npm:1.22.19":
+  version: 1.22.19
+  resolution: "yarn@npm:1.22.19"
+  bin:
+    yarn: bin/yarn.js
+    yarnpkg: bin/yarn.js
+  checksum: 10c0/a6f9cdf67cca7e11141a18ffc1736a24dd569885b2ec0838982fcf21e5138840c66d9ebfc1846b0b35bc7b415cb985c65d79fb43aa1721b865e4f60c5569062a
+  languageName: node
+  linkType: hard
+
 "yn@npm:3.1.1":
   version: 3.1.1
   resolution: "yn@npm:3.1.1"
@@ -36818,7 +36810,7 @@ __metadata:
 "zero-crossings@https://codeload.github.com/plotly/zero-crossings/tar.gz/24cb54b1e35a387b78c2794b14627d6effe0c9d5":
   version: 1.1.0
   resolution: "zero-crossings@https://codeload.github.com/plotly/zero-crossings/tar.gz/24cb54b1e35a387b78c2794b14627d6effe0c9d5"
-  checksum: 10c0/b57b58185355e937519f44995e49a93ffabaa10725fd9a9130fabbbd6e04f6bdc338b2ce5f54490dcfc8ba4d53f0d88a986cadb16bf8e30995ab8cac94b6443f
+  checksum: 10c0/94562ac8e7e5ef16cf56bccbdd5020b67c23e31feed3197dfead472d5309265676f1c4038d5eeac19d2c96365d8bf75bc618525a9c579adbcb529e384e91e3b7
   languageName: node
   linkType: hard
 
