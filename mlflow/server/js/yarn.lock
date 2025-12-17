@@ -4624,7 +4624,7 @@ __metadata:
     invariant: "npm:^2.2.4"
     jest-canvas-mock: "npm:^2.2.0"
     jest-localstorage-mock: "npm:^2.3.0"
-    js-yaml: "npm:^3.14.0"
+    js-yaml: "npm:^4.0.0"
     json-bigint: "databricks/json-bigint#a1defaf9cd8dd749f0fd4d5f83a22cd846789658"
     knip: "npm:^5.30.2"
     leaflet: "npm:^1.5.1"
@@ -22903,7 +22903,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^3.13.1, js-yaml@npm:^3.14.0":
+"js-yaml@npm:^3.13.1":
   version: 3.14.1
   resolution: "js-yaml@npm:3.14.1"
   dependencies:
