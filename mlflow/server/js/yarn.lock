@@ -4606,7 +4606,7 @@ __metadata:
     eslint-plugin-jest: "npm:^26.5.3"
     eslint-plugin-jsx-a11y: "npm:^6.7.1"
     eslint-plugin-no-lookahead-lookbehind-regexp: "npm:^0.1.0"
-    eslint-plugin-no-only-tests: "npm:^2.6.0"
+    eslint-plugin-no-only-tests: "npm:^3.0.0"
     eslint-plugin-node: "npm:5.2.1"
     eslint-plugin-prettier: "npm:^4.0.0"
     eslint-plugin-promise: "npm:3.6.0"
@@ -17047,14 +17047,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-no-only-tests@npm:^2.6.0":
-  version: 2.6.0
-  resolution: "eslint-plugin-no-only-tests@npm:2.6.0"
-  checksum: 10c0/23e0a65f7483fac71073535a12567dab1a32fa2fb1e993cac60bbb93409f669ee98a2a296c3a4f862aefa76850a1576c17511cb21e6e2470a58a8c6f9b6f3043
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-no-only-tests@npm:^3.1.0":
+"eslint-plugin-no-only-tests@npm:^3.0.0, eslint-plugin-no-only-tests@npm:^3.1.0":
   version: 3.3.0
   resolution: "eslint-plugin-no-only-tests@npm:3.3.0"
   checksum: 10c0/a04425d9d3bcd745267168782eb12a3a712b8357264ddd4e204204318975c2c21e2c1efe68113181de908548a85762205b61d8f92ec9dc5e0a5ae54c0240a24d
