@@ -398,9 +398,9 @@ flask==3.1.2 \
     # via
     #   mlflow (pyproject.toml)
     #   flask-cors
-flask-cors==6.0.1 \
-    --hash=sha256:c7b2cbfb1a31aa0d2e5341eea03a6805349f7a61647daee1a15c46bbe981494c \
-    --hash=sha256:d81bcb31f07b0985be7f48406247e9243aced229b7747219160a0559edd678db
+flask-cors==6.0.2 \
+    --hash=sha256:6e118f3698249ae33e429760db98ce032a8bf9913638d085ca0f4c5534ad2423 \
+    --hash=sha256:e57544d415dfd7da89a9564e1e3a9e515042df76e12130641ca6f3f2f03b699a
     # via mlflow (pyproject.toml)
 fonttools==4.61.0 \
     --hash=sha256:0011d640afa61053bc6590f9a3394bd222de7cfde19346588beabac374e9d8ac \
