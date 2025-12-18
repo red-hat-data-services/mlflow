@@ -3,15 +3,12 @@ WORKDIR /opt/app-root/src
 USER 0
 
 # 1. Source Cachi2 environment variables (sets npm registry to local).
-# 2. Install yarn globally using npm (this requires 'yarn' to be in your package.json devDependencies so Cachi2 downloads it).
-RUN . /cachi2/cachi2.env && \
-    npm install -g $(find /cachi2 -name "yarn-*.tgz" -print -quit) --offline
 
 COPY --chown=1001:0 mlflow/server/js/ .
-USER 1001
-
-# 3. Source Cachi2 again for the actual project build
-# RUN . /cachi2/cachi2.env && yarn install --immutable && yarn build
+# Use npm with prefetched dependencies for hermetic builds
+RUN if [ -f /cachi2/cachi2.env ]; then . /cachi2/cachi2.env; fi && \
+    npm ci --ignore-scripts && \
+    npm run build
 
 FROM registry.access.redhat.com/ubi9/python-311:9.6 AS python-builder
 WORKDIR /src
