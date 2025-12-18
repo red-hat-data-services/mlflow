@@ -46,6 +46,7 @@ export const withRouterNext =
     const [searchParams, setSearchParams] = useSearchParams();
 
     return (
+      // @ts-expect-error - Complex HoC type inference issue
       <Component
         /* prettier-ignore */
         params={params as Params}

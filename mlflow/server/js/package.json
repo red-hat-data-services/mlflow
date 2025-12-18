@@ -5,7 +5,7 @@
     "start": "craco start",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "test": "craco --max_old_space_size=8192 test --env=jsdom --colors --watchAll=false",
+    "test": "NODE_OPTIONS='--max-old-space-size=8192' craco test --env=jsdom --colors --watchAll=false",
     "test:watch": "yarn test --watch",
     "test:ci": "CI=true craco test --env=jsdom --colors --forceExit --ci --coverage",
     "lint": "eslint --ext js,jsx,ts,tsx src",
@@ -16,7 +16,7 @@
     "i18n:check": "yarn i18n --lint",
     "i18n": "node scripts/extract-i18n.js",
     "knip": "knip --reporter markdown --preprocessor ./knip-preprocessor.ts",
-    "build": "GENERATE_SOURCEMAP=false craco --max_old_space_size=8192 build",
+    "build": "GENERATE_SOURCEMAP=false NODE_OPTIONS='--max-old-space-size=4096' craco build",
     "prettier": "prettier",
     "graphql-codegen": "python ../../../dev/proto_to_graphql/code_generator.py && yarn graphql-codegen:clean && yarn graphql-codegen:base",
     "graphql-codegen:base": "graphql-codegen --config ./src/graphql/graphql-codegen.ts",
@@ -105,6 +105,9 @@
     "zustand": "^4.5.6"
   },
   "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^2.1.1",
+    "ajv-keywords": "^5.1.0",
     "@babel/core": "^7.27.3",
     "@babel/eslint-parser": "^7.22.15",
     "@babel/preset-env": "^7.27.2",
@@ -167,7 +170,6 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-mlflow": "file:./custom-eslint-rules",
     "eslint-plugin-no-lookahead-lookbehind-regexp": "^0.1.0",
     "eslint-plugin-no-only-tests": "^2.6.0",
     "eslint-plugin-node": "5.2.1",
@@ -201,7 +203,7 @@
     "node": "^22.19.0"
   },
   "resolutions": {
-    "@floating-ui/dom@^0.5.3": "patch:@floating-ui/dom@npm%3A0.5.4#yarn/patches/@floating-ui-dom-0.5.4.diff",
+    "@floating-ui/dom@^0.5.3": "1.6.7",
     "@types/react": "^17.0.50",
     "@emotion/react": "11.11.0",
     "@types/react-plotly.js/@types/plotly.js": "^1.54.6",
@@ -212,9 +214,41 @@
     "postcss-preset-env/autoprefixer": "10.4.5",
     "rc-virtual-list@^3.2.0": "patch:rc-virtual-list@npm%3A3.2.0#yarn/patches/rc-virtual-list-npm-3.2.0-5efaefc12e.patch",
     "rc-virtual-list@^3.0.3": "patch:rc-virtual-list@npm%3A3.2.0#yarn/patches/rc-virtual-list-npm-3.2.0-5efaefc12e.patch",
-    "rc-virtual-list@^3.0.1": "patch:rc-virtual-list@npm%3A3.2.0#yarn/patches/rc-virtual-list-npm-3.2.0-5efaefc12e.patch",
-    "box-intersect": "https://codeload.github.com/plotly/box-intersect/tar.gz/6deda2d28ec87932aceda0d03348931f4eee8c23",
-    "json-bigint": "https://codeload.github.com/databricks/json-bigint/tar.gz/a1defaf9cd8dd749f0fd4d5f83a22cd846789658"
+    "rc-virtual-list@^3.0.1": "patch:rc-virtual-list@npm%3A3.2.0#yarn/patches/rc-virtual-list-npm-3.2.0-5efaefc12e.patch"
+  },
+  "overrides": {
+    "@floating-ui/dom": "1.6.7",
+    "@types/react": "^17.0.50",
+    "@types/react-plotly.js": {
+      "@types/plotly.js": "^1.54.6"
+    },
+    "babel-jest": "^30.2.0",
+    "cheerio": ">=1.0.0-rc.3 <1.0.0",
+    "d3-transition": "3.0.1",
+    "react-dev-utils": {
+      "fork-ts-checker-webpack-plugin": "6.5.3"
+    },
+    "postcss-preset-env": {
+      "autoprefixer": "10.4.5"
+    },
+    "rc-virtual-list@^3.2.0": "3.2.0",
+    "rc-virtual-list@^3.0.3": "3.2.0",
+    "rc-virtual-list@^3.0.1": "3.2.0",
+    "@storybook/react-docgen-typescript-plugin": "1.0.2-canary.6.9d540b91e815f8fc2f8829189deb00553559ff63.0",
+    "postcss": "^8.4.31",
+    "box-intersect": "https://codeload.github.com/plotly/box-intersect/tar.gz/v1.1.0",
+    "incremental-convex-hull": "https://codeload.github.com/plotly/incremental-convex-hull/tar.gz/v1.1.0",
+    "ndarray": "https://codeload.github.com/plotly/ndarray/tar.gz/v1.1.0",
+    "ndarray-extract-contour": "https://codeload.github.com/plotly/ndarray-extract-contour/tar.gz/v1.1.0",
+    "ndarray-gradient": "https://codeload.github.com/plotly/ndarray-gradient/tar.gz/v1.1.0",
+    "ndarray-ops": "https://codeload.github.com/plotly/ndarray-ops/tar.gz/v1.3.0",
+    "ndarray-pack": "https://codeload.github.com/plotly/ndarray-pack/tar.gz/v1.3.0",
+    "ndarray-sort": "https://codeload.github.com/plotly/ndarray-sort/tar.gz/v1.1.0",
+    "robust-determinant": "https://codeload.github.com/plotly/robust-determinant/tar.gz/v1.2.1",
+    "robust-linear-solve": "https://codeload.github.com/plotly/robust-linear-solve/tar.gz/v1.1.1",
+    "simplicial-complex-contour": "https://codeload.github.com/plotly/simplicial-complex-contour/tar.gz/v1.1.0",
+    "surface-nets": "https://codeload.github.com/plotly/surface-nets/tar.gz/v1.1.1",
+    "zero-crossings": "https://codeload.github.com/plotly/zero-crossings/tar.gz/v1.1.0"
   },
   "//": "homepage is hard to configure without resorting to env variables and doesn't play nicely with other webpack settings. This field should be removed.",
   "homepage": "static-files",

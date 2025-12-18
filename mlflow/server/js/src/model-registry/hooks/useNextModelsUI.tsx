@@ -48,11 +48,13 @@ export const withNextModelsUIContext =
     const contextValue = useMemo(() => ({ usingNextModelsUI, setUsingNextModelsUI }), [usingNextModelsUI]);
 
     if (!shouldShowModelsNextUI()) {
+      // @ts-expect-error - Complex HoC type inference issue
       return <Component {...props} usingNextModelsUI={false} />;
     }
 
     return (
       <NextModelsUIContext.Provider value={contextValue}>
+        {/* @ts-expect-error - Complex HoC type inference issue */}
         <Component {...props} usingNextModelsUI={contextValue.usingNextModelsUI} />
       </NextModelsUIContext.Provider>
     );
