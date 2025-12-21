@@ -27,7 +27,7 @@
     "@ag-grid-community/core": "^27.2.1",
     "@ag-grid-community/react": "^27.2.1",
     "@apollo/client": "^3.6.9",
-    "@craco/craco": "7.0.0-alpha.0",
+    "@craco/craco": "7.1.0",
     "@databricks/design-system": "^1.12.21",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
