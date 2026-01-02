@@ -1,14 +1,14 @@
-FROM registry.access.redhat.com/ubi9/nodejs-22:9.7 AS ui-builder
-WORKDIR /opt/app-root/src
-USER 0
-COPY --chown=1001:0 mlflow/server/js/ .
-# Use npm with prefetched dependencies for hermetic builds. Strip HTTPS overrides
-# dynamically (jq/python unavailable; use node) so npm doesn't honor them even
-# when the lockfile was rewritten by Cachi2/Hermeto.
-RUN if [ -f /cachi2/cachi2.env ]; then . /cachi2/cachi2.env; fi && \
-    node -e "const fs=require('fs');const p='./package.json';const pkg=JSON.parse(fs.readFileSync(p,'utf8'));if(pkg.overrides){const keep=Object.fromEntries(Object.entries(pkg.overrides).filter(([_,v])=>!(typeof v==='string' && v.startsWith('http'))));if(Object.keys(keep).length){pkg.overrides=keep;}else{delete pkg.overrides;}fs.writeFileSync(p,JSON.stringify(pkg,null,2));}" && \
-    npm ci --include=dev --offline --legacy-peer-deps && \
-    npm run build
+# FROM registry.access.redhat.com/ubi9/nodejs-22:9.7 AS ui-builder
+# WORKDIR /opt/app-root/src
+# USER 0
+# COPY --chown=1001:0 mlflow/server/js/ .
+# # Use npm with prefetched dependencies for hermetic builds. Strip HTTPS overrides
+# # dynamically (jq/python unavailable; use node) so npm doesn't honor them even
+# # when the lockfile was rewritten by Cachi2/Hermeto.
+# RUN if [ -f /cachi2/cachi2.env ]; then . /cachi2/cachi2.env; fi && \
+#     node -e "const fs=require('fs');const p='./package.json';const pkg=JSON.parse(fs.readFileSync(p,'utf8'));if(pkg.overrides){const keep=Object.fromEntries(Object.entries(pkg.overrides).filter(([_,v])=>!(typeof v==='string' && v.startsWith('http'))));if(Object.keys(keep).length){pkg.overrides=keep;}else{delete pkg.overrides;}fs.writeFileSync(p,JSON.stringify(pkg,null,2));}" && \
+#     npm ci --include=dev --offline --legacy-peer-deps && \
+#     npm run build
 
 FROM registry.access.redhat.com/ubi9/python-311:9.6 AS python-builder
 WORKDIR /src
@@ -42,15 +42,15 @@ RUN set -eux; \
     && rm -f /tmp/dist/mlflow-*.whl /tmp/dist/mlflow_kubernetes_workspace_provider-*.whl /tmp/requirements.txt /tmp/kubernetes-requirements.txt
 
 # Copy built UI from builder stage
-COPY --from=ui-builder /opt/app-root/src/build /tmp/mlflow-ui-build
+# COPY --from=ui-builder /opt/app-root/src/build /tmp/mlflow-ui-build
 
-RUN set -eux; \
-    # Copy the UI build into the installed mlflow package
-    py_site=$(python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])'); \
-    mkdir -p "$py_site/mlflow/server/js/build"; \
-    rm -rf "$py_site/mlflow/server/js/build"/* || true; \
-    cp -r /tmp/mlflow-ui-build/* "$py_site/mlflow/server/js/build/"; \
-    rm -rf /tmp/mlflow-ui-build
+# RUN set -eux; \
+#     # Copy the UI build into the installed mlflow package
+#     py_site=$(python -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])'); \
+#     mkdir -p "$py_site/mlflow/server/js/build"; \
+#     rm -rf "$py_site/mlflow/server/js/build"/* || true; \
+#     cp -r /tmp/mlflow-ui-build/* "$py_site/mlflow/server/js/build/"; \
+#     rm -rf /tmp/mlflow-ui-build
 
 EXPOSE 5000
 
