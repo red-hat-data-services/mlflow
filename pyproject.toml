@@ -33,6 +33,7 @@ dependencies = [
   "cachetools<7,>=5.0.0",
   "click<9,>=7.0",
   "cloudpickle<4",
+  "cffi==1.16.0",  # Pin to avoid broken cffi 2.x sdist metadata (invalid license) and keep builds hermetic
   "cryptography<47,>=43.0.0",
   "databricks-sdk<1,>=0.20.0",
   "docker<8,>=4.0.0",

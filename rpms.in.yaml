@@ -1,0 +1,24 @@
+# RPM lockfile input for UBI9 builder (multi-arch)
+#
+# Ensures rust is present for maturin/puccinialin builds (offline) across arches.
+arches:
+  - x86_64
+  - aarch64
+  - ppc64le
+  - s390x
+
+contentOrigin:
+  repofiles:
+    - ubi.repo
+
+packages:
+  - rust-toolset
+  - cmake
+  - ninja-build
+  - openblas
+  - openblas-devel
+  - freetype-devel
+  - libpng-devel
+
+context:
+  containerfile: Dockerfile.konflux

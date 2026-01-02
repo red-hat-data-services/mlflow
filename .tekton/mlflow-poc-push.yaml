@@ -27,7 +27,7 @@ spec:
   - name: dockerfile
     value: Dockerfile.konflux
   - name: prefetch-input
-    value: '[{"type": "pip", "path": ".", "requirements_files": ["requirements/requirements.txt", "requirements/build-requirements.txt", "requirements/kubernetes-requirements.txt", "requirements/build-tools-requirements.txt"]}, {"type": "npm", "path": "mlflow/server/js/"}]'
+    value: '[{"type": "pip", "path": ".", "requirements_build_files": ["requirements/build-requirements.txt", "requirements/build-tools-requirements.txt"],  "requirements_files": ["requirements/requirements.txt"]}, {"type": "rpm", "path": "."}]'
   pipelineSpec:
     description: |
       This pipeline is ideal for building container images from a Containerfile while maintaining trust after pipeline customization.
