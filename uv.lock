@@ -4263,7 +4263,7 @@ wheels = [
 
 [[package]]
 name = "mlflow"
-version = "3.10.0+rhai1"
+version = "3.10.0+rhai2"
 source = { editable = "." }
 dependencies = [
     { name = "alembic" },
