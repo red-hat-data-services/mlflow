@@ -10,7 +10,7 @@ RUN yarn install --silent \
     && NODE_OPTIONS="--max_old_space_size=3072" yarn build \
     && NODE_OPTIONS="--max_old_space_size=3072" MLFLOW_API_BASE_URL=/mlflow yarn build:federated
 
-FROM registry.access.redhat.com/ubi9/python-312:9.7@sha256:296739d2ac81b73257716e4eec1a25409c00b46f8d387fc287669ba62a7c1bc2 AS python-builder
+FROM registry.access.redhat.com/ubi9/python-312:9.7@sha256:72c88a6351a42b7955c4801d6373a019b377dab56c700e7c7d264a1f298a22f1 AS python-builder
 ARG AIPCC_INDEX_URL=https://console.redhat.com/api/pypi/public-rhai/rhoai/3.4-EA1/cpu-ubi9-test/simple
 WORKDIR /src
 USER 0
@@ -34,7 +34,7 @@ RUN dnf install -y --setopt=tsflags=nodocs postgresql-devel gcc python3.12-devel
     python -m build --wheel --outdir /tmp/dist . && \
     python -m build --wheel --outdir /tmp/dist kubernetes-workspace-provider
 
-FROM registry.access.redhat.com/ubi9/python-312:9.7@sha256:296739d2ac81b73257716e4eec1a25409c00b46f8d387fc287669ba62a7c1bc2
+FROM registry.access.redhat.com/ubi9/python-312:9.7@sha256:72c88a6351a42b7955c4801d6373a019b377dab56c700e7c7d264a1f298a22f1
 ARG AIPCC_INDEX_URL=https://console.redhat.com/api/pypi/public-rhai/rhoai/3.4-EA1/cpu-ubi9-test/simple
 ARG MLFLOW_VERSION=3.3.2
 ENV PYTHONDONTWRITEBYTECODE=1 \
