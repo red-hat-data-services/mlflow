@@ -95,7 +95,7 @@
     "remark-gfm-4": "npm:remark-gfm@4",
     "sanitize-html": "^1.18.5",
     "sass": "^1.94.2",
-    "showdown": "^1.8.6",
+    "showdown": "^2.0.0",
     "stream-browserify": "^3.0.0",
     "url": "^0.11.0",
     "use-clipboard-copy": "^0.2.0",
