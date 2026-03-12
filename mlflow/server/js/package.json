@@ -198,7 +198,7 @@
   },
   "private": true,
   "engines": {
-    "node": "^22.19.0"
+    "node": "^24.0.0"
   },
   "resolutions": {
     "@floating-ui/dom@^0.5.3": "patch:@floating-ui/dom@npm%3A0.5.4#yarn/patches/@floating-ui-dom-0.5.4.diff",
