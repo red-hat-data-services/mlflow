@@ -80,7 +80,7 @@
     "react-mde": "^11.0.0",
     "react-pdf": "^10.0.1",
     "react-plotly.js": "^2.5.1",
-    "react-redux": "^7.2.5",
+    "react-redux": "^9.0.0",
     "react-resizable": "^3.0.4",
     "react-router": "^6.4.0",
     "react-router-dom": "^6.4.3",
