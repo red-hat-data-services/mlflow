@@ -9322,11 +9322,11 @@ __metadata:
   linkType: hard
 
 "@types/d3-scale@npm:^2.1.0":
-  version: 2.2.6
-  resolution: "@types/d3-scale@npm:2.2.6"
+  version: 2.2.10
+  resolution: "@types/d3-scale@npm:2.2.10"
   dependencies:
     "@types/d3-time": "npm:^1"
-  checksum: 10c0/d2c225aa4222b3fd8290b6a13d1c434f12aad4dc9b3c8e80273a08cc37d7ef1bee7cbdf8593bdf79f1cec38fd6ec90fd1f210a2812a8865f35a7e5d9a3266765
+  checksum: 10c0/dbbaeab41fee921ad9d8173b334a63d4e1693de701a48ca9c1adfd0df9f5f35f9dd947708690b1988c0d8aa42ddbc4b19e34b4c561f1659c5eadd12089b423b6
   languageName: node
   linkType: hard
 
