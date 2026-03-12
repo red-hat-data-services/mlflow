@@ -89,7 +89,7 @@
     "react-vega": "^7.6.0",
     "react-virtual": "^2.10.4",
     "react-virtualized": "^9.21.2",
-    "redux": "^4.1.1",
+    "redux": "^5.0.0",
     "redux-promise-middleware": "^5.1.1",
     "redux-thunk": "^2.3.0",
     "remark-gfm-4": "npm:remark-gfm@4",
