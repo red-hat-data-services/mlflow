@@ -1,5 +1,5 @@
 -r doc-min-requirements.txt
-tensorflow-cpu<=2.12.0; platform_system!="Darwin" or platform_machine!="arm64"
+tensorflow-cpu<=2.21.0; platform_system!="Darwin" or platform_machine!="arm64"
 tensorflow-macos<=2.12.0; platform_system=="Darwin" and platform_machine=="arm64"
 pyspark
 datasets
