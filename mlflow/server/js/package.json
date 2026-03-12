@@ -90,7 +90,7 @@
     "react-virtual": "^2.10.4",
     "react-virtualized": "^9.21.2",
     "redux": "^4.1.1",
-    "redux-promise-middleware": "^5.1.1",
+    "redux-promise-middleware": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "remark-gfm-4": "npm:remark-gfm@4",
     "sanitize-html": "^1.18.5",
