@@ -175,7 +175,7 @@
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-standard": "3.0.1",
+    "eslint-plugin-standard": "5.0.0",
     "eslint-plugin-testing-library": "^6.1.0",
     "fast-glob": "^3.2.11",
     "graphql-codegen-typescript-operation-types": "^2.0.1",
