@@ -41,7 +41,7 @@
     "@google/genai": "^1.22.0"
   },
   "devDependencies": {
-    "jest": "^29.6.2",
+    "jest": "^30.0.0",
     "json-bigint": "^1.0.0",
     "typescript": "^5.8.3"
   },
