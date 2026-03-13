@@ -391,7 +391,7 @@ six==1.17.0
     #   python-dateutil
 skops==0.13.0
     # via mlflow
-smmap==5.0.2
+smmap==5.0.3
     # via gitdb
 sqlalchemy==2.0.46
     # via
