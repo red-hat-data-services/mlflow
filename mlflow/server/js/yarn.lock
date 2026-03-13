@@ -9467,9 +9467,9 @@ __metadata:
   linkType: hard
 
 "@types/file-saver@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@types/file-saver@npm:2.0.3"
-  checksum: 10c0/7773bc64672fa0a2a1acb4fdc59592a0cd79edca75b28bb1898ab7dd5f6492edc638ffa2e0aa38ac73b3839797532b645e5d038899fbf50d37365f0979a0f33b
+  version: 2.0.7
+  resolution: "@types/file-saver@npm:2.0.7"
+  checksum: 10c0/c6b88a1aea8eec58469da2a90828fef6e9d5d590c7094fb959783d7c32878af80d39439734f3d41b78355dadb507f606e3d04a29a160c85411c65251e58df847
   languageName: node
   linkType: hard
 
