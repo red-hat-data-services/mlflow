@@ -9576,9 +9576,9 @@ __metadata:
   linkType: hard
 
 "@types/invariant@npm:^2.2.35":
-  version: 2.2.35
-  resolution: "@types/invariant@npm:2.2.35"
-  checksum: 10c0/cbdf03922a4bcfe83d5cadab3b3981beb39e745d1ee69d5a06c310dd1adca06c8a1c4e564e824a412aed1f96aa820f15671dc83c22f57b38b873f509f2faf038
+  version: 2.2.37
+  resolution: "@types/invariant@npm:2.2.37"
+  checksum: 10c0/f57ed8445036ebda8bc93804f088c2a13050bbeef4e4bc6ed531a70e2869250dbe59413f2a9ed7d8f3efa960f191e8dfca9d25414d63cbf604d348428f8c5b75
   languageName: node
   linkType: hard
 
