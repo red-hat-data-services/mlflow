@@ -36,6 +36,7 @@ import { ExperimentKind } from '../../../../constants';
 import { useGetExperimentPageActiveTabByRoute } from '../../hooks/useGetExperimentPageActiveTabByRoute';
 import { useWorkflowType } from '@mlflow/mlflow/src/common/contexts/WorkflowTypeContext';
 import { getTabDisplayIcon, getTabDisplayName } from './ExperimentViewHeader.utils';
+import { MlflowSidebarWorkflowSwitch } from '@mlflow/mlflow/src/common/components/MlflowSidebarWorkflowSwitch';
 
 const getDocLinkHref = (experimentKind: ExperimentKind) => {
   if (isGenAIExperimentKind(experimentKind)) {
@@ -90,11 +91,13 @@ export const ExperimentViewHeader = React.memo(
     const showDocsLink = false;
 
     const { tabName: activeTabByRoute } = useGetExperimentPageActiveTabByRoute();
-    const { workflowType } = useWorkflowType();
+    const { workflowType, setWorkflowType } = useWorkflowType();
     const tabDisplayName = activeTabByRoute ? getTabDisplayName(activeTabByRoute, workflowType) : undefined;
     const normalizedExperimentName = useMemo(() => experiment.name.split('/').pop(), [experiment.name]);
     const experimentTitle =
-      shouldEnableWorkflowBasedNavigation() && tabDisplayName ? tabDisplayName : normalizedExperimentName;
+      shouldEnableWorkflowBasedNavigation() && !isEmbedded && tabDisplayName
+        ? tabDisplayName
+        : normalizedExperimentName;
 
     const breadcrumbs: React.ReactNode[] = useMemo(
       () => [
@@ -203,7 +206,7 @@ export const ExperimentViewHeader = React.memo(
                     padding: theme.spacing.sm,
                   }}
                 >
-                  {getTabDisplayIcon(activeTabByRoute)}
+                  {isEmbedded ? <BeakerIcon /> : getTabDisplayIcon(activeTabByRoute)}
                 </div>
               </>
             )}
@@ -233,6 +236,9 @@ export const ExperimentViewHeader = React.memo(
             </Tooltip>
             {experimentKindSelector}
             {getInfoTooltip()}
+            {isEmbedded && shouldEnableWorkflowBasedNavigation() && (
+              <MlflowSidebarWorkflowSwitch workflowType={workflowType} setWorkflowType={setWorkflowType} />
+            )}
           </div>
           {shouldEnableExperimentPageSideTabs() ? <div /> : <TabSelectorBar experimentKind={experimentKind} />}
           <div

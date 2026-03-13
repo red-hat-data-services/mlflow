@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button, PageWrapper, Spacer, ParagraphSkeleton, useDesignSystemTheme } from '@databricks/design-system';
 import { PredefinedError } from '@databricks/web-shared/errors';
 import invariant from 'invariant';
@@ -23,6 +23,7 @@ import Routes, { RoutePaths } from '../../routes';
 import { useGetExperimentPageActiveTabByRoute } from '../../components/experiment-page/hooks/useGetExperimentPageActiveTabByRoute';
 import { useNavigateToExperimentPageTab } from '../../components/experiment-page/hooks/useNavigateToExperimentPageTab';
 import { useIsIntegrated } from '@mlflow/mlflow/src/common/utils/embedUtils';
+import { useWorkflowType, WorkflowType } from '@mlflow/mlflow/src/common/contexts/WorkflowTypeContext';
 import { ExperimentPageSubTabSelector } from './ExperimentPageSubTabSelector';
 import { ExperimentPageSideNav, ExperimentPageSideNavSkeleton } from './side-nav/ExperimentPageSideNav';
 
@@ -70,6 +71,7 @@ const ExperimentPageTabsImpl = () => {
   const shouldShowExperimentPageSideTabs = shouldEnableExperimentPageSideTabs();
   const enableWorkflowBasedNavigation = shouldEnableWorkflowBasedNavigation();
   const isEmbedded = useIsIntegrated();
+  const { workflowType } = useWorkflowType();
 
   const {
     inferredExperimentKind,
@@ -92,14 +94,34 @@ const ExperimentPageTabsImpl = () => {
   // However, if experiment kind inference is enabled (no kind tag exists), we should
   // let the inference process handle navigation instead to avoid race conditions.
   useNavigateToExperimentPageTab({
-    enabled: !isEmbedded && matchedExperimentPageWithoutTab && !isExperimentKindInferenceEnabled,
+    enabled: matchedExperimentPageWithoutTab && !isExperimentKindInferenceEnabled,
     experimentId,
   });
+
+  // In embedded mode, WorkflowTypeProvider can't access experimentId (it sits above
+  // routes), so its navigate-on-change never fires. Handle it here instead: when
+  // the user toggles the workflow type, navigate to the appropriate default tab.
+  const prevWorkflowTypeRef = useRef(workflowType);
+  useEffect(() => {
+    if (prevWorkflowTypeRef.current === workflowType) return;
+    prevWorkflowTypeRef.current = workflowType;
+
+    if (!isEmbedded) return;
+
+    const targetTab =
+      workflowType === WorkflowType.GENAI
+        ? shouldEnableExperimentOverviewTab() && isFileStore === false
+          ? ExperimentPageTabName.Overview
+          : ExperimentPageTabName.Traces
+        : ExperimentPageTabName.Runs;
+
+    navigate(Routes.getExperimentPageTabRoute(experimentId, targetTab), { replace: true });
+  }, [workflowType, isEmbedded, experimentId, navigate, isFileStore]);
 
   useEffect(() => {
     // If the experiment kind is inferred, we want to navigate to the appropriate tab.
     // Should fire once when the experiment kind is inferred.
-    if (!isEmbedded && inferredExperimentPageTab) {
+    if (inferredExperimentPageTab) {
       navigate(Routes.getExperimentPageTabRoute(experimentId, inferredExperimentPageTab), { replace: true });
     }
     // `navigate` reference changes whenever navigate is called, causing the
@@ -198,11 +220,7 @@ const ExperimentPageTabsImpl = () => {
             <ExperimentPageSideNavSkeleton />
           ) : (
             <ExperimentPageSideNav
-              experimentKind={
-                isEmbedded
-                  ? ExperimentKind.CUSTOM_MODEL_DEVELOPMENT
-                  : (experimentKind ?? inferredExperimentKind ?? ExperimentKind.CUSTOM_MODEL_DEVELOPMENT)
-              }
+              experimentKind={experimentKind ?? inferredExperimentKind ?? ExperimentKind.CUSTOM_MODEL_DEVELOPMENT}
               activeTab={activeTab}
             />
           )}

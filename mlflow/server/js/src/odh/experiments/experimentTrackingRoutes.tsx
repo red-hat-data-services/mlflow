@@ -9,14 +9,7 @@
  * createMLflowRoutePath prefix (which is an identity function anyway).
  */
 import React from 'react';
-// eslint-disable-next-line no-restricted-imports
-import { Navigate } from 'react-router-dom';
-import { Route, createLazyRouteElement, useLocation } from '../../common/utils/RoutingUtils';
-
-const RedirectToRuns = () => {
-  const { search } = useLocation();
-  return <Navigate to={{ pathname: 'runs', search }} replace />;
-};
+import { Route, createLazyRouteElement } from '../../common/utils/RoutingUtils';
 
 /**
  * Returns Route elements for experiment tracking pages.
@@ -37,7 +30,6 @@ export const getExperimentTrackingRouteElements = () => (
         () => import('../../experiment-tracking/pages/experiment-page-tabs/ExperimentPageTabs'),
       )}
     >
-      <Route index element={<RedirectToRuns />} />
       <Route
         path="overview/:overviewTab?"
         element={createLazyRouteElement(

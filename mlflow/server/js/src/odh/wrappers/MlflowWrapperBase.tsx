@@ -47,6 +47,7 @@ import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 import { telemetryClient } from '../../telemetry';
 import { useMLflowDarkTheme } from '../../common/hooks/useMLflowDarkTheme';
 import { useEmbeddedLinkInterceptor } from '../../common/hooks/useEmbeddedLinkInterceptor';
+import { WorkflowTypeProvider } from '../../common/contexts/WorkflowTypeContext';
 
 export interface MlflowFederatedShellProps {
   basename: string;
@@ -121,10 +122,12 @@ const MlflowWrapperBase: React.FC<MlflowFederatedShellProps> = ({ basename, brea
                         <QueryClientProvider client={queryClient}>
                           <ServerInfoProvider>
                             <BrowserRouter basename={basename}>
-                              <WorkspaceSync>
-                                {breadcrumbReporter}
-                                <React.Suspense fallback={<LegacySkeleton />}>{children}</React.Suspense>
-                              </WorkspaceSync>
+                              <WorkflowTypeProvider>
+                                <WorkspaceSync>
+                                  {breadcrumbReporter}
+                                  <React.Suspense fallback={<LegacySkeleton />}>{children}</React.Suspense>
+                                </WorkspaceSync>
+                              </WorkflowTypeProvider>
                             </BrowserRouter>
                           </ServerInfoProvider>
                         </QueryClientProvider>

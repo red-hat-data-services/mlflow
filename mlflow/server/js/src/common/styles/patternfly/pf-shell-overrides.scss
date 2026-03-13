@@ -566,57 +566,6 @@
     overflow: visible;
     width: fit-content;
 
-    /* Workflow type switch — matches only a toggle group with both pressed and unpressed options */
-    div:has(> div[role='button'][aria-pressed='true']):has(> div[role='button'][aria-pressed='false']) {
-      border: none !important;
-      background-color: transparent;
-
-      > div:first-child:not([role]) {
-        display: none;
-      }
-
-      > div[role='button'] {
-        justify-content: center;
-        text-align: center;
-        border: var(--pf-t--global--border--width--control--default) solid var(--pf-t--global--border--color--default) !important;
-        padding-block: var(--pf-t--global--spacer--sm);
-        padding-inline: var(--pf-t--global--spacer--md);
-        font-size: var(--pf-t--global--font--size--body--default);
-        line-height: var(--pf-t--global--font--line-height--body);
-        color: var(--pf-t--global--text--color--regular);
-        background-color: transparent;
-
-        span,
-        .du-bois-light-typography,
-        .du-bois-dark-typography {
-          color: inherit;
-        }
-
-        &:hover {
-          background-color: var(--pf-t--global--background--color--primary--hover);
-        }
-      }
-
-      /* Left option */
-      > div[role='button']:nth-child(2) {
-        border-radius: var(--pf-t--global--border--radius--tiny) 0 0 var(--pf-t--global--border--radius--tiny);
-      }
-
-      /* Right option */
-      > div[role='button']:nth-child(3) {
-        margin-inline-start: calc(-1 * var(--pf-t--global--border--width--control--default));
-        border-radius: 0 var(--pf-t--global--border--radius--tiny) var(--pf-t--global--border--radius--tiny) 0;
-      }
-
-      /* Selected state */
-      > div[role='button'][aria-pressed='true'] {
-        background-color: var(--pf-t--global--color--brand--default);
-        border-color: var(--pf-t--global--color--brand--default) !important;
-        color: var(--pf-t--global--text--color--on-brand--default);
-        z-index: 100;
-      }
-    }
-
     /* Sidebar section labels — the only <li> in the nav without an <a> link */
     li:not(:has(a)) {
       padding-left: var(--pf-t--global--spacer--sm) !important;
@@ -625,6 +574,57 @@
         font-size: var(--pf-t--global--font--size--body--default) !important;
         color: var(--pf-t--global--text--color--regular) !important;
       }
+    }
+  }
+
+  /* Workflow type switch — PF-styled segmented toggle (applies wherever it appears) */
+  div:has(> div[role='button'][aria-pressed='true']):has(> div[role='button'][aria-pressed='false']) {
+    border: none !important;
+    background-color: transparent !important;
+
+    > div:first-child:not([role]) {
+      display: none;
+    }
+
+    > div[role='button'] {
+      justify-content: center;
+      text-align: center;
+      border: var(--pf-t--global--border--width--control--default) solid var(--pf-t--global--border--color--default) !important;
+      padding-block: var(--pf-t--global--spacer--xs);
+      padding-inline: var(--pf-t--global--spacer--md);
+      font-size: var(--pf-t--global--font--size--body--default);
+      line-height: var(--pf-t--global--font--line-height--body);
+      color: var(--pf-t--global--text--color--regular);
+      background-color: transparent;
+
+      span,
+      .du-bois-light-typography,
+      .du-bois-dark-typography {
+        color: inherit;
+      }
+
+      &:hover {
+        background-color: var(--pf-t--global--background--color--primary--hover);
+      }
+    }
+
+    /* Left option */
+    > div[role='button']:nth-child(2) {
+      border-radius: var(--pf-t--global--border--radius--tiny) 0 0 var(--pf-t--global--border--radius--tiny);
+    }
+
+    /* Right option */
+    > div[role='button']:nth-child(3) {
+      margin-inline-start: calc(-1 * var(--pf-t--global--border--width--control--default));
+      border-radius: 0 var(--pf-t--global--border--radius--tiny) var(--pf-t--global--border--radius--tiny) 0;
+    }
+
+    /* Selected state */
+    > div[role='button'][aria-pressed='true'] {
+      background-color: var(--pf-t--global--color--brand--default);
+      border-color: var(--pf-t--global--color--brand--default) !important;
+      color: var(--pf-t--global--text--color--on-brand--default);
+      z-index: 100;
     }
   }
 
