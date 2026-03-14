@@ -17359,11 +17359,11 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-chai-friendly@npm:^0.7.2":
-  version: 0.7.2
-  resolution: "eslint-plugin-chai-friendly@npm:0.7.2"
+  version: 0.7.4
+  resolution: "eslint-plugin-chai-friendly@npm:0.7.4"
   peerDependencies:
     eslint: ">=3.0.0"
-  checksum: 10c0/44742cbbb4d95880824e2034d749d9f71799ce96308eb1376c8defededfb0c90a96048717bbb5a7ccd409956a8ac28ea5deee720159f0b2be6aa1318ef656776
+  checksum: 10c0/b161e4796de4db304042ea8da1bd467d63d22e89f74e85134c2a6755c49c53021ac2e48003af06d41b7a1b1b5e8cceacca6dc18ffaee02afd79a1c243728b8a7
   languageName: node
   linkType: hard
 
