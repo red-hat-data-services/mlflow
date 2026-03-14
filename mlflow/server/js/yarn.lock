@@ -4515,7 +4515,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.30.0"
     eslint-plugin-react-component-name: "npm:^0.1.0"
     eslint-plugin-react-hooks: "npm:^4.6.0"
-    eslint-plugin-standard: "npm:3.0.1"
+    eslint-plugin-standard: "npm:3.1.0"
     eslint-plugin-testing-library: "npm:^6.1.0"
     fast-glob: "npm:^3.2.11"
     file-saver: "npm:^2.0.5"
@@ -17693,12 +17693,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-standard@npm:3.0.1":
-  version: 3.0.1
-  resolution: "eslint-plugin-standard@npm:3.0.1"
+"eslint-plugin-standard@npm:3.1.0":
+  version: 3.1.0
+  resolution: "eslint-plugin-standard@npm:3.1.0"
   peerDependencies:
     eslint: ">=3.19.0"
-  checksum: 10c0/c26f9d0c216643b147fd5728595957a6641b516d39fef7a7e7f0a26541c1eaedfdbdfb8330ca97f79d9143e277c0083136c574e206d2572b8d81d5ff919a9041
+  checksum: 10c0/2c1ca54f46a2e68b95989c72bd579a194b0da600302b69d44be43e7ec2141c701f9b3a67f8ed068dae610a263e25857dfb087531e5acad45829b7cdc3165b1f8
   languageName: node
   linkType: hard
 
