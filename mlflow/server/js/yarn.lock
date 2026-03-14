@@ -4511,7 +4511,7 @@ __metadata:
     eslint-plugin-no-only-tests: "npm:^2.6.0"
     eslint-plugin-node: "npm:5.2.1"
     eslint-plugin-prettier: "npm:^4.0.0"
-    eslint-plugin-promise: "npm:3.6.0"
+    eslint-plugin-promise: "npm:3.8.0"
     eslint-plugin-react: "npm:^7.30.0"
     eslint-plugin-react-component-name: "npm:^0.1.0"
     eslint-plugin-react-hooks: "npm:^4.6.0"
@@ -17622,10 +17622,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-promise@npm:3.6.0":
-  version: 3.6.0
-  resolution: "eslint-plugin-promise@npm:3.6.0"
-  checksum: 10c0/e0fd26dd1e28e08d3302d2a4b6d43704170ef31caf256ac885d8f4abbf8e1c42e8a0ae05df0fcb88792e3ece5ef356912eda52c340492c80fce86cb71c48a273
+"eslint-plugin-promise@npm:3.8.0":
+  version: 3.8.0
+  resolution: "eslint-plugin-promise@npm:3.8.0"
+  checksum: 10c0/9db6361ebbede89032274cc2234262196457872e2407fe62f8b8a9047e9fa734cb0ee0b864850090b121b202eaff9d32c8e893181af812e068719790a315d3fd
   languageName: node
   linkType: hard
 
