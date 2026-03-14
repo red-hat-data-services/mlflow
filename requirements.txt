@@ -26,7 +26,7 @@ attrs==25.4.0
     #   referencing
 backports-asyncio-runner==1.2.0 ; python_full_version < '3.11'
     # via pytest-asyncio
-black==23.7.0
+black==23.12.1
     # via blacken-docs
 blacken-docs==1.18.0
 blinker==1.9.0
