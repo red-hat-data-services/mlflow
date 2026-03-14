@@ -4536,7 +4536,7 @@ __metadata:
     mod-arch-kubeflow: "npm:^1.2.1"
     moment: "npm:^2.29.4"
     msw: "npm:^1.2.3"
-    pako: "npm:0.2.7"
+    pako: "npm:0.2.9"
     papaparse: "npm:^5.3.2"
     parcoord-es: "npm:^2.2.10"
     pdfjs-dist: "npm:^5.3.31"
@@ -27305,10 +27305,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pako@npm:0.2.7":
-  version: 0.2.7
-  resolution: "pako@npm:0.2.7"
-  checksum: 10c0/ee3d38ec51797d80582c957ac1faf2f17590ae7415dce547a6909d30a95d48d647a1d08f82f1cdbf3cace6a29ef87a6493bc22021a3294f52786c6ce15f41431
+"pako@npm:0.2.9":
+  version: 0.2.9
+  resolution: "pako@npm:0.2.9"
+  checksum: 10c0/79c1806ebcf325b60ae599e4d7227c2e346d7b829dc20f5cf24cef07c934079dc3a61c5b3c8278a2f7a190c4a613e343ea11e5302dbe252efd11712df4b6b041
   languageName: node
   linkType: hard
 
