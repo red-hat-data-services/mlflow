@@ -279,7 +279,7 @@ protobuf==6.33.5
 psutil==7.2.2
 py4j==0.10.9.9
     # via pyspark
-pyarrow==23.0.0
+pyarrow==23.0.1
     # via mlflow
 pyasn1==0.6.2
     # via
