@@ -14667,9 +14667,9 @@ __metadata:
   linkType: hard
 
 "cronstrue@npm:^1.94.0":
-  version: 1.94.0
-  resolution: "cronstrue@npm:1.94.0"
-  checksum: 10c0/ddd1fc33c64b6200523d42100891b4c0807b929c6eaa0fecf86c64572f57de663570b3df28d45bfef7fe33e368a365edb6e8b970121f34f560290c419de14c96
+  version: 1.125.0
+  resolution: "cronstrue@npm:1.125.0"
+  checksum: 10c0/72f9795525f4275ecd7841d6dc21a47fb4ea2ebe60d6ad49f70c5436e4fd9fbf7303e2a0e5e20aae6d564303571950d59d7e48be56a9569e8c15f57b5e2a7348
   languageName: node
   linkType: hard
 
