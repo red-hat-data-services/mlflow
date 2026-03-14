@@ -795,14 +795,14 @@ wheels = [
 
 [[package]]
 name = "blacken-docs"
-version = "1.18.0"
+version = "1.20.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "black" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/12/a9/99fe0283575297466df65eb54873a892f0db5fd24459abef4c2691db883a/blacken_docs-1.18.0.tar.gz", hash = "sha256:47bed628679d008a8eb55d112df950582e68d0f57615223929e366348d935444", size = 14743, upload-time = "2024-06-30T07:08:25.539Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/20/bc/c8fbeb90232c3afe0b369de4014c50925a5b3e6fcba5a784d96377da3d09/blacken_docs-1.20.0.tar.gz", hash = "sha256:2d5b6caf6e7da5694b1eba97f9132c1ab9f14f221c82205ec473a6e74fbb2c6d", size = 14988, upload-time = "2025-09-08T15:33:18.47Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3d/7e/532f6c8b81346c2337c54b0e16f49f2968d86b0c535d6318b3f21f3ff4cf/blacken_docs-1.18.0-py3-none-any.whl", hash = "sha256:64f592246784131e9f84dad1db397f44eeddc77fdf01726bab920a3f00a3815c", size = 8243, upload-time = "2024-06-30T07:08:23.737Z" },
+    { url = "https://files.pythonhosted.org/packages/5c/e7/63af39c07bbb019feb1e4f89638410ec08101b59f094c51eb6bd5667b9e9/blacken_docs-1.20.0-py3-none-any.whl", hash = "sha256:a0d842811ee07802dec920d3cf831e21f6eb017712748b488489aa3688770f1e", size = 8324, upload-time = "2025-09-08T15:33:17.135Z" },
 ]
 
 [[package]]
@@ -4583,7 +4583,7 @@ build = [
 dev = [
     { name = "aiohttp" },
     { name = "black", specifier = "==23.7.0" },
-    { name = "blacken-docs", specifier = "==1.18.0" },
+    { name = "blacken-docs", specifier = "==1.20.0" },
     { name = "build" },
     { name = "claude-agent-sdk" },
     { name = "clint", editable = "dev/clint" },
@@ -4648,7 +4648,7 @@ docs = [
 lint = [
     { name = "aiohttp" },
     { name = "black", specifier = "==23.7.0" },
-    { name = "blacken-docs", specifier = "==1.18.0" },
+    { name = "blacken-docs", specifier = "==1.20.0" },
     { name = "claude-agent-sdk" },
     { name = "clint", editable = "dev/clint" },
     { name = "mypy", specifier = "==1.17.1" },
