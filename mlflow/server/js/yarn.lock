@@ -4507,7 +4507,7 @@ __metadata:
     eslint-plugin-jest: "npm:^26.5.3"
     eslint-plugin-jsx-a11y: "npm:^6.7.1"
     eslint-plugin-mlflow: "link:./custom-eslint-rules/"
-    eslint-plugin-no-lookahead-lookbehind-regexp: "npm:^0.1.0"
+    eslint-plugin-no-lookahead-lookbehind-regexp: "npm:^0.4.0"
     eslint-plugin-no-only-tests: "npm:^2.6.0"
     eslint-plugin-node: "npm:5.2.1"
     eslint-plugin-prettier: "npm:^4.0.0"
@@ -12944,7 +12944,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.28.0, browserslist@npm:^4.28.1":
+"browserslist@npm:^4.24.2, browserslist@npm:^4.28.0, browserslist@npm:^4.28.1":
   version: 4.28.1
   resolution: "browserslist@npm:4.28.1"
   dependencies:
@@ -13263,7 +13263,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001109, caniuse-lite@npm:^1.0.30001283, caniuse-lite@npm:^1.0.30001759":
+"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001109, caniuse-lite@npm:^1.0.30001759":
   version: 1.0.30001760
   resolution: "caniuse-lite@npm:1.0.30001760"
   checksum: 10c0/cee26dff5c5b15ba073ab230200e43c0d4e88dc3bac0afe0c9ab963df70aaa876c3e513dde42a027f317136bf6e274818d77b073708b74c5807dfad33c029d3c
@@ -13274,6 +13274,13 @@ __metadata:
   version: 1.0.30001754
   resolution: "caniuse-lite@npm:1.0.30001754"
   checksum: 10c0/d38709ab11abc36eea28068d241434eba925c4d3462916ccaa17a34a6227dfdeb58ab0e1eb614bab12fb393c7d527db392a0f477b48c33d70d8e466954f381ba
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:^1.0.30001669":
+  version: 1.0.30001778
+  resolution: "caniuse-lite@npm:1.0.30001778"
+  checksum: 10c0/830042e0a6af0796d3da4d9575f60966b92308c5504577993b618dd196c835d023dbd725fa8b47c33b74c487d75ce01ee3ebd6e7a078714989513110e8ff80e5
   languageName: node
   linkType: hard
 
@@ -17540,15 +17547,15 @@ __metadata:
   languageName: node
   linkType: soft
 
-"eslint-plugin-no-lookahead-lookbehind-regexp@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "eslint-plugin-no-lookahead-lookbehind-regexp@npm:0.1.0"
+"eslint-plugin-no-lookahead-lookbehind-regexp@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "eslint-plugin-no-lookahead-lookbehind-regexp@npm:0.4.0"
   dependencies:
-    browserslist: "npm:^4.18.1"
-    caniuse-lite: "npm:^1.0.30001283"
+    browserslist: "npm:^4.24.2"
+    caniuse-lite: "npm:^1.0.30001669"
   peerDependencies:
-    eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
-  checksum: 10c0/bfe0847bd09113b3a27f061c8fd0f10f2461cc9fbf98633557bfb48b8362ef293c7a22f88dc272aeffcc2a6840d53fff110fa0a458504641fd07939a9ac33f74
+    eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
+  checksum: 10c0/d186119fdf3a967698d35c81eee0205016038c13a6afee0c577b71e90d8e4652359827f9d7518bc615dbf66ea8554d5ac084feb95016243985733b95f17a4be7
   languageName: node
   linkType: hard
 
