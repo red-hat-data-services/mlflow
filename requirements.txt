@@ -325,7 +325,7 @@ python-dateutil==2.9.0.post0
     #   kubernetes
     #   matplotlib
     #   pandas
-python-dotenv==1.2.1
+python-dotenv==1.2.2
     # via
     #   mlflow
     #   pydantic-settings
