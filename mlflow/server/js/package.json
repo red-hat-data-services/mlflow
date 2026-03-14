@@ -124,7 +124,7 @@
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@jest/globals": "^30.0.2",
-    "@module-federation/enhanced": "0.21.6",
+    "@module-federation/enhanced": "0.24.1",
     "@storybook/addon-actions": "^6.5.5",
     "@storybook/addon-docs": "^6.5.5",
     "@storybook/addon-essentials": "^6.5.5",
