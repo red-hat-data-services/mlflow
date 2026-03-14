@@ -4497,7 +4497,7 @@ __metadata:
     eslint-config-prettier: "npm:^8.5.0"
     eslint-config-standard: "npm:10.2.1"
     eslint-import-resolver-webpack: "npm:0.8.4"
-    eslint-loader: "npm:2.1.1"
+    eslint-loader: "npm:2.2.1"
     eslint-plugin-chai-expect: "npm:1.1.1"
     eslint-plugin-chai-friendly: "npm:^0.7.2"
     eslint-plugin-cypress: "npm:^2.12.1"
@@ -17323,9 +17323,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-loader@npm:2.1.1":
-  version: 2.1.1
-  resolution: "eslint-loader@npm:2.1.1"
+"eslint-loader@npm:2.2.1":
+  version: 2.2.1
+  resolution: "eslint-loader@npm:2.2.1"
   dependencies:
     loader-fs-cache: "npm:^1.0.0"
     loader-utils: "npm:^1.0.2"
@@ -17333,9 +17333,9 @@ __metadata:
     object-hash: "npm:^1.1.4"
     rimraf: "npm:^2.6.1"
   peerDependencies:
-    eslint: ">=1.6.0 <6.0.0"
+    eslint: ">=1.6.0 <7.0.0"
     webpack: ">=2.0.0 <5.0.0"
-  checksum: 10c0/f5e399ca3eae798820577a51ca48caaf059967b89b1304f3bafb0c780a1a6b7b8d0db6571ee3f66d603d2bb6123841e67a655683e4d665117ffc4778260f9699
+  checksum: 10c0/c71137cf11b520ca820ef1d5e65c96766ddaa548e5054b39a1e580ebd996654af2c4c391b8fa199b7d71487fdac800e0d65da3f00d670d5bc607a6710e81b2e7
   languageName: node
   linkType: hard
 
