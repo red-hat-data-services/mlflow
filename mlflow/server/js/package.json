@@ -180,7 +180,7 @@
     "eslint-plugin-no-only-tests": "^2.6.0",
     "eslint-plugin-node": "5.2.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-promise": "3.6.0",
+    "eslint-plugin-promise": "3.8.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-component-name": "^0.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
