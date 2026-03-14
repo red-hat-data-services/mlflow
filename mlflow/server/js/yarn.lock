@@ -22929,9 +22929,9 @@ __metadata:
   linkType: hard
 
 "jest-localstorage-mock@npm:^2.3.0":
-  version: 2.4.21
-  resolution: "jest-localstorage-mock@npm:2.4.21"
-  checksum: 10c0/65679c8ff85ab7865a80133dba88f41739b8e9b223b929a93869754462a8cc0839699dab2feba2916c0d2fc9c1dc0d6c5986cf1edc179095cdbbd5bd8e14432f
+  version: 2.4.26
+  resolution: "jest-localstorage-mock@npm:2.4.26"
+  checksum: 10c0/397589b21491f8e2534b4ec1f153e85fd0700852a3b10e52332bc18ddd8c6657a85981a1543ae22aff8e30bf4608046eb29e824cef3f27454f4ca85fa3151243
   languageName: node
   linkType: hard
 
