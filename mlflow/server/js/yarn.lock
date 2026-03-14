@@ -4476,7 +4476,7 @@ __metadata:
     "@types/use-sync-external-store": "npm:^0.0.3"
     "@typescript-eslint/eslint-plugin": "npm:^8.39.0"
     "@typescript-eslint/parser": "npm:^8.39.0"
-    "@wojtekmaj/enzyme-adapter-react-17": "npm:^0.6.3"
+    "@wojtekmaj/enzyme-adapter-react-17": "npm:^0.8.0"
     argparse: "npm:^2.0.1"
     babel-jest: "npm:^30.2.0"
     babel-plugin-formatjs: "npm:^10.2.14"
@@ -10803,11 +10803,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wojtekmaj/enzyme-adapter-react-17@npm:^0.6.3":
-  version: 0.6.6
-  resolution: "@wojtekmaj/enzyme-adapter-react-17@npm:0.6.6"
+"@wojtekmaj/enzyme-adapter-react-17@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@wojtekmaj/enzyme-adapter-react-17@npm:0.8.0"
   dependencies:
-    "@wojtekmaj/enzyme-adapter-utils": "npm:^0.1.2"
+    "@wojtekmaj/enzyme-adapter-utils": "npm:^0.2.0"
     enzyme-shallow-equal: "npm:^1.0.0"
     has: "npm:^1.0.0"
     prop-types: "npm:^15.7.0"
@@ -10817,13 +10817,13 @@ __metadata:
     enzyme: ^3.0.0
     react: ^17.0.0-0
     react-dom: ^17.0.0-0
-  checksum: 10c0/a251aa94696e7b6634b3a6764130a7a97885b3792f439dcb4b8c00f03926777792228679e475f247f2b2be23ac6772224d14c98418b2d3e3c2ccae7af977a6ab
+  checksum: 10c0/310316605594f9921f5d54d5f68dded27040559866f90f87146ac11fb8ee28589884b2d406259263841eeeca957e51364b40008645379abfcaa8b0063e3669e1
   languageName: node
   linkType: hard
 
-"@wojtekmaj/enzyme-adapter-utils@npm:^0.1.2":
-  version: 0.1.2
-  resolution: "@wojtekmaj/enzyme-adapter-utils@npm:0.1.2"
+"@wojtekmaj/enzyme-adapter-utils@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@wojtekmaj/enzyme-adapter-utils@npm:0.2.0"
   dependencies:
     function.prototype.name: "npm:^1.1.0"
     has: "npm:^1.0.0"
@@ -10831,7 +10831,7 @@ __metadata:
     prop-types: "npm:^15.7.0"
   peerDependencies:
     react: ^17.0.0-0
-  checksum: 10c0/caa271475622a2b3a00cb521191382bd91986181ae4d48ff076faa94a3978c56b668a20eee1f809f1e96b809c0852fd25eb0666cb48ad78283d8d9ddb47a1b14
+  checksum: 10c0/1d1fc2d86f20065e86c67b4da784a8a165a2863db57c584119e92565e6289601779a03d85ca7a679a38352011be972f7b63e53404454f429327fcc8d0c355925
   languageName: node
   linkType: hard
 
