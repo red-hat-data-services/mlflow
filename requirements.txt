@@ -138,7 +138,7 @@ httpx-sse==0.4.3
     # via mcp
 huey==2.6.0
     # via mlflow
-identify==2.6.16
+identify==2.6.18
     # via pre-commit
 idna==3.11
     # via
