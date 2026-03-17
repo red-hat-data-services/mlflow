@@ -9427,12 +9427,12 @@ __metadata:
   linkType: hard
 
 "@types/react-plotly.js@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "@types/react-plotly.js@npm:2.5.0"
+  version: 2.6.4
+  resolution: "@types/react-plotly.js@npm:2.6.4"
   dependencies:
     "@types/plotly.js": "npm:*"
     "@types/react": "npm:*"
-  checksum: 10c0/1c7a4dc77e4d6cc835ac45da27ce35ffd4f45ea33f8b70503f4fe6a6314737c22c440734802b6b8989ddbfa3490e125940316498ff66f32b6b4ed4bbafc64cad
+  checksum: 10c0/e1483e77b2162a7284b186665131a053560a84293c85ade16cd65039383c3894550397cf2b599ce1c870521622f81b176ddbdbe7a10da937b3b88e4aa4b90d4a
   languageName: node
   linkType: hard
 
@@ -30560,14 +30560,14 @@ __metadata:
   linkType: hard
 
 "react-plotly.js@npm:^2.5.1":
-  version: 2.5.1
-  resolution: "react-plotly.js@npm:2.5.1"
+  version: 2.6.0
+  resolution: "react-plotly.js@npm:2.6.0"
   dependencies:
-    prop-types: "npm:^15.7.2"
+    prop-types: "npm:^15.8.1"
   peerDependencies:
     plotly.js: ">1.34.0"
     react: ">0.13.0"
-  checksum: 10c0/e16c1f5862bf536eea6a1551a1a9d294601acd86e3460b35f644325dd55142e8f485088f123988eb8acb7eecbba0f0f5291d8a1122292430bee59f377eaa275e
+  checksum: 10c0/9b5ba8e33782daa9624d79295975d08d4c7581bac41d67d497eec0a306e4d030465a1e8282fab145bc02705fe96262f6fb0d214133657c480982fc268763644a
   languageName: node
   linkType: hard
 
