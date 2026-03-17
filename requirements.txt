@@ -281,7 +281,7 @@ py4j==0.10.9.9
     # via pyspark
 pyarrow==23.0.0
     # via mlflow
-pyasn1==0.6.2
+pyasn1==0.6.3
     # via
     #   pyasn1-modules
     #   rsa
