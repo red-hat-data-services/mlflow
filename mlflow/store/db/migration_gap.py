@@ -50,7 +50,7 @@ END;
 """
 
 
-def fix_migration_gap_if_needed(engine: sa.engine.Engine) -> None:
+def fix_migration_gap_if_needed(engine: sa.engine.Engine) -> bool:
     """Detect and fix the RHOAI 3.3 -> 3.4 migration gap.
 
     Acquires a PostgreSQL advisory lock to prevent concurrent init containers
@@ -71,8 +71,12 @@ def fix_migration_gap_if_needed(engine: sa.engine.Engine) -> None:
             )
             _apply_migration_gap(connection)
             _logger.info("Migration gap fix applied successfully.")
+
+            return True
         else:
             _logger.info("No migration gap detected.")
+
+            return False
 
 
 def _has_migration_gap(connection: sa.engine.Connection) -> bool:

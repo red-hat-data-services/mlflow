@@ -525,7 +525,7 @@ def test_fix_migration_gap_command_runs_db_upgrade_after_fix(monkeypatch):
     )
     monkeypatch.setattr(
         "mlflow.store.db.migration_gap.fix_migration_gap_if_needed",
-        lambda actual_engine: call_order.append(("fix", actual_engine)),
+        lambda actual_engine: call_order.append(("fix", actual_engine)) or True,
     )
     monkeypatch.setattr(
         "mlflow.store.db.utils._upgrade_db",

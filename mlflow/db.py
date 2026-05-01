@@ -63,8 +63,8 @@ def fix_migration_gap(url):
     engine = None
     try:
         engine = mlflow.store.db.utils.create_sqlalchemy_engine_with_retry(resolved_url)
-        fix_migration_gap_if_needed(engine)
-        mlflow.store.db.utils._upgrade_db(engine)
+        if fix_migration_gap_if_needed(engine):
+            mlflow.store.db.utils._upgrade_db(engine)
     finally:
         if engine is not None:
             engine.dispose()
