@@ -20,7 +20,7 @@ RUN if [ -f /cachi2/cachi2.env ]; then \
     && NODE_OPTIONS="--max_old_space_size=3072" yarn build \
     && NODE_OPTIONS="--max_old_space_size=3072" MLFLOW_API_BASE_URL=/mlflow yarn build:federated
 
-FROM registry.access.redhat.com/ubi9/python-312:9.7@sha256:6509cd88e7886d0ab41c8edda8a13acba2b3eaad56160fa86f0e4b27abb82dca AS python-builder
+FROM registry.access.redhat.com/ubi9/python-312:9.7@sha256:bf2f5a3cf0c1542d2c90e729bef7e79df746e0331ab7fd19c86e3ff4792dc9f5 AS python-builder
 WORKDIR /src
 USER 0
 COPY --chown=1001:0 . .
