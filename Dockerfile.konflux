@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/nodejs-20:9.7@sha256:c698e22792587ec745c115a49895321fc96eb934b2819dbd9802503f23bc6e67 AS ui-builder
+FROM registry.access.redhat.com/ubi9/nodejs-20:9.7@sha256:9d3155404e3483192b0c2668718882956f80ca5db88fde9b48130a7dbf8c944f AS ui-builder
 WORKDIR /opt/app-root/src
 USER 0
 COPY --chown=1001:0 mlflow/server/js/ .
@@ -34,7 +34,7 @@ RUN if [ -f /cachi2/cachi2.env ]; then . /cachi2/cachi2.env; fi && \
     python -m build --wheel --outdir /tmp/dist libs/skinny && \
     python -m build --wheel --outdir /tmp/dist .
 
-FROM registry.access.redhat.com/ubi9/ubi-minimal:9.7@sha256:fe9e574f04371b333ed4e21d30d984f6b7fcd1046e579f5ddab4816c0c8e231d
+FROM registry.access.redhat.com/ubi9/ubi-minimal:9.7@sha256:12db9874bd753eb98b1ab3d840e75de5d6842ac0604fbd68c012adefe97140be
 ARG MLFLOW_VERSION=3.3.2
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
