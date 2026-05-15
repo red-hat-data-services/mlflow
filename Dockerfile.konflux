@@ -33,7 +33,7 @@ RUN unset PIP_NO_INDEX PIP_FIND_LINKS && \
     python -m build --wheel --outdir /tmp/dist . && \
     python -m build --wheel --outdir /tmp/dist kubernetes-workspace-provider
 
-FROM registry.access.redhat.com/ubi9/ubi:9.7@sha256:fd3612ebe7968002122fb8c41df2cf9bd3f9916c573f7248113cdec1d6f4c245
+FROM registry.access.redhat.com/ubi9/ubi:9.7-1778576335@sha256:8ca59004c1c505bdabadd5202bd3363986f5bf873fcfb36f60561d7362fe52a7
 ARG AIPCC_INDEX_URL=https://console.redhat.com/api/pypi/public-rhai/rhoai/3.4-EA1/cpu-ubi9-test/simple
 ARG MLFLOW_VERSION=3.3.2
 ENV PYTHONDONTWRITEBYTECODE=1 \
