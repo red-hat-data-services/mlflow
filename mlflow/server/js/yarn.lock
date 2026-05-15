@@ -30608,11 +30608,13 @@ __metadata:
   linkType: hard
 
 "redux-mock-store@npm:^1.5.3":
-  version: 1.5.3
-  resolution: "redux-mock-store@npm:1.5.3"
+  version: 1.5.5
+  resolution: "redux-mock-store@npm:1.5.5"
   dependencies:
     lodash.isplainobject: "npm:^4.0.6"
-  checksum: 10c0/63f23bfbc854bee3b4575c81746ad84e82105b9566b88666ebbee1086a007c575ba030587ac2fbe28cc0f23293df6d85e023db35a99f7fa0003f218c0c4ac290
+  peerDependencies:
+    redux: "*"
+  checksum: 10c0/99cdb89b4b8db9046c2fe1eae82072bb77fba079606cbde87c47c7a2dcc8c3c51c4c553fcce80b935a61bbc2eeb10c6f5e32077c997a35715a4c8bf867499856
   languageName: node
   linkType: hard
 
