@@ -30076,8 +30076,8 @@ __metadata:
   linkType: hard
 
 "react-redux@npm:^7.2.5":
-  version: 7.2.8
-  resolution: "react-redux@npm:7.2.8"
+  version: 7.2.9
+  resolution: "react-redux@npm:7.2.9"
   dependencies:
     "@babel/runtime": "npm:^7.15.4"
     "@types/react-redux": "npm:^7.1.20"
@@ -30092,7 +30092,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 10c0/fc430310089cede6167edf49846f4f41e382c828a0f6ce3aa6101b46bea71d113f3040281efee0c9c737eeca4ed3db777003990a79e09558b3c4487380545340
+  checksum: 10c0/904fac7f493942585ed7ebbd693b4f6b5c09c292366b4550e887ba1a2e83a92c55f0ddc35161d4ba87e3fadb6c681a59003f58df6335e5d2ddd72b06a557851d
   languageName: node
   linkType: hard
 
