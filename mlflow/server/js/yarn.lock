@@ -8530,30 +8530,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:4.29.17":
-  version: 4.29.17
-  resolution: "@tanstack/query-core@npm:4.29.17"
-  checksum: 10c0/050a2c24ad3776552d0739d5812040363a6dc0044638dfde3b663ff63a39d25320f7b69decdca5df13cdaec4f6ae61dca4b23eb07c09bc760ad7af81856c534d
+"@tanstack/query-core@npm:4.44.0":
+  version: 4.44.0
+  resolution: "@tanstack/query-core@npm:4.44.0"
+  checksum: 10c0/6b8967cbe756d105a43f1ce6e11cf3ba52697c8a53d5780fd5cd234cda6dbe22b6e0a8902af8c891fd3c9daadd7f238a9325f5bbd1bcab4abc4e58a80320882e
   languageName: node
   linkType: hard
 
 "@tanstack/react-query@npm:^4.29.17":
-  version: 4.29.17
-  resolution: "@tanstack/react-query@npm:4.29.17"
+  version: 4.44.0
+  resolution: "@tanstack/react-query@npm:4.44.0"
   dependencies:
-    "@tanstack/query-core": "npm:4.29.17"
-    client-only: "npm:0.0.1"
-    use-sync-external-store: "npm:^1.2.0"
+    "@tanstack/query-core": "npm:4.44.0"
+    use-sync-external-store: "npm:^1.6.0"
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-native: "*"
   peerDependenciesMeta:
     react-dom:
       optional: true
     react-native:
       optional: true
-  checksum: 10c0/2c314205ff02217db23b3d3189723c17927be83e97dd5af52e7dcd729a4fdec759b7114c81c75735f8bdbce5d47434178d81dce5a97a37f3aebcafd2fb3a1d28
+  checksum: 10c0/42852b4ad6cd1bad1bab5226d30ae5829b3091668e2c0434868309b1dfbc5086f2c2c73bedea2389df18a4725a8a560aca945e597f1c42d91933cb78f294a2fb
   languageName: node
   linkType: hard
 
@@ -13789,13 +13788,6 @@ __metadata:
   version: 3.0.0
   resolution: "cli-width@npm:3.0.0"
   checksum: 10c0/125a62810e59a2564268c80fdff56c23159a7690c003e34aeb2e68497dccff26911998ff49c33916fcfdf71e824322cc3953e3f7b48b27267c7a062c81348a9a
-  languageName: node
-  linkType: hard
-
-"client-only@npm:0.0.1":
-  version: 0.0.1
-  resolution: "client-only@npm:0.0.1"
-  checksum: 10c0/9d6cfd0c19e1c96a434605added99dff48482152af791ec4172fb912a71cff9027ff174efd8cdb2160cc7f377543e0537ffc462d4f279bc4701de3f2a3c4b358
   languageName: node
   linkType: hard
 
@@ -36054,7 +36046,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.2.0, use-sync-external-store@npm:^1.2.2":
+"use-sync-external-store@npm:^1.2.0, use-sync-external-store@npm:^1.2.2, use-sync-external-store@npm:^1.6.0":
   version: 1.6.0
   resolution: "use-sync-external-store@npm:1.6.0"
   peerDependencies:
