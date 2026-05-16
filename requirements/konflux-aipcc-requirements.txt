@@ -58,8 +58,9 @@ cryptography==46.0.6 \
     --hash=sha256:7ce4f2ff0153bb8c93e47b3d452855bb74c551fc95908e92762cc8769e85dd24
 cycler==0.12.1 \
     --hash=sha256:84979e5992653f28df02c64dbc030dba0e8de063d95af2246757aba3c7999ffa
-databricks-sdk==0.102.0 \
-    --hash=sha256:818d97e2c1a63f0842898532e4bdcacfb3b3f04f5ac086b15e761c3a419d1fbd
+databricks-sdk==0.106.0 \
+    --hash=sha256:6bbd492cb8593747aced037b9186f8632e9d553fc358e6f3d83b7e959851d9d3 \
+    --hash=sha256:db9de5566279ae80dfea0ecd37231e8968523ef984e83cbe4bd77e50c59aa6a5
 distro==1.9.0 \
     --hash=sha256:c16b1c9f9666bcb3c7faf41118ede743f387834ae00b6452a5e3253baa8f89c2
 docker==7.1.0 \
