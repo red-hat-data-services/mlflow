@@ -25616,8 +25616,8 @@ __metadata:
   linkType: hard
 
 "mod-arch-kubeflow@npm:^1.2.1":
-  version: 1.4.0
-  resolution: "mod-arch-kubeflow@npm:1.4.0"
+  version: 1.16.1
+  resolution: "mod-arch-kubeflow@npm:1.16.1"
   dependencies:
     "@typescript-eslint/eslint-plugin": "npm:^8.26.1"
     "@typescript-eslint/parser": "npm:^8.26.1"
@@ -25666,7 +25666,7 @@ __metadata:
       optional: true
     eslint-plugin-react-hooks:
       optional: true
-  checksum: 10c0/6eaf47c5e217d07878890951fae452f2208126509a63f1c439c567f46ae428b3e969b402844d26ac785ff2afb3b07d17752a4555526404244fe851b8efc47a3b
+  checksum: 10c0/f9f17becd1c6ffdc95d32bd3a0c12ee00d227a8dfee8a81446e03c1bf76518ee578f200c0fccd97386d3de7290c4947f7b7757b7e1dbd17701b97615ca77cd32
   languageName: node
   linkType: hard
 
