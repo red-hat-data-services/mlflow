@@ -184,7 +184,7 @@ lint = [
   "packaging>=25.0",
 ]
 test = [
-  "pytest==8.4.0",
+  "pytest==9.0.3",
   "pytest-asyncio",
   "pytest-repeat",
   "pytest-cov",
