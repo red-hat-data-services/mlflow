@@ -5211,19 +5211,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mswjs/interceptors@npm:^0.17.5":
-  version: 0.17.9
-  resolution: "@mswjs/interceptors@npm:0.17.9"
+"@mswjs/interceptors@npm:^0.17.10":
+  version: 0.17.10
+  resolution: "@mswjs/interceptors@npm:0.17.10"
   dependencies:
     "@open-draft/until": "npm:^1.0.3"
     "@types/debug": "npm:^4.1.7"
     "@xmldom/xmldom": "npm:^0.8.3"
     debug: "npm:^4.3.3"
-    headers-polyfill: "npm:^3.1.0"
+    headers-polyfill: "npm:3.2.5"
     outvariant: "npm:^1.2.1"
     strict-event-emitter: "npm:^0.2.4"
     web-encoding: "npm:^1.1.5"
-  checksum: 10c0/d99b4f54587ae60d323e1f65a1e7417521553a4431250f600740baa5c8caeb8a5d972952be027fb04d99624004456d80e62d1f0e5328fda49fd8508ab88afe86
+  checksum: 10c0/0343a93711b60c321c40733d6bf2720a736d8e0730f5d0d9916ee4a24abfcfca4a83d1e4b2e21c3affef4fc61f04588104be002fbc8258dc4b0d202c384ade33
   languageName: node
   linkType: hard
 
@@ -13680,16 +13680,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:4.1.1":
-  version: 4.1.1
-  resolution: "chalk@npm:4.1.1"
-  dependencies:
-    ansi-styles: "npm:^4.1.0"
-    supports-color: "npm:^7.1.0"
-  checksum: 10c0/3866c8b96eca56b5ff4e1e9a243b65e4f77694a486a2cc49316d54af9dae463d2c52bd99b9f0b7a924b87faf3a16dd6ed12d3a7442ac385b608f285e54696c18
-  languageName: node
-  linkType: hard
-
 "chalk@npm:^2.4.1":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
@@ -20001,17 +19991,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:^15.0.0 || ^16.0.0":
-  version: 16.7.1
-  resolution: "graphql@npm:16.7.1"
-  checksum: 10c0/0b4e83382bf3cb9c82ddf61a51aab382c4de50c34025173285c580135fe8646aa281c264fcf0c2214ae92ea925742d86999fe5e2ad842b6f3b54a9ffb0b299d2
-  languageName: node
-  linkType: hard
-
 "graphql@npm:^15.5.0":
   version: 15.5.3
   resolution: "graphql@npm:15.5.3"
   checksum: 10c0/992d71d24ca2331d17de1eec978f1a438c6719c161c858eae67a1b5ef41e994052fbd93622636997795ab0e2c300c19fb5f67c9551023475161ed040f6c81b91
+  languageName: node
+  linkType: hard
+
+"graphql@npm:^16.8.1":
+  version: 16.14.0
+  resolution: "graphql@npm:16.14.0"
+  checksum: 10c0/baaa368fcfeb7bf2cdf94b9f31bf916e97eaa9e7e82148a7046f31cbd49b760b38190f22393b024cbdd9ca0f4f46287515de0136b6a0cc164074b36ad7b50618
   languageName: node
   linkType: hard
 
@@ -20383,10 +20373,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"headers-polyfill@npm:^3.1.0, headers-polyfill@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "headers-polyfill@npm:3.1.2"
-  checksum: 10c0/147b2a7012cee01f8d5c6b94c184468204c9fa68b279b9784097cc1826cad7b0457332b7d5c3ad74c1cbe14daddd8009332382c3fdd3025d8a326633b3458968
+"headers-polyfill@npm:3.2.5":
+  version: 3.2.5
+  resolution: "headers-polyfill@npm:3.2.5"
+  checksum: 10c0/10202f4ebfaecd6aa31305f29664f876ac01d9174a3fb8fcc5a0df3eaf9c1767fb0d6cf6f961484f2bfd2101b6768090976f146bd88aeedd07af4e741cb2dcb7
   languageName: node
   linkType: hard
 
@@ -25791,36 +25781,36 @@ __metadata:
   linkType: hard
 
 "msw@npm:^1.2.3":
-  version: 1.2.3
-  resolution: "msw@npm:1.2.3"
+  version: 1.3.5
+  resolution: "msw@npm:1.3.5"
   dependencies:
     "@mswjs/cookies": "npm:^0.2.2"
-    "@mswjs/interceptors": "npm:^0.17.5"
+    "@mswjs/interceptors": "npm:^0.17.10"
     "@open-draft/until": "npm:^1.0.3"
     "@types/cookie": "npm:^0.4.1"
     "@types/js-levenshtein": "npm:^1.1.1"
-    chalk: "npm:4.1.1"
+    chalk: "npm:^4.1.1"
     chokidar: "npm:^3.4.2"
     cookie: "npm:^0.4.2"
-    graphql: "npm:^15.0.0 || ^16.0.0"
-    headers-polyfill: "npm:^3.1.2"
+    graphql: "npm:^16.8.1"
+    headers-polyfill: "npm:3.2.5"
     inquirer: "npm:^8.2.0"
     is-node-process: "npm:^1.2.0"
     js-levenshtein: "npm:^1.1.6"
     node-fetch: "npm:^2.6.7"
     outvariant: "npm:^1.4.0"
-    path-to-regexp: "npm:^6.2.0"
+    path-to-regexp: "npm:^6.3.0"
     strict-event-emitter: "npm:^0.4.3"
     type-fest: "npm:^2.19.0"
     yargs: "npm:^17.3.1"
   peerDependencies:
-    typescript: ">= 4.4.x <= 5.1.x"
+    typescript: ">= 4.4.x"
   peerDependenciesMeta:
     typescript:
       optional: true
   bin:
     msw: cli/index.js
-  checksum: 10c0/d6b1988f2db92b09942ea8f6f362e4f1b308bc6ffb0ead387899c49d9191e7a14d505fcef85f854f577bd8c7682a087cb5308f50fec9721cc51c3e650cf73867
+  checksum: 10c0/bb0b3625b68f1750bfe90ade6e9e98c64f509138ce7b09c8a53af19f8f662ac79881dad64fbc74c9426247b725e3ec5e6d45eea2f6b71ddc02184e0ddf743e4d
   languageName: node
   linkType: hard
 
@@ -27235,10 +27225,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-to-regexp@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "path-to-regexp@npm:6.2.0"
-  checksum: 10c0/902e8b4211fa96ca0ae9d5d6bcac09232e5572002fc16a3f4ed2faec2a761fe986f90ee7092477cf2afdbd830ced297b015b49be826124b119535ecce4bb6fa5
+"path-to-regexp@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "path-to-regexp@npm:6.3.0"
+  checksum: 10c0/73b67f4638b41cde56254e6354e46ae3a2ebc08279583f6af3d96fe4664fc75788f74ed0d18ca44fa4a98491b69434f9eee73b97bb5314bd1b5adb700f5c18d6
   languageName: node
   linkType: hard
 
