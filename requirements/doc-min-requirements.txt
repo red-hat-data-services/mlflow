@@ -8,7 +8,7 @@ sphinx-click
 # to be compatible with docutils==0.16
 sphinx-tabs==3.2.0
 # redirect handling
-sphinx-reredirects==0.1.3
+sphinx-reredirects==0.1.6
 # Pin sphinxcontrib packages. Their newer versions are incompatible with sphinx==4.2.0.
 sphinxcontrib-applehelp<1.0.8
 sphinxcontrib-devhelp<1.0.6
