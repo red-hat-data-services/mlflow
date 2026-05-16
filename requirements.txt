@@ -124,7 +124,7 @@ greenlet==3.3.1 ; platform_machine == 'AMD64' or platform_machine == 'WIN32' or 
     # via sqlalchemy
 grpcio==1.78.0
     # via opentelemetry-exporter-otlp-proto-grpc
-gunicorn==25.0.3 ; sys_platform != 'win32'
+gunicorn==25.3.0 ; sys_platform != 'win32'
     # via mlflow
 h11==0.16.0
     # via
