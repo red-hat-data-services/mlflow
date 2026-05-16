@@ -66,8 +66,9 @@ docker==7.1.0 \
     --hash=sha256:7ffee7e1c0d9d0693ab29f7d4f91b8f8f6f1d59a76d3d61c903281774ffa6035
 durationpy==0.10 \
     --hash=sha256:ce86a86c56333ed4a1c71ad2f1a0138e6a91ad4144ee31223ac0a08eed8486f3
-fastapi==0.135.3 \
-    --hash=sha256:5404e349a8a9259bf976f0d8abd6453dba70f4d5f82bc7b733719ab7cf128a50
+fastapi==0.136.1 \
+    --hash=sha256:7af665ad7acfa0a3baf8983d393b6b471b9da10ede59c60045f49fbc89a0fa7f \
+    --hash=sha256:a6e9d7eeada96c93a4d69cb03836b44fa34e2854accb7244a1ece36cd4781c3f
 filelock==3.25.2 \
     --hash=sha256:ff122a5a2afb7ece0ba72e8f89dd24aba7da0d56683795babad4c5894b37493b
 flask==3.1.3 \
