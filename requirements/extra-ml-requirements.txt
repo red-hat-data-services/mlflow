@@ -72,7 +72,7 @@ anthropic
 ag2
 # Required by mlflow.dspy
 # The rhoai-3.3 branch still targets the pre-3.x DSPy API surface.
-dspy @ git+https://github.com/stanfordnlp/dspy.git@2.6.24
+dspy @ git+https://github.com/stanfordnlp/dspy.git@2.6.27
 # Required by mlflow.litellm
 litellm @ git+https://github.com/BerriAI/litellm.git@v1.75.8-stable
 # Required by mlflow.gemini
