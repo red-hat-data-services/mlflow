@@ -20397,6 +20397,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"highlightjs-vue@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "highlightjs-vue@npm:1.0.0"
+  checksum: 10c0/9be378c70b864ca5eee87b07859222e31c946a8ad176227e54f7006a498223974ebe19fcce6e38ad5eb3c1ed0e16a580c4edefdf2cb882b6dfab1c3866cc047a
+  languageName: node
+  linkType: hard
+
 "hmac-drbg@npm:^1.0.1":
   version: 1.0.1
   resolution: "hmac-drbg@npm:1.0.1"
@@ -28683,17 +28690,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prismjs@npm:^1.25.0":
+"prismjs@npm:^1.30.0":
   version: 1.30.0
   resolution: "prismjs@npm:1.30.0"
   checksum: 10c0/f56205bfd58ef71ccfcbcb691fd0eb84adc96c6ff21b0b69fc6fdcf02be42d6ef972ba4aed60466310de3d67733f6a746f89f2fb79c00bf217406d465b3e8f23
   languageName: node
   linkType: hard
 
-"prismjs@npm:~1.25.0":
-  version: 1.25.0
-  resolution: "prismjs@npm:1.25.0"
-  checksum: 10c0/0c3853a6c815b23a07bef77700f60a40b2a12018a383a75cd7d108718717b73927c809e7dd08ac0ae9f16fbe1e005b337262bc95952cf9cfc91914f986b07bd3
+"prismjs@npm:~1.27.0":
+  version: 1.27.0
+  resolution: "prismjs@npm:1.27.0"
+  checksum: 10c0/841cbf53e837a42df9155c5ce1be52c4a0a8967ac916b52a27d066181a3578186c634e52d06d0547fb62b65c486b99b95f826dd54966619f9721b884f486b498
   languageName: node
   linkType: hard
 
@@ -30295,17 +30302,18 @@ __metadata:
   linkType: hard
 
 "react-syntax-highlighter@npm:^15.4.5":
-  version: 15.4.5
-  resolution: "react-syntax-highlighter@npm:15.4.5"
+  version: 15.6.6
+  resolution: "react-syntax-highlighter@npm:15.6.6"
   dependencies:
     "@babel/runtime": "npm:^7.3.1"
     highlight.js: "npm:^10.4.1"
+    highlightjs-vue: "npm:^1.0.0"
     lowlight: "npm:^1.17.0"
-    prismjs: "npm:^1.25.0"
-    refractor: "npm:^3.2.0"
+    prismjs: "npm:^1.30.0"
+    refractor: "npm:^3.6.0"
   peerDependencies:
     react: ">= 0.14.0"
-  checksum: 10c0/d162c65bab7189cae355ec22ab5bc1e4c53dab7f8c739c27c47c3e757d09339ed3cf91160aa9271b3635ab9769f8d0001fe40302115c8d1011701ea284275017
+  checksum: 10c0/894f8b7c79ed40866c0fc542ad0a2040128a8c7e6e6decfd06ef092d8af9c63788ecdd911ea9b2b433e361a4a33a14f721bcec81fd59f1e7394442ade4e7ea46
   languageName: node
   linkType: hard
 
@@ -30657,14 +30665,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"refractor@npm:^3.2.0":
-  version: 3.5.0
-  resolution: "refractor@npm:3.5.0"
+"refractor@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "refractor@npm:3.6.0"
   dependencies:
     hastscript: "npm:^6.0.0"
     parse-entities: "npm:^2.0.0"
-    prismjs: "npm:~1.25.0"
-  checksum: 10c0/39be64faff7e2485b914f0ef207021674d72476bc7711e92c841a433c73c4edd67954b0b6de0d05c6b1b91aabfe78cea95baab136255c66e7816732f5ff3ab9a
+    prismjs: "npm:~1.27.0"
+  checksum: 10c0/63ab62393c8c2fd7108c2ea1eff721c0ad2a1a6eee60fdd1b47f4bb25cf298667dc97d041405b3e718b0817da12b37a86ed07ebee5bd2ca6405611f1bae456db
   languageName: node
   linkType: hard
 
