@@ -181,7 +181,7 @@
     "graphql-codegen-typescript-operation-types": "^2.0.1",
     "jest-canvas-mock": "^2.2.0",
     "jest-localstorage-mock": "^2.3.0",
-    "knip": "^5.30.2",
+    "knip": "^6.0.0",
     "msw": "^1.2.3",
     "postcss-normalize": "^10.0.1",
     "prettier": "2.8.0",
