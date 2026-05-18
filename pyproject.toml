@@ -180,7 +180,7 @@ lint = [
   "ruff==0.15.0",
   "black==23.7.0",
   "blacken-docs==1.18.0",
-  "pre-commit==4.0.1",
+  "pre-commit==4.6.0",
   "toml==0.10.2",
   "types-toml",
   "mypy==1.17.1",
