@@ -175,7 +175,7 @@ markupsafe==3.0.3
     #   jinja2
     #   mako
     #   werkzeug
-matplotlib==3.10.8
+matplotlib==3.10.9
     # via mlflow
 mcp==1.26.0
     # via claude-agent-sdk
