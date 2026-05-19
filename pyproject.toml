@@ -196,7 +196,7 @@ lint = [
   "types-requests",
 ]
 pytest = [
-  "pytest==9.0.2",
+  "pytest==9.0.3",
   "pytest-asyncio",
   "pytest-repeat",
   "pytest-cov",
