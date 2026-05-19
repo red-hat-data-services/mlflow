@@ -43,7 +43,7 @@
   "devDependencies": {
     "jest": "^29.6.2",
     "json-bigint": "^1.0.0",
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.0"
   },
   "engines": {
     "node": ">=20"
