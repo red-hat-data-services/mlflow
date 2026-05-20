@@ -115,8 +115,9 @@ httpx==0.28.1 \
     --hash=sha256:6e201f022d2d08ff4ad5e08aaed0ba369851ecc696a4f8ecc59bf30140aa439e
 huey==2.6.0 \
     --hash=sha256:1d7efb529012aa771bbd49251e8616f8e177046f04f01fb67cb6e7fa3aa18f16
-huggingface-hub==1.9.0 \
-    --hash=sha256:fcb002a5b605a41cd496db12ad99777bc75b79d6efa0d964f9b4e56a406bff4a
+huggingface-hub==1.13.0 \
+    --hash=sha256:e942cb50d6a08dd5306688b1ac05bda157fd2fcc88b63dae405f7bd0d3234005 \
+    --hash=sha256:f6df2dac5abe82ce2fe05873d10d5ff47bc677d616a2f521f4ee26db9415d9d0
 idna==3.11 \
     --hash=sha256:f49cfba12c88423b9da3ddee7c73978947fd1d85fdd6f64e4c7dda2f5b3c83a1
 importlib-metadata==8.7.1 \
