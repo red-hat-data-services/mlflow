@@ -14,5 +14,6 @@ pyproject-hooks==1.2.0 \
     --hash=sha256:23f914be06e835a1cac214a3c08daffbdf4d33f685194c76b38b079d8cf1dc62
 setuptools==80.10.2 \
     --hash=sha256:05ef2ee3d34409715c7d0589a3a0c6064a2b117f8489a5b512aef078173d1faf
-wheel==0.46.3 \
-    --hash=sha256:70ed432fbcd9b7d938edc4be7ac57478e1f48a6b165494deb7e6e1c81a34a15c
+wheel==0.47.0 \
+    --hash=sha256:212281cab4dff978f6cedd499cd893e1f620791ca6ff7107cf270781e587eced \
+    --hash=sha256:cc72bd1009ba0cf63922e28f94d9d83b920aa2bb28f798a31d0691b02fa3c9b3
