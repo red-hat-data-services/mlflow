@@ -286,8 +286,9 @@ shellingham==1.5.4 \
     --hash=sha256:1d8fcda93b78926bb91867c60ef1dd91eaccb73695420bdab7c220e2360ca2c6
 six==1.17.0 \
     --hash=sha256:be25bf700236019335048807404f5f0a00b67b20ce1091ccb7bbd42b7beded23
-skops==0.13.0 \
-    --hash=sha256:4ba28e27942f90be09d4e748feb6b8b16f54436009a012211ae217b90a875df7
+skops==0.14.0 \
+    --hash=sha256:60a5db78a9db46ccee2139a0ba13ab5afb1c96f4749b382e75a371291bbe3e36 \
+    --hash=sha256:6c8c0e047f691a3a582c3258943eecafcbfd79c8c7eef66260f3703e363254f0
 smmap==5.0.3 \
     --hash=sha256:b34cb4ffaeaa5939f652d99477f5c176ddba01e7a4e5cb3af4fb4ebe1ac11133
 sniffio==1.3.1 \
