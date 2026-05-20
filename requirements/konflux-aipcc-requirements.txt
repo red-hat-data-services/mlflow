@@ -185,8 +185,9 @@ opentelemetry-sdk==1.40.0 \
     --hash=sha256:787288e7ccd526ecf9f9f7dd29b45afe0f8b34386f892dd6c683e7e6785b89ed
 opentelemetry-semantic-conventions==0.61b0 \
     --hash=sha256:eb02fc7f6486e1317ed0812800ddea373993a512ba1367a9a9bde93934abf5c6
-packaging==26.0 \
-    --hash=sha256:3d88de7604ff5eef52df30fd9803c8cf1565e6da3bd3c8c3f4e7d7f18c11069c
+packaging==26.2 \
+    --hash=sha256:5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e \
+    --hash=sha256:ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661
 pandas==2.3.3 \
     --hash=sha256:60fe73c5610dcc73d2a4694d201ec8dccf70d408afe69f987c61e7f57569b1bb \
     --hash=sha256:720e815713aa8508242b51d62e5c003181c096f19c1137355ae8d933c120faa7 \
