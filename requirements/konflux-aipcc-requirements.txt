@@ -119,8 +119,9 @@ huggingface-hub==1.9.0 \
     --hash=sha256:fcb002a5b605a41cd496db12ad99777bc75b79d6efa0d964f9b4e56a406bff4a
 idna==3.11 \
     --hash=sha256:f49cfba12c88423b9da3ddee7c73978947fd1d85fdd6f64e4c7dda2f5b3c83a1
-importlib-metadata==8.7.1 \
-    --hash=sha256:ce9cf6510da4a20ca70cd44ddf7c4989f2fee60a38822425e0d4c8233634e57a
+importlib-metadata==8.9.0 \
+    --hash=sha256:58850626cef4bd2df100378b0f2aea9724a7b92f10770d547725b047078f99ee \
+    --hash=sha256:e0f761b6ea91ced3b0844c14c9d955224d538105921f8e6754c00f6ca79fba7f
 itsdangerous==2.2.0 \
     --hash=sha256:a008782b560d45a03a08c8d90f4a3a585fe13cc7da1935be07977aa9c3feaf10
 jinja2==3.1.6 \
