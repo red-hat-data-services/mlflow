@@ -179,8 +179,9 @@ openai==2.30.0 \
     --hash=sha256:eb4e3b704d4a3dcd396c8bb5a01e2a7344d21d6e4faa474a7ae1f745f808d455
 opentelemetry-api==1.40.0 \
     --hash=sha256:1ca66d9f79931cfb472251304c457e36fb2b096f2f1df9eedf01a61787fbdded
-opentelemetry-proto==1.40.0 \
-    --hash=sha256:627a684dff73b20f1641acf8a3e83ff6f9d013f063d6989da5b888758820874a
+opentelemetry-proto==1.41.1 \
+    --hash=sha256:0496713b804d127a4147e32849fbaf5683fac8ee98550e8e7679cd706c289720 \
+    --hash=sha256:4b9d2eb631237ea43b80e16c073af438554e32bc7e9e3f8ca4a9582f900020e5
 opentelemetry-sdk==1.40.0 \
     --hash=sha256:787288e7ccd526ecf9f9f7dd29b45afe0f8b34386f892dd6c683e7e6785b89ed
 opentelemetry-semantic-conventions==0.61b0 \
