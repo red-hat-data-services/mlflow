@@ -147,8 +147,9 @@ kubernetes==35.0.0 \
     --hash=sha256:9f8dfdaf76cb2b36b2cff1b2f4e65ab0b329f7ac4b7d48525595c3bceb6ae24f
 litellm==1.75.8 \
     --hash=sha256:385125a5715affb4a580007ee14a68b85f5b6418aa398daec0c2ebe9cbcf290b
-mako==1.3.10 \
-    --hash=sha256:86b0418af606b96f04a00f29edae707f5a056a57dfdf240f300227c772eb0b8d
+Mako==1.3.12 \
+    --hash=sha256:8f61569480282dbf557145ce441e4ba888be453c30989f879f0d652e39f53ea9 \
+    --hash=sha256:9f778e93289bd410bb35daadeb4fc66d95a746f0b75777b942088b7fd7af550a
 markdown-it-py==4.0.0 \
     --hash=sha256:624c197772eb1a233f7ed73f75944710e95584bbcee7bde630c37743a13f139a
 markupsafe==3.0.3 \
