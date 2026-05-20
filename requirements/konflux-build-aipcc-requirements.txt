@@ -6,8 +6,9 @@
 #
 --index-url https://console.redhat.com/api/pypi/public-rhai/rhoai/3.4/cpu-ubi9/simple
 
-build==1.4.2 \
-    --hash=sha256:ef5814e19f805164dd8c5111bd7015bf17da172017ef4a1101f9a1b82cd8b15e
+build==1.5.0 \
+    --hash=sha256:13f3eecb844759ab66efec90ca17639bbf14dc06cb2fdf37a9010322d9c50a6f \
+    --hash=sha256:302c22c3ba2a0fd5f3911918651341ebb3896176cbdec15bd421f80b1afc7647
 packaging==26.0 \
     --hash=sha256:3d88de7604ff5eef52df30fd9803c8cf1565e6da3bd3c8c3f4e7d7f18c11069c
 pyproject-hooks==1.2.0 \
