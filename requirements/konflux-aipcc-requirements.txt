@@ -181,8 +181,9 @@ opentelemetry-api==1.40.0 \
     --hash=sha256:1ca66d9f79931cfb472251304c457e36fb2b096f2f1df9eedf01a61787fbdded
 opentelemetry-proto==1.40.0 \
     --hash=sha256:627a684dff73b20f1641acf8a3e83ff6f9d013f063d6989da5b888758820874a
-opentelemetry-sdk==1.40.0 \
-    --hash=sha256:787288e7ccd526ecf9f9f7dd29b45afe0f8b34386f892dd6c683e7e6785b89ed
+opentelemetry-sdk==1.41.1 \
+    --hash=sha256:724b615e1215b5aeacda0abb8a6a8922c9a1853068948bd0bd225a56d0c792e6 \
+    --hash=sha256:edee379c126c1bce952b0c812b48fe8ff35b30df0eecf17e98afa4d598b7d85d
 opentelemetry-semantic-conventions==0.61b0 \
     --hash=sha256:eb02fc7f6486e1317ed0812800ddea373993a512ba1367a9a9bde93934abf5c6
 packaging==26.0 \
