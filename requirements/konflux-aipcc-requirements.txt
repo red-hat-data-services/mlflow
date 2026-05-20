@@ -117,8 +117,9 @@ huey==2.6.0 \
     --hash=sha256:1d7efb529012aa771bbd49251e8616f8e177046f04f01fb67cb6e7fa3aa18f16
 huggingface-hub==1.9.0 \
     --hash=sha256:fcb002a5b605a41cd496db12ad99777bc75b79d6efa0d964f9b4e56a406bff4a
-idna==3.11 \
-    --hash=sha256:f49cfba12c88423b9da3ddee7c73978947fd1d85fdd6f64e4c7dda2f5b3c83a1
+idna==3.13 \
+    --hash=sha256:585ea8fe5d69b9181ec1afba340451fba6ba764af97026f92a91d4eef164a242 \
+    --hash=sha256:892ea0cde124a99ce773decba204c5552b69c3c67ffd5f232eb7696135bc8bb3
 importlib-metadata==8.7.1 \
     --hash=sha256:ce9cf6510da4a20ca70cd44ddf7c4989f2fee60a38822425e0d4c8233634e57a
 itsdangerous==2.2.0 \
