@@ -325,8 +325,9 @@ tzdata==2026.1 \
     --hash=sha256:f128c653b9ad407a4407350872cf06f6853aafad08fefe595f782660b532f390
 urllib3==2.6.3 \
     --hash=sha256:e0260bcb8dc9a00766b1263632d4cea3d51ce498787c24062ef187f6ce351fdc
-uvicorn==0.44.0 \
-    --hash=sha256:d46d38d194ddc85042efa2187102cfaa6e0c1ca69aa3e3f913c4e7c9a5345470
+uvicorn==0.46.0 \
+    --hash=sha256:bbebbcbed972d162afca128605223022bedd345b7bc7855ce66deb31487a9048 \
+    --hash=sha256:fb9da0926999cc6cb22dc7cd71a94a632f078e6ae47ff683c5c420750fb7413d
 wcwidth==0.6.0 \
     --hash=sha256:6e7d56e6c81b100adfb5386104fe87eb4c407fc287532b22a712de4121193db3
 websocket-client==1.9.0 \
