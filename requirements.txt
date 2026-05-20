@@ -407,7 +407,7 @@ starlette==0.46.2
     #   mcp
 threadpoolctl==3.6.0
     # via scikit-learn
-tiktoken==0.12.0
+tiktoken==0.13.0
     # via skills
 toml==0.10.2
 tomli==2.4.0
