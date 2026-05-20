@@ -175,8 +175,9 @@ numpy==2.4.4 \
     --hash=sha256:fa555792ac23f14c79adb36e1f71532cefd3610b1e51e77258f08e898f754df0
 oauthlib==3.3.1 \
     --hash=sha256:1bf73c8e0aead3761794f6e5b15228bee706cda020facd0df347c145843adf40
-openai==2.30.0 \
-    --hash=sha256:eb4e3b704d4a3dcd396c8bb5a01e2a7344d21d6e4faa474a7ae1f745f808d455
+openai==2.34.0 \
+    --hash=sha256:828b4efcbb126352c2b5eb97d33ae890c92a71ab72511aefc1b7fe64aeccb07b \
+    --hash=sha256:c996a71b1a210f3569844572ad4c609307e978515fb76877cf449b72596e549e
 opentelemetry-api==1.40.0 \
     --hash=sha256:1ca66d9f79931cfb472251304c457e36fb2b096f2f1df9eedf01a61787fbdded
 opentelemetry-proto==1.40.0 \
