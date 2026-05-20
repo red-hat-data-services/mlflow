@@ -81,8 +81,9 @@ frozenlist==1.8.0 \
     --hash=sha256:38fc5ff1cc2847d7b36cc48253868269dfbaabed631c3a71e2d5bcb26cc5ff03 \
     --hash=sha256:8735b812251aed24e97acb3d98c8b98b0a3d6cb98bc47ebc1a744ce9cb93205f \
     --hash=sha256:bacc478cc32f63619aa33aedbe6451fa09904a96808942352c99094c7ea0986d
-fsspec==2026.3.0 \
-    --hash=sha256:ec228d12e40742da7c869a80532b5619cd29b3e7219b8cec5d1afb78f8fc22be
+fsspec==2026.4.0 \
+    --hash=sha256:11ef7bb35dab8a394fde6e608221d5cf3e8499401c249bebaeaad760a1a8dec2 \
+    --hash=sha256:301d8ac70ae90ef3ad05dcf94d6c3754a097f9b5fe4667d2787aa359ec7df7e4
 gitdb==4.0.12 \
     --hash=sha256:be784ee25c084b5e2d0fc901e07f0f2329b33e88ede8a865f0241c14dbfaa810
 gitpython==3.1.46 \
