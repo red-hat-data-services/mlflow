@@ -199,8 +199,9 @@ pillow==12.2.0 \
     --hash=sha256:7c86fb5c7df6c07cafe6f55dadfeb8e8cefb04e32a402b9d7ff05d1cb9823f97
 prettytable==3.17.0 \
     --hash=sha256:bf9d87c7dac13fedbeee55a5e82b3505a78c652abff647791bc43afd562be048
-prometheus-client==0.24.1 \
-    --hash=sha256:ddd59a8bd94e4b6ee5277d933df14a5c593b720ebf2c420d94d47f48bc9daec3
+prometheus-client==0.25.0 \
+    --hash=sha256:5e373b75c31afb3c86f1a52fa1ad470c9aace18082d39ec0d2f918d11cc9ba28 \
+    --hash=sha256:d5aec89e349a6ec230805d0df882f3807f74fd6c1a2fa86864e3c2279059fed1
 propcache==0.4.1 \
     --hash=sha256:1955055eba219e004f89186671c0d61b9055d7c4e6d6c093f0e1ffe0dd022e54 \
     --hash=sha256:2c44e59f67229ce44cd71d778fc1c3c2ada5d98f0e3a383eb65129bbddab6755 \
