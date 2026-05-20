@@ -315,8 +315,9 @@ tokenizers==0.22.2 \
     --hash=sha256:b9f7cca0fb1d65e2c714c7d296cd6a0e82719826af31a67fdaef33289bab3d27
 tqdm==4.67.3 \
     --hash=sha256:1d3926bb32f7a78caef9f43a4563410a764badb0693e981e8db6f29c4038c827
-typer==0.24.1 \
-    --hash=sha256:a1027c8104c1d843ecf4785361278b1d9394e894928417a1c872b7f62b8f61e5
+typer==0.25.1 \
+    --hash=sha256:75caa44ed46a03fb2dab8808753ffacdbfea88495e74c85a28c5eefcf5f39c89 \
+    --hash=sha256:9616eb8853a09ffeabab1698952f33c6f29ffdbceb4eaeecf571880e8d7664cc
 typing-extensions==4.15.0 \
     --hash=sha256:429f20623a355887563afc68041e782f059f26031a5e00e2dd302d37799f672c
 typing-inspection==0.4.2 \
