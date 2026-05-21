@@ -329,7 +329,7 @@ python-dotenv==1.2.1
     # via
     #   mlflow
     #   pydantic-settings
-python-multipart==0.0.22
+python-multipart==0.0.29
     # via mcp
 pytz==2025.2
     # via pandas
