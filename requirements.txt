@@ -308,7 +308,7 @@ pyparsing==3.3.2
     # via matplotlib
 pyproject-hooks==1.2.0
     # via build
-pyspark==4.0.2
+pyspark==4.1.2
 pytest==9.0.2
     # via
     #   pytest-asyncio
