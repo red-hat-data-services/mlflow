@@ -270,7 +270,7 @@ propcache==0.4.1
     # via
     #   aiohttp
     #   yarl
-protobuf==6.33.5
+protobuf==6.33.6
     # via
     #   databricks-sdk
     #   googleapis-common-protos
