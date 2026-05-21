@@ -5572,9 +5572,9 @@ __metadata:
   linkType: hard
 
 "@patternfly/patternfly@npm:^6.4.0":
-  version: 6.4.0
-  resolution: "@patternfly/patternfly@npm:6.4.0"
-  checksum: 10c0/255c22e04a7649c9373790dbc66f97e2f01a121a843d3bc27627596f35296cc7f2228447d5866f63f17bccd36bae24ec68c45e1572778285dea617086d309737
+  version: 6.5.2
+  resolution: "@patternfly/patternfly@npm:6.5.2"
+  checksum: 10c0/39a6d06f831f1783b6003dfc98c028c653485e2cd6d15fbad3199514161e249fdff8519e29145a082a174a1b4cbdd21d1f716ddcd1d5c00abfeaacabca0b2518
   languageName: node
   linkType: hard
 
