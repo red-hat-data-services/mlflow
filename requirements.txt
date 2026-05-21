@@ -348,7 +348,7 @@ referencing==0.36.2
     #   jsonschema-specifications
 regex==2026.1.15
     # via tiktoken
-requests==2.32.5
+requests==2.34.2
     # via
     #   databricks-sdk
     #   docker
