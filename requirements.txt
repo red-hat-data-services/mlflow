@@ -309,7 +309,7 @@ pyparsing==3.3.2
 pyproject-hooks==1.2.0
     # via build
 pyspark==4.0.2
-pytest==9.0.2
+pytest==9.0.3
     # via
     #   pytest-asyncio
     #   pytest-cov
