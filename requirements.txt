@@ -365,7 +365,7 @@ rpds-py==0.30.0
     #   referencing
 rsa==4.9.1
     # via google-auth
-ruff==0.15.0
+ruff==0.15.14
 scikit-learn==1.7.2 ; python_full_version < '3.11'
     # via
     #   mlflow
