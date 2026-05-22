@@ -48,7 +48,7 @@ charset-normalizer==3.4.4
     # via requests
 claude-agent-sdk==0.1.33
     # via skills
-click==8.2.1
+click==8.4.1
     # via
     #   black
     #   flask
