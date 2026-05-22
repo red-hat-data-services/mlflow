@@ -492,9 +492,9 @@ huey==2.5.5 \
     --hash=sha256:82ac73343248c5d7acec04814f952c61f7793e11fd99d26ed9030137d32f912c \
     --hash=sha256:a39010628a9a1a9e91462f9bf33dc243b006a9f21193026ea47ae18949a12581
     # via mlflow (pyproject.toml)
-idna==3.11 \
-    --hash=sha256:771a87f49d9defaf64091e6e6fe9c18d4833f140bd19464795bc32d966ca37ea \
-    --hash=sha256:795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902
+idna==3.16 \
+    --hash=sha256:cc246e3a3f89580c3a951b5ad298ca4638078b2cdd4f115654332b5c26daded5 \
+    --hash=sha256:d7a6da03db833450fca25d2358ac9ff06cd624577a4aea3a596d5c0f77b8e03d
     # via
     #   anyio
     #   requests
