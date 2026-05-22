@@ -389,7 +389,7 @@ six==1.17.0
     # via
     #   kubernetes
     #   python-dateutil
-skops==0.13.0
+skops==0.14.0
     # via mlflow
 smmap==5.0.2
     # via gitdb
