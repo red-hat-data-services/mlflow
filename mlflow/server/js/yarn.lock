@@ -31140,11 +31140,11 @@ __metadata:
   linkType: hard
 
 "redux@npm:^4.0.0, redux@npm:^4.1.1":
-  version: 4.1.2
-  resolution: "redux@npm:4.1.2"
+  version: 4.2.1
+  resolution: "redux@npm:4.2.1"
   dependencies:
     "@babel/runtime": "npm:^7.9.2"
-  checksum: 10c0/3c6af9724bb39ead9d6a7e2bd422f898136d44e0ff3abe8ccafd6be8a6e219ae4f8bea0b154173e42da829979394944ec47a91eea961997eb95d31af60597ebe
+  checksum: 10c0/136d98b3d5dbed1cd6279c8c18a6a74c416db98b8a432a46836bdd668475de6279a2d4fd9d1363f63904e00f0678a8a3e7fa532c897163340baf1e71bb42c742
   languageName: node
   linkType: hard
 
