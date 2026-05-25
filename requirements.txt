@@ -74,7 +74,7 @@ cryptography==46.0.4
     #   pyjwt
 cycler==0.12.1
     # via matplotlib
-databricks-sdk==0.85.0
+databricks-sdk==0.111.0
     # via mlflow
 distlib==0.4.0
     # via virtualenv
