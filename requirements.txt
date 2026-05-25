@@ -380,9 +380,9 @@ cycler==0.12.1 \
     --hash=sha256:85cef7cff222d8644161529808465972e51340599459b8ac3ccbac5a854e0d30 \
     --hash=sha256:88bb128f02ba341da8ef447245a9e138fae777f6a23943da4540077d3601eb1c
     # via matplotlib
-databricks-sdk==0.74.0 \
-    --hash=sha256:321c758c14937ca7ad106d262219a03efaedfd18e2c5a75b3908c882970376ac \
-    --hash=sha256:c04c5ed14bcc5a8df3e630088050adff54bf06dd4adf2ecb6bef6e68e5e545e6
+databricks-sdk==0.111.0 \
+    --hash=sha256:10a50de0709f633b13366522a9750448b0d4831d951a8ae8ee3dd2086fbe8636 \
+    --hash=sha256:d14ba186afd2bea03c7157d2f03e0f861a0b8eff528cfdba926d07b9e20384b8
     # via mlflow (pyproject.toml)
 docker==7.1.0 \
     --hash=sha256:ad8c70e6e3f8926cb8a92619b832b4ea5299e2831c14284663184e200546fa6c \
