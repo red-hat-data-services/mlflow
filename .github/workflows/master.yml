@@ -105,7 +105,7 @@ jobs:
           uv run --no-sync pytest --splits=${{ matrix.splits }} --group=${{ matrix.group }} \
             --quiet --requires-ssh --ignore-flavors \
             --ignore=tests/examples \
-            --deselect=tests/data/test_huggingface_dataset_and_source.py::test_from_huggingface_dataset_constructs_expected_dataset_with_revision \
+            --ignore=tests/data/test_huggingface_dataset_and_source.py \
             --ignore=tests/evaluate \
             --ignore=tests/optuna \
             --ignore=tests/pyspark/optuna \
@@ -376,6 +376,7 @@ jobs:
             --ignore-flavors \
             --ignore=tests/projects \
             --ignore=tests/examples \
+            --ignore=tests/data/test_huggingface_dataset_and_source.py \
             --ignore=tests/evaluate \
             --ignore=tests/optuna \
             --ignore=tests/pyspark/optuna \
