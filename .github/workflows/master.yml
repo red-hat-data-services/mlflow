@@ -282,7 +282,7 @@ jobs:
           # install and the corresponding tests until it is republished.
           uv pip install \
             -r requirements/test-requirements.txt \
-            deepeval ragas 'arize-phoenix-evals<3.0.0' trulens trulens-providers-litellm
+            deepeval ragas 'arize-phoenix-evals<3.0.0' trulens trulens-providers-litellm 'google-adk[gcp]'
       - uses: ./.github/actions/show-versions
       - uses: ./.github/actions/pipdeptree
       - name: Run GenAI Tests (OSS)
