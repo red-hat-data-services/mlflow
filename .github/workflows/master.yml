@@ -287,7 +287,11 @@ jobs:
       - uses: ./.github/actions/pipdeptree
       - name: Run GenAI Tests (OSS)
         run: |
-          uv run --no-sync pytest tests/genai --ignore tests/genai/scorers/guardrails
+          # Ragas scorer tests currently fail during collection on rhoai-3.4
+          # because ragas imports langchain_community.chat_models.vertexai.
+          uv run --no-sync pytest tests/genai \
+            --ignore tests/genai/scorers/guardrails \
+            --ignore tests/genai/scorers/ragas
 
   pyfunc:
     if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
