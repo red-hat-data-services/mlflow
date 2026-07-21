@@ -59,7 +59,8 @@ RUN set -eux; \
         /tmp/dist/mlflow_kubernetes_plugins-*.whl \
         /tmp/dist/prometheus_flask_exporter-*.whl \
         /tmp/dist/psycopg2-*.whl \
-        /tmp/dist/starlette-*.whl && \
+        /tmp/dist/starlette-*.whl \
+        /tmp/dist/pyasn1-*.whl && \
     microdnf clean all && \
     rm -rf /tmp/dist /tmp/konflux-aipcc-requirements.txt
 

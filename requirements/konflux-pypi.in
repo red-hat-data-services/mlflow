@@ -15,3 +15,5 @@ psycopg2
 prometheus-flask-exporter
 # Starlette 1.0.1+ is not yet available on the rhoai/3.4 AIPCC index.
 starlette>=1.0.1,<2
+# pyasn1 0.6.4+ is not yet available on the rhoai/3.4 AIPCC index (CVE-2026-59884).
+pyasn1>=0.6.4
