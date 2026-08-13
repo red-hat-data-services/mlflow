@@ -306,7 +306,12 @@ class SqlRun(Base):
 
     __table_args__ = (
         CheckConstraint(source_type.in_(SourceTypes), name="source_type"),
-        CheckConstraint(status.in_(RunStatusTypes), name="status"),
+        # Left unnamed to match the schema produced by the migration chain: migration
+        # cfd24bdc0731_update_run_status_constraint_with_killed recreates this constraint via
+        # alter_column without a name, so the migrated database stores it unnamed. Naming it here
+        # would make alembic's compare_metadata (which compares named check constraints as of
+        # alembic 1.19) report spurious drift in test_store_generated_schema_matches_base.
+        CheckConstraint(status.in_(RunStatusTypes)),
         CheckConstraint(
             lifecycle_stage.in_(LifecycleStage.view_type_to_stages(ViewType.ALL)),
             name="runs_lifecycle_stage",
