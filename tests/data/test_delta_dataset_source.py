@@ -15,16 +15,22 @@ from mlflow.utils.proto_json_utils import message_to_json
 def spark_session():
     from pyspark.sql import SparkSession
 
-    with (
-        SparkSession.builder.master("local[*]")
-        .config("spark.jars.packages", "io.delta:delta-spark_2.13:4.0.0")
-        .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
-        .config(
-            "spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog"
-        )
-        .getOrCreate()
-    ) as session:
-        yield session
+    try:
+        with (
+            SparkSession.builder.master("local[*]")
+            .config("spark.jars.packages", "io.delta:delta-spark_2.13:4.0.0")
+            .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+            .config(
+                "spark.sql.catalog.spark_catalog",
+                "org.apache.spark.sql.delta.catalog.DeltaCatalog",
+            )
+            .getOrCreate()
+        ) as session:
+            yield session
+    except Exception as e:
+        if "JAVA_GATEWAY_EXITED" in str(e):
+            pytest.skip(f"Spark Java gateway failed to start: {e}")
+        raise
 
 
 def test_delta_dataset_source_from_path(spark_session, tmp_path):

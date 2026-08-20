@@ -32,17 +32,23 @@ def spark_session(tmp_path_factory: pytest.TempPathFactory):
         delta_package = "io.delta:delta-spark_2.12:3.0.0"
 
     tmp_dir = tmp_path_factory.mktemp("spark_tmp")
-    with (
-        SparkSession.builder.master("local[*]")
-        .config("spark.jars.packages", delta_package)
-        .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
-        .config(
-            "spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog"
-        )
-        .config("spark.sql.warehouse.dir", str(tmp_dir))
-        .getOrCreate()
-    ) as session:
-        yield session
+    try:
+        with (
+            SparkSession.builder.master("local[*]")
+            .config("spark.jars.packages", delta_package)
+            .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+            .config(
+                "spark.sql.catalog.spark_catalog",
+                "org.apache.spark.sql.delta.catalog.DeltaCatalog",
+            )
+            .config("spark.sql.warehouse.dir", str(tmp_dir))
+            .getOrCreate()
+        ) as session:
+            yield session
+    except Exception as e:
+        if "JAVA_GATEWAY_EXITED" in str(e):
+            pytest.skip(f"Spark Java gateway failed to start: {e}")
+        raise
 
 
 @pytest.fixture(autouse=True)
