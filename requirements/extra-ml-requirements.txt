@@ -55,7 +55,9 @@ librosa
 ffmpeg
 accelerate
 # Required by mlflow.openai
-openai
+# openai 3.0.0 switched the default HTTP client to HTTPX2 and stopped installing httpx,
+# which breaks genai tests that mock httpx and pyfunc lock tests that assert httpx==.
+openai<3
 tiktoken
 tenacity
 # Required by mlflow.llama_index
