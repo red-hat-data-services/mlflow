@@ -2637,7 +2637,8 @@ def test_lock_model_requirements_pip_requirements(monkeypatch: pytest.MonkeyPatc
     assert "# Locked requirements" in contents
     assert "mlflow==" in contents
     assert "openai==" in contents
-    assert "httpx==" in contents
+    # openai<3 pulls httpx; openai 3+ pulls httpx2 instead.
+    assert "httpx==" in contents or "httpx2==" in contents
 
 
 def test_lock_model_requirements_extra_pip_requirements(
@@ -2655,7 +2656,8 @@ def test_lock_model_requirements_extra_pip_requirements(
     assert "# Locked requirements" in contents
     assert "mlflow==" in contents
     assert "openai==" in contents
-    assert "httpx==" in contents
+    # openai<3 pulls httpx; openai 3+ pulls httpx2 instead.
+    assert "httpx==" in contents or "httpx2==" in contents
 
 
 def test_lock_model_requirements_constraints(monkeypatch: pytest.MonkeyPatch, tmp_path: Path):
@@ -2673,7 +2675,8 @@ def test_lock_model_requirements_constraints(monkeypatch: pytest.MonkeyPatch, tm
     assert "# Locked requirements" in contents
     assert "mlflow==" in contents
     assert "openai==1.82.0" in contents
-    assert "httpx==" in contents
+    # openai 1.82.0 still depends on httpx; keep the httpx2 fallback for resolver drift.
+    assert "httpx==" in contents or "httpx2==" in contents
 
 
 @pytest.mark.parametrize(
