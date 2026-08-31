@@ -5,6 +5,7 @@ This test suite verifies that the experiment ID header functionality works corre
 when using OpenTelemetry clients to send spans to MLflow's OTel endpoint.
 """
 
+import logging
 import shutil
 import time
 from pathlib import Path
@@ -569,7 +570,7 @@ def test_mixed_trace_spans_in_single_request(mlflow_server: str):
     assert span_counts == [2, 1, 2]
 
 
-def test_error_logging_spans(mlflow_server: str):
+def test_error_logging_spans(mlflow_server: str, caplog: pytest.LogCaptureFixture):
     mlflow.set_tracking_uri(mlflow_server)
     experiment = mlflow.set_experiment("otel-error-test")
     experiment_id = experiment.experiment_id
@@ -604,17 +605,19 @@ def test_error_logging_spans(mlflow_server: str):
         else:
             return original_log_spans(self, *args, **kwargs)
 
-    with mock.patch.object(SqlAlchemyStore, "log_spans", mock_log_spans):
+    # Use caplog instead of mocking the OTLP exporter logger: its name and
+    # Logger.error call shape have drifted across OpenTelemetry SDK releases.
+    with (
+        mock.patch.object(SqlAlchemyStore, "log_spans", mock_log_spans),
+        caplog.at_level(logging.ERROR),
+    ):
         for _ in range(2):
             with tracer.start_as_current_span("batch-test-span-0"):
                 pass
 
         span_processor.force_flush()
 
-        # The OTLP HTTP exporter's logger name/call shape has drifted across SDK
-        # releases, so do not assert on exporter log internals. The important
-        # behavior is that the first failed batch does not prevent the second
-        # batch from being stored.
+        assert any(record.levelno == logging.ERROR for record in caplog.records)
 
     traces = mlflow.search_traces(
         experiment_ids=[experiment_id], include_spans=False, return_type="list"

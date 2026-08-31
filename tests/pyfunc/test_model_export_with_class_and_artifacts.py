@@ -2675,8 +2675,7 @@ def test_lock_model_requirements_constraints(monkeypatch: pytest.MonkeyPatch, tm
     assert "# Locked requirements" in contents
     assert "mlflow==" in contents
     assert "openai==1.82.0" in contents
-    # openai 1.82.0 still depends on httpx; keep the httpx2 fallback for resolver drift.
-    assert "httpx==" in contents or "httpx2==" in contents
+    assert "httpx==" in contents
 
 
 @pytest.mark.parametrize(
