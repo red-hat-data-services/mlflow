@@ -98,6 +98,13 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Log in to Red Hat registry
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.6.0
+        with:
+          registry: registry.redhat.io
+          username: ${{ secrets.RH_REGISTRY_USERNAME }}
+          password: ${{ secrets.RH_REGISTRY_PASSWORD }}
+
       - name: Resolve MLflow Dockerfile
         id: dockerfile
         run: |
