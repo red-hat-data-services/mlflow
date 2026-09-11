@@ -17,6 +17,7 @@ from mlflow.environment_variables import (
     MLFLOW_WORKSPACE,
     MLFLOW_WORKSPACE_STORE_URI,
 )
+from mlflow.store.tracking.sqlalchemy_store import SqlAlchemyStore
 from mlflow.utils.os import is_windows
 
 from tests.helper_functions import LOCALHOST, get_safe_port
@@ -68,6 +69,9 @@ def artifacts_server():
         artifacts_destination = os.path.join(tmpdir, "mlartifacts")
         url = f"http://{LOCALHOST}:{port}"
         default_artifact_root = f"{url}/api/2.0/mlflow-artifacts/artifacts"
+        # Initialize the database before launching the server process
+        s = SqlAlchemyStore(backend_store_uri, default_artifact_root)
+        s.engine.dispose()
         process = _launch_server(
             LOCALHOST,
             port,
