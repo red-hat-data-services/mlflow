@@ -69,6 +69,11 @@ durationpy==0.10 \
     --hash=sha256:ce86a86c56333ed4a1c71ad2f1a0138e6a91ad4144ee31223ac0a08eed8486f3
 fastapi==0.136.1 \
     --hash=sha256:2b45dedac6f95202f4b89d2facaf2107401ea473520c2d930982144756dedfa8
+fastuuid==0.14.0 \
+    --hash=sha256:1a4b2536eb27f01f4b3ef70d6e1fa2ac2fe90eeb3d2c311de379e91ab06028a0 \
+    --hash=sha256:54ebb6ac8db73de3e1c231800831ca6e223e4845c4a754543e7628b26aa2d67b \
+    --hash=sha256:b47bdfe743c03aaedfdd7714646ea793cc8739e6ac6df463b09211d2abb497b2 \
+    --hash=sha256:d95db3aad14a915aa47dc4dc3feae43c159106927dfc25ce7b5d855bc738d3d0
 filelock==3.29.0 \
     --hash=sha256:3a6ae7d457963930a40ddbd727d301081abb9b0556cfd05c862c12c2dd94b142
 flask==3.1.3 \
@@ -146,8 +151,8 @@ kiwisolver==1.5.0 \
     --hash=sha256:9c2a60d7b10a02997d29b94aaad133d52bb959d8267a008b7d6c6747e49c50e9
 kubernetes==35.0.0 \
     --hash=sha256:9f8dfdaf76cb2b36b2cff1b2f4e65ab0b329f7ac4b7d48525595c3bceb6ae24f
-litellm==1.75.8 \
-    --hash=sha256:385125a5715affb4a580007ee14a68b85f5b6418aa398daec0c2ebe9cbcf290b
+litellm==1.84.0 \
+    --hash=sha256:0cd97e03255433ec1d9c9e904be7feba14cf1ae94c3a28af3f1fda83c5cafe00
 mako==1.3.12 \
     --hash=sha256:52b1b7dfe924352c9f40ea844442b207be4f2650ad9e00915f7a32e7284a86da
 markdown-it-py==4.0.0 \
