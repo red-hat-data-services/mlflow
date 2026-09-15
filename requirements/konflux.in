@@ -10,3 +10,5 @@ gitpython>=3.1.47
 starlette>=1.3.1,<2
 # pyasn1 0.6.4+ fixes CVE-2026-59884 in the shipped runtime image.
 pyasn1>=0.6.4
+# sqlparse 0.6.0+ fixes CVE-2026-71491 (quadratic CPU in comment grouping).
+sqlparse>=0.6.0,<1
