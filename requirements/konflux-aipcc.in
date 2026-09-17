@@ -39,5 +39,8 @@ pillow>=12.3.0
 # pyasn1 0.6.4+ fixes CVE-2026-59884 (DoS via crafted BER/CER/DER long-form tag IDs).
 pyasn1>=0.6.4
 
-# GitPython 3.1.54+ fixes CVE-2026-73625 (Remote Code Execution via kwarg value smuggling)
-gitpython>=3.1.54
+# Security constraints for shipped runtime dependencies.
+# GitPython 3.1.60+ validates git directory locations before repository operations.
+gitpython>=3.1.60
+# sqlparse 0.6.0+ bounds work while lexing and grouping adversarial SQL.
+sqlparse>=0.6.0
