@@ -78,11 +78,6 @@ ag2<1
 # In dspy 2.6.9, `dspy.__name__` is not 'dspy', but 'dspy.__metadata__',
 # which causes auto-logging tests to fail.
 dspy!=2.6.9
-# Required by mlflow.litellm
-# TODO: litellm>=1.97 references `ChatCompletionReasoningSummaryTextBlock`, which is not present
-# in the latest `openai` release available under the dependency cooldown, breaking
-# `litellm.Message.model_rebuild()`. Remove this pin once a compatible `openai` is available.
-litellm<1.97
 # Required by mlflow.gemini
 google-genai
 # Required by mlflow.groq
