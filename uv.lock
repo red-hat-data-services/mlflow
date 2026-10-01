@@ -16,7 +16,9 @@ exclude-newer-span = "P14D"
 [options.exclude-newer-package]
 torchvision = false
 starlette = false
+gitpython = false
 torch = false
+sqlparse = false
 mlflow-kubernetes-plugins = false
 
 [manifest]
