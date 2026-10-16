@@ -25,6 +25,9 @@ jest.mock('../../workspaces/utils/WorkspaceUtils', () => ({
 }));
 
 jest.mock('../../experiment-tracking/hooks/useServerInfo', () => ({
+  ...jest.requireActual<typeof import('../../experiment-tracking/hooks/useServerInfo')>(
+    '../../experiment-tracking/hooks/useServerInfo',
+  ),
   useWorkspacesEnabled: () => ({ workspacesEnabled: false }),
 }));
 

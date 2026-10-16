@@ -14,6 +14,7 @@ import {
   createAssessment,
   createLoggedModel,
   registerScorer,
+  isGatewayEnabled,
 } from '../utils/mlflowClient';
 
 const {
@@ -36,8 +37,9 @@ test('GenAI observability and evaluation cycle', async ({
   agentVersionsTabPage,
   scorersTabPage,
 }) => {
-  const suffix = process.env.MLFLOW_E2E_SUFFIX;
-  if (!suffix) throw new Error('MLFLOW_E2E_SUFFIX is required');
+  const runSuffix = process.env.MLFLOW_E2E_SUFFIX;
+  if (!runSuffix) throw new Error('MLFLOW_E2E_SUFFIX is required');
+  const suffix = `${runSuffix}-${test.info().retry}`;
   const fullExperimentName = `${experimentName}-${suffix}`;
   const fullDatasetName = `${datasetName}-${suffix}`;
   let experimentId: string | undefined;
@@ -74,9 +76,13 @@ test('GenAI observability and evaluation cycle', async ({
       await registerScorer(experimentId!, `e2e-scorer-${suffix}`, JSON.stringify({ type: 'llm' }));
     });
 
-    await test.step('Verify scorer on Scorers tab', async () => {
+    await test.step('Verify Judges page respects the gateway setting', async () => {
       await scorersTabPage.visit(experimentId!);
-      await scorersTabPage.shouldShowScorer(`e2e-scorer-${suffix}`);
+      if (await isGatewayEnabled()) {
+        await scorersTabPage.shouldShowScorer(`e2e-scorer-${suffix}`);
+      } else {
+        await scorersTabPage.shouldShowDisabledState();
+      }
     });
 
     await test.step('Verify traces on Traces tab', async () => {

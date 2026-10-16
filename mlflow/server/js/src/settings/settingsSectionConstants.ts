@@ -1,3 +1,5 @@
+import { getFeatureEnabledSync, SERVER_FEATURE_KEYS } from '../experiment-tracking/hooks/useServerInfo';
+
 /** URL path segment for Settings > General (`/settings/general`). */
 export const SETTINGS_SECTION_GENERAL = 'general';
 
@@ -17,6 +19,10 @@ export const SETTINGS_PATH_SEGMENTS = [
 export type SettingsPathSegment = (typeof SETTINGS_PATH_SEGMENTS)[number];
 
 export function isSettingsPathSegment(value: string): value is SettingsPathSegment {
+  // ODH: LLM Connections manages AI Gateway secrets, so hide it when the server has the gateway disabled.
+  if (value === SETTINGS_SECTION_LLM_CONNECTIONS && !getFeatureEnabledSync(SERVER_FEATURE_KEYS.GATEWAY)) {
+    return false;
+  }
   return (SETTINGS_PATH_SEGMENTS as readonly string[]).includes(value);
 }
 

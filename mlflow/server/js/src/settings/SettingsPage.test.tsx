@@ -29,6 +29,14 @@ jest.mock('../gateway/pages/ApiKeysPage', () => ({
   ApiKeysPageInner: () => <div data-testid="api-keys-settings-embed" />,
   default: () => null,
 }));
+
+jest.mock('../experiment-tracking/hooks/useServerInfo', () => ({
+  ...jest.requireActual<typeof import('../experiment-tracking/hooks/useServerInfo')>(
+    '../experiment-tracking/hooks/useServerInfo',
+  ),
+  useFeatureEnabled: () => true,
+  getFeatureEnabledSync: () => true,
+}));
 const mockFetchEndpointRaw = jest.mocked(fetchEndpointRaw);
 
 describe('SettingsPage', () => {

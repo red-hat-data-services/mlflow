@@ -10,6 +10,9 @@ import { useWorkspacesEnabled } from '../../experiment-tracking/hooks/useServerI
 // keep these tests provider-free. Cases override the return per-test via
 // ``mockReturnValue`` to exercise both the multi- and single-tenant paths.
 jest.mock('../../experiment-tracking/hooks/useServerInfo', () => ({
+  ...jest.requireActual<typeof import('../../experiment-tracking/hooks/useServerInfo')>(
+    '../../experiment-tracking/hooks/useServerInfo',
+  ),
   useWorkspacesEnabled: jest.fn(),
 }));
 

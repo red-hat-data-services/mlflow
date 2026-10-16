@@ -12,7 +12,9 @@ export class ExperimentsListPage {
   }
 
   findCreateButton(): Locator {
-    return this.page.getByTestId('create-experiment-button');
+    return this.page
+      .getByTestId('create-experiment-button')
+      .or(this.page.getByRole('button', { name: 'Create experiment', exact: true }));
   }
 
   findExperimentLink(name: string): Locator {

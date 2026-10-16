@@ -73,6 +73,8 @@
         justify-content: flex-start !important;
         gap: var(--pf-t--global--spacer--gap--action-to-action--default);
 
+        > button.du-bois-light-btn-primary,
+        > button.du-bois-dark-btn-primary,
         > :has(button.du-bois-light-btn-primary),
         > :has(button.du-bois-dark-btn-primary) {
           order: -1;

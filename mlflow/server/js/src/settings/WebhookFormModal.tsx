@@ -12,6 +12,7 @@ import { FormattedMessage, useIntl } from '@databricks/i18n';
 import { WebhooksApi } from './webhooksApi';
 import type { Webhook, WebhookEvent } from './webhooksApi';
 import { VALID_EVENTS, WEBHOOK_NAME_REGEX, eventKey, eventLabels } from './webhookConstants';
+import { withoutDisabledGatewayWebhookEvents } from '../odh/gateway/gatewayFilters';
 
 interface WebhookFormData {
   name: string;
@@ -37,7 +38,8 @@ const WebhookFormModal = ({ visible, editingWebhook, onClose, onSaved, eventFilt
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  const displayedEvents = eventFilter ? VALID_EVENTS.filter((e) => e.entity === eventFilter) : VALID_EVENTS;
+  const validEvents = withoutDisabledGatewayWebhookEvents(VALID_EVENTS);
+  const displayedEvents = eventFilter ? validEvents.filter((e) => e.entity === eventFilter) : validEvents;
 
   // When filtered to a single event (e.g. budget page), pre-select it for new webhooks
   const defaultEvents =

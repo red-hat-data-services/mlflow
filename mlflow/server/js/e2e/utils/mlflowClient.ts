@@ -1,3 +1,4 @@
+import { randomBytes } from 'node:crypto';
 import { testData } from '../fixtures/testData';
 
 export const BASE_URL = process.env.MLFLOW_E2E_BASE_URL || 'http://localhost:5000';
@@ -44,6 +45,11 @@ export async function checkHealth(): Promise<boolean> {
   }
 }
 
+export async function isGatewayEnabled(): Promise<boolean> {
+  const data = await apiRequest('GET', 'server-info', {}, '3.0');
+  return data.features_enabled.gateway;
+}
+
 // Workspaces
 export async function createWorkspace(name: string): Promise<void> {
   const res = await fetch(`${BASE_URL}/api/3.0/mlflow/workspaces`, {
@@ -51,14 +57,17 @@ export async function createWorkspace(name: string): Promise<void> {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name }),
   });
-  if (!res.ok && res.status !== 409 && res.status !== 400) {
+  if (!res.ok && res.status !== 409) {
     const text = await res.text();
+    if (res.status === 400 && JSON.parse(text).error_code === 'RESOURCE_ALREADY_EXISTS') {
+      return;
+    }
     throw new Error(`POST workspaces failed (${res.status}): ${text}`);
   }
 }
 
 export async function deleteWorkspace(name: string): Promise<void> {
-  const res = await fetch(`${BASE_URL}/api/3.0/mlflow/workspaces/${encodeURIComponent(name)}`, {
+  const res = await fetch(`${BASE_URL}/api/3.0/mlflow/workspaces/${encodeURIComponent(name)}?mode=CASCADE`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
   });
@@ -79,7 +88,7 @@ export async function deleteExperiment(experimentId: string): Promise<void> {
 }
 
 export async function searchExperiments(): Promise<{ experiment_id: string; name: string }[]> {
-  const data = await apiRequest('GET', 'experiments/search');
+  const data = await apiRequest('GET', 'experiments/search?max_results=1000');
   return (data.experiments || []).map((e: { experiment_id: string; name: string }) => ({
     experiment_id: e.experiment_id,
     name: e.name,
@@ -177,6 +186,41 @@ export async function seedTrace(
   const now = Date.now();
   const requestId = await startTrace(experimentId, now, input, tags);
   await endTrace(requestId, now + 500, output);
+  const data = await apiRequest('GET', `traces/${requestId}/info`);
+  const artifactUri = data.trace_info.tags.find(
+    (tag: { key: string; value: string }) => tag.key === 'mlflow.artifactLocation',
+  )?.value;
+  if (!artifactUri?.startsWith('mlflow-artifacts:')) {
+    throw new Error(`Expected a proxied trace artifact URI, got ${artifactUri}`);
+  }
+  const artifactPath = new URL(artifactUri).pathname;
+  const res = await fetch(`${BASE_URL}/api/2.0/mlflow-artifacts/artifacts${artifactPath}/traces.json`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', [WORKSPACE_HEADER]: E2E_WORKSPACE },
+    body: JSON.stringify({
+      spans: [
+        {
+          name: 'e2e-trace',
+          context: { trace_id: `0x${requestId}`, span_id: `0x${randomBytes(8).toString('hex')}` },
+          parent_id: null,
+          start_time: now * 1_000_000,
+          end_time: (now + 500) * 1_000_000,
+          status_code: 'OK',
+          status_message: '',
+          attributes: {
+            'mlflow.traceRequestId': JSON.stringify(requestId),
+            'mlflow.spanType': JSON.stringify('CHAIN'),
+            'mlflow.spanInputs': JSON.stringify({ input }),
+            'mlflow.spanOutputs': JSON.stringify({ output }),
+          },
+          events: [],
+        },
+      ],
+    }),
+  });
+  if (!res.ok) {
+    throw new Error(`Trace artifact upload failed (${res.status}): ${await res.text()}`);
+  }
   return requestId;
 }
 

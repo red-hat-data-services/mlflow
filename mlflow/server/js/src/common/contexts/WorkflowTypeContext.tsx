@@ -44,9 +44,10 @@ const DEFAULT_WORKFLOW_TYPE = WorkflowType.GENAI;
 interface WorkflowTypeContextType {
   workflowType: WorkflowType;
   setWorkflowType: (workflowType: WorkflowType) => void;
+  isLocked?: boolean;
 }
 
-const WorkflowTypeContext = createContext<WorkflowTypeContextType>({
+export const WorkflowTypeContext = createContext<WorkflowTypeContextType>({
   workflowType: DEFAULT_WORKFLOW_TYPE,
   setWorkflowType: () => {},
 });

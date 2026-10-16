@@ -102,7 +102,7 @@ export const ExperimentViewHeader = React.memo(
     const showDocsLink = false;
 
     const { tabName: activeTabByRoute } = useGetExperimentPageActiveTabByRoute();
-    const { workflowType, setWorkflowType } = useWorkflowType();
+    const { workflowType, setWorkflowType, isLocked: isWorkflowTypeLocked } = useWorkflowType();
     const enableWorkflowBasedNavigation = shouldEnableWorkflowBasedNavigation();
     const showExperimentPageSideNav = !enableWorkflowBasedNavigation || isEmbedded;
     const tabDisplayName = activeTabByRoute ? getTabDisplayName(activeTabByRoute, workflowType) : undefined;
@@ -297,7 +297,7 @@ export const ExperimentViewHeader = React.memo(
               </div>
             )}
             {getInfoTooltip()}
-            {isEmbedded && enableWorkflowBasedNavigation && (
+            {isEmbedded && enableWorkflowBasedNavigation && !isWorkflowTypeLocked && (
               <MlflowSidebarWorkflowSwitch workflowType={workflowType} setWorkflowType={setWorkflowType} />
             )}
           </div>

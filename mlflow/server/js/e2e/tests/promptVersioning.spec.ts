@@ -6,8 +6,9 @@ import { deleteRegisteredModel } from '../utils/mlflowClient';
 const { promptName, promptTemplate, promptTemplateV2 } = testData.promptVersioning;
 
 test('Prompt versioning', async ({ page, promptsPage, promptDetailPage }) => {
-  const suffix = process.env.MLFLOW_E2E_SUFFIX;
-  if (!suffix) throw new Error('MLFLOW_E2E_SUFFIX is required');
+  const runSuffix = process.env.MLFLOW_E2E_SUFFIX;
+  if (!runSuffix) throw new Error('MLFLOW_E2E_SUFFIX is required');
+  const suffix = `${runSuffix}-${test.info().retry}`;
   const fullPromptName = `${promptName}-${suffix}`;
 
   try {

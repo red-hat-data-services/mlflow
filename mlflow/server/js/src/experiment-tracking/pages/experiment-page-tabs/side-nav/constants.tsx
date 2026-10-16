@@ -15,11 +15,9 @@ import {
   UserGroupIcon,
 } from '@databricks/design-system';
 import { FormattedMessage } from 'react-intl';
-import {
-  enableScorersUI,
-  shouldEnableAIGateway,
-  shouldEnableExperimentOverviewTab,
-} from '@mlflow/mlflow/src/common/utils/FeatureUtils';
+import { shouldEnableExperimentOverviewTab } from '@mlflow/mlflow/src/common/utils/FeatureUtils';
+import { SERVER_FEATURE_KEYS, useFeatureEnabled } from '../../../hooks/useServerInfo';
+import { isIntegrated } from '@mlflow/mlflow/src/common/utils/embedUtils';
 
 export const FULL_WIDTH_CLASS_NAME = 'mlflow-experiment-page-side-nav-full';
 export const COLLAPSED_CLASS_NAME = 'mlflow-experiment-page-side-nav-collapsed';
@@ -98,32 +96,32 @@ const ExperimentPageSideNavGenAIConfig = {
     },
   ],
   'prompts-versions': [
-    ...(shouldEnableAIGateway()
-      ? [
-          {
-            label: (
-              <FormattedMessage
-                defaultMessage="Playground"
-                description="Label for the playground tab in the MLflow experiment navbar"
-              />
-            ),
-            icon: <PlayIcon />,
-            tabName: ExperimentPageTabName.Playground,
-            componentId: 'mlflow.experiment-side-nav.genai.playground',
-          },
-        ]
-      : []),
     {
       label: (
         <FormattedMessage
-          defaultMessage="Prompts"
-          description="Label for the prompts tab in the MLflow experiment navbar"
+          defaultMessage="Playground"
+          description="Label for the playground tab in the MLflow experiment navbar"
         />
       ),
-      icon: <TextBoxIcon />,
-      tabName: ExperimentPageTabName.Prompts,
-      componentId: 'mlflow.experiment-side-nav.genai.prompts',
+      icon: <PlayIcon />,
+      tabName: ExperimentPageTabName.Playground,
+      componentId: 'mlflow.experiment-side-nav.genai.playground',
     },
+    ...(isIntegrated()
+      ? []
+      : [
+          {
+            label: (
+              <FormattedMessage
+                defaultMessage="Prompts"
+                description="Label for the prompts tab in the MLflow experiment navbar"
+              />
+            ),
+            icon: <TextBoxIcon />,
+            tabName: ExperimentPageTabName.Prompts,
+            componentId: 'mlflow.experiment-side-nav.genai.prompts',
+          },
+        ]),
     {
       label: (
         <FormattedMessage
@@ -193,10 +191,15 @@ export const getExperimentPageSideNavSectionLabel = (
         />
       );
     case 'prompts-versions':
-      return (
+      return items.some((item) => item.tabName === ExperimentPageTabName.Prompts) ? (
         <FormattedMessage
           defaultMessage="Prompts & versions"
           description="Label for the versions section in the MLflow experiment navbar"
+        />
+      ) : (
+        <FormattedMessage
+          defaultMessage="Versions"
+          description="Label for the versions section in the MLflow experiment navbar when the prompts tab is not shown"
         />
       );
     default:
@@ -214,6 +217,8 @@ export const useExperimentPageSideNavConfig = ({
   hasTrainingRuns?: boolean;
   hasV4Location?: boolean;
 }): ExperimentPageSideNavConfig => {
+  const gatewayEnabled = useFeatureEnabled(SERVER_FEATURE_KEYS.GATEWAY);
+
   if (
     experimentKind === ExperimentKind.GENAI_DEVELOPMENT ||
     experimentKind === ExperimentKind.GENAI_DEVELOPMENT_INFERRED
@@ -252,7 +257,13 @@ export const useExperimentPageSideNavConfig = ({
           : []),
       ],
       ...ExperimentPageSideNavGenAIConfig,
-      evaluation: enableScorersUI()
+      'prompts-versions': gatewayEnabled
+        ? ExperimentPageSideNavGenAIConfig['prompts-versions']
+        : ExperimentPageSideNavGenAIConfig['prompts-versions'].filter(
+            ({ tabName }) => tabName !== ExperimentPageTabName.Playground,
+          ),
+      // Scorers remain coupled to Gateway until those dependencies are decoupled.
+      evaluation: gatewayEnabled
         ? [
             {
               label: (

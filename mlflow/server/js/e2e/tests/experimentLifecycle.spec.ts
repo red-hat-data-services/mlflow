@@ -16,8 +16,9 @@ test('Model training, registry, and lifecycle', async ({
   modelVersionDetailPage,
   loggedModelDetailPage,
 }) => {
-  const suffix = process.env.MLFLOW_E2E_SUFFIX;
-  if (!suffix) throw new Error('MLFLOW_E2E_SUFFIX is required');
+  const runSuffix = process.env.MLFLOW_E2E_SUFFIX;
+  if (!runSuffix) throw new Error('MLFLOW_E2E_SUFFIX is required');
+  const suffix = `${runSuffix}-${test.info().retry}`;
   const fullExperimentName = `${experimentName}-${suffix}`;
   const fullModelName = `${modelName}-${suffix}`;
   let experimentId: string | undefined;

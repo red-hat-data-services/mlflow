@@ -29,7 +29,7 @@ import { IssuesCell } from './IssuesCell';
 import { LoggedModelCell } from './LoggedModelCell';
 import { NullCell } from './NullCell';
 import { RunName } from './RunName';
-import { Link, generatePath } from '../utils/RoutingUtils';
+import { Link, createMLflowRoutePath, generatePath } from '../utils/RoutingUtils';
 import { SessionIdLinkWrapper } from './SessionIdLinkWrapper';
 import { SourceCellRenderer } from './Source/SourceRenderer';
 import { StackedComponents } from './StackedComponents';
@@ -1070,7 +1070,7 @@ export const traceInfoCellRenderer = (
     );
   } else if (colId === LINKED_PROMPTS_COLUMN_ID) {
     const PROMPT_VERSION_QUERY_PARAM = 'promptVersion';
-    const PROMPT_PATH = '/experiments/:experimentId/prompts/:promptName';
+    const PROMPT_PATH = createMLflowRoutePath('/experiments/:experimentId/prompts/:promptName');
 
     const formatPrompts = (promptsJson: string | undefined, traceExperimentId: string | undefined) => {
       if (!promptsJson) return null;

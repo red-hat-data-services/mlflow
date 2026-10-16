@@ -19,11 +19,11 @@ export class TracesTabPage {
   }
 
   async shouldNotShowTrace(text: string) {
-    await expect(this.page.getByText(text, { exact: true })).not.toBeVisible({ timeout: Timeout.long });
+    await expect(this.page.getByText(text)).not.toBeVisible({ timeout: Timeout.long });
   }
 
   async clickTrace(text: string) {
-    await this.page.getByText(text, { exact: true }).click();
+    await this.page.getByText(text).click();
   }
 
   async shouldShowDrawer() {
@@ -142,5 +142,12 @@ export class ScorersTabPage {
 
   async shouldShowScorer(name: string) {
     await expect(this.findScorerCard(name)).toBeVisible({ timeout: Timeout.medium });
+  }
+
+  async shouldShowDisabledState() {
+    await expect(this.page.getByRole('heading', { name: 'Create and manage judges' })).toBeVisible({
+      timeout: Timeout.medium,
+    });
+    await expect(this.page.getByRole('button', { name: 'New LLM judge' })).not.toBeVisible();
   }
 }

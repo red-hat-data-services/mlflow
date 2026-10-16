@@ -18,7 +18,7 @@ import { useIntl, FormattedMessage } from '@databricks/i18n';
 import { useReactTable_unverifiedWithReact18 as useReactTable } from '../../react-table/useReactTable';
 import { CodeSnippet } from '../../snippet/CodeSnippet';
 
-import { Link, generatePath } from '../RoutingUtils';
+import { Link, createMLflowRoutePath, generatePath } from '../RoutingUtils';
 
 const PROMPT_VERSION_QUERY_PARAM = 'promptVersion';
 
@@ -54,7 +54,7 @@ const PromptNameCellRenderer: ColumnDef<LinkedPromptsRow>['cell'] = ({ row }) =>
   const { experimentId, name, version } = row.original ?? {};
 
   // no /ml/ prefix for OSS
-  const path = '/experiments/:experimentId/prompts/:promptName';
+  const path = createMLflowRoutePath('/experiments/:experimentId/prompts/:promptName');
   const baseRoute = generatePath(path, {
     experimentId,
     promptName: name,

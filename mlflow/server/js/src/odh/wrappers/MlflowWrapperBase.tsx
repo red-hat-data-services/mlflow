@@ -20,16 +20,12 @@ import { BrowserRouter, MemoryRouter, useSearchParams } from '../../common/utils
 import { ApolloProvider } from '@mlflow/mlflow/src/common/utils/graphQLHooks';
 import { extractWorkspaceFromSearchParams, setActiveWorkspace } from '../../workspaces/utils/WorkspaceUtils';
 
-// CSS required by MLflow components. In standalone mode these are loaded by
-// app.tsx; in federated mode we must import them here since app.tsx is not
-// in the bundle.
-import 'font-awesome/css/font-awesome.css';
-import '@databricks/design-system/dist/index.css';
-import '@databricks/design-system/dist/index-dark.css';
+import './federatedGlobalStyles';
 
 import { RawIntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
-import { QueryClient, QueryClientProvider } from '@mlflow/mlflow/src/common/utils/reactQueryHooks';
+import { QueryClientProvider } from '@mlflow/mlflow/src/common/utils/reactQueryHooks';
+import { createMlflowQueryClient } from '@mlflow/mlflow/src/shared/web-shared/query-client/createMlflowQueryClient';
 import {
   DesignSystemProvider,
   DesignSystemThemeProvider,
@@ -47,8 +43,11 @@ import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 import { telemetryClient } from '../../telemetry';
 import { useMLflowDarkTheme } from '../../common/hooks/useMLflowDarkTheme';
 import { useEmbeddedLinkInterceptor } from '../../common/hooks/useEmbeddedLinkInterceptor';
-import { WorkflowTypeProvider } from '../../common/contexts/WorkflowTypeContext';
+import { HostWorkflowTypeProvider } from '../contexts/ForcedWorkflowTypeProvider';
+import type { WorkflowType } from '../../common/contexts/WorkflowTypeContext';
 import AppErrorBoundary from '../../common/components/error-boundaries/AppErrorBoundary';
+import { FederatedPortalContainerContext } from '../utils/portalContainer';
+import { ServerInfoGate } from './ServerInfoGate';
 
 export interface MlflowFederatedShellProps {
   /** Required when using BrowserRouter (page mode). Ignored in MemoryRouter mode. */
@@ -62,6 +61,7 @@ export interface MlflowFederatedShellProps {
    * the initial route path matching the internal route structure.
    */
   memoryRouterEntries?: string[];
+  workflowType?: WorkflowType;
 }
 
 const FEDERATED_PORTAL_CONTAINER_ATTR = 'data-mlflow-federated-portal-container';
@@ -100,6 +100,7 @@ const MlflowWrapperBase: React.FC<MlflowFederatedShellProps> = ({
   breadcrumbReporter,
   children,
   memoryRouterEntries,
+  workflowType,
 }) => {
   const portalContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -136,7 +137,7 @@ const MlflowWrapperBase: React.FC<MlflowFederatedShellProps> = ({
 
   const intl = useI18nInit();
   const apolloClient = useMemo(() => createApolloClient(), []);
-  const queryClient = useMemo(() => new QueryClient(), []);
+  const queryClient = useMemo(() => createMlflowQueryClient(), []);
   const [isDarkTheme, setIsDarkTheme] = useMLflowDarkTheme();
   const getPopupContainer = useCallback(() => portalContainerRef.current ?? document.body, []);
   const logObservabilityEvent = useCallback((event: any) => {
@@ -149,6 +150,35 @@ const MlflowWrapperBase: React.FC<MlflowFederatedShellProps> = ({
 
   if (!intl) return <LegacySkeleton />;
 
+  const gatedChildren = (
+    <ServerInfoGate>
+      <React.Suspense fallback={<LegacySkeleton />}>{children}</React.Suspense>
+    </ServerInfoGate>
+  );
+
+  const routedContent = (
+    <AppErrorBoundary>
+      <EmotionThemeProvider theme={PATTERN_FLY_TOKEN_TRANSLATION}>
+        <DarkThemeProvider setIsDarkTheme={setIsDarkTheme}>
+          <QueryClientProvider client={queryClient}>
+            <ServerInfoProvider>
+              <HostWorkflowTypeProvider workflowType={workflowType}>
+                {memoryRouterEntries ? (
+                  gatedChildren
+                ) : (
+                  <WorkspaceSync>
+                    {breadcrumbReporter}
+                    {gatedChildren}
+                  </WorkspaceSync>
+                )}
+              </HostWorkflowTypeProvider>
+            </ServerInfoProvider>
+          </QueryClientProvider>
+        </DarkThemeProvider>
+      </EmotionThemeProvider>
+    </AppErrorBoundary>
+  );
+
   return (
     <div className={`mlflow-federated pf-shell-root${isDarkTheme ? ` ${DARK_MODE_CLASS_NAME}` : ''}`}>
       <ModularArchContextProvider config={modularArchConfig}>
@@ -158,32 +188,17 @@ const MlflowWrapperBase: React.FC<MlflowFederatedShellProps> = ({
               <DesignSystemEventProvider callback={logObservabilityEvent}>
                 <ThemeProvider isDarkTheme={isDarkTheme}>
                   <DesignSystemProvider getPopupContainer={getPopupContainer}>
-                    <AppErrorBoundary>
-                      <EmotionThemeProvider theme={PATTERN_FLY_TOKEN_TRANSLATION}>
-                        <DarkThemeProvider setIsDarkTheme={setIsDarkTheme}>
-                          <QueryClientProvider client={queryClient}>
-                            <ServerInfoProvider>
-                              {memoryRouterEntries ? (
-                                <MemoryRouter initialEntries={memoryRouterEntries}>
-                                  <WorkflowTypeProvider>
-                                    <React.Suspense fallback={<LegacySkeleton />}>{children}</React.Suspense>
-                                  </WorkflowTypeProvider>
-                                </MemoryRouter>
-                              ) : (
-                                <BrowserRouter basename={basename}>
-                                  <WorkflowTypeProvider>
-                                    <WorkspaceSync>
-                                      {breadcrumbReporter}
-                                      <React.Suspense fallback={<LegacySkeleton />}>{children}</React.Suspense>
-                                    </WorkspaceSync>
-                                  </WorkflowTypeProvider>
-                                </BrowserRouter>
-                              )}
-                            </ServerInfoProvider>
-                          </QueryClientProvider>
-                        </DarkThemeProvider>
-                      </EmotionThemeProvider>
-                    </AppErrorBoundary>
+                    <FederatedPortalContainerContext.Provider value={getPopupContainer}>
+                      {/*
+                       * AppErrorBoundary renders the global notification holder. Keep it under
+                       * MLflow's router so notification content can safely use v6 routing context.
+                       */}
+                      {memoryRouterEntries ? (
+                        <MemoryRouter initialEntries={memoryRouterEntries}>{routedContent}</MemoryRouter>
+                      ) : (
+                        <BrowserRouter basename={basename}>{routedContent}</BrowserRouter>
+                      )}
+                    </FederatedPortalContainerContext.Provider>
                   </DesignSystemProvider>
                 </ThemeProvider>
               </DesignSystemEventProvider>

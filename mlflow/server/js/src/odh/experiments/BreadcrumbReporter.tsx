@@ -13,16 +13,18 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation, matchPath } from '../../common/utils/RoutingUtils';
 import { useSelector } from 'react-redux';
 import { useQueryClient } from '@databricks/web-shared/query-client';
+import { WorkflowType } from '../../common/contexts/WorkflowTypeContext';
 
 import type { BreadcrumbSegment } from '../const';
+import { isExpId } from './utils';
 
 interface BreadcrumbReporterProps {
+  workflowType?: WorkflowType;
   onBreadcrumbChange?: (segments: BreadcrumbSegment[]) => void;
 }
 
 const EXPERIMENTS_CRUMB: BreadcrumbSegment = { label: 'Experiments', path: '/' };
-
-const isExpId = (id: string | undefined) => Boolean(id && /^\d+$/.test(id));
+const AGENT_OBSERVABILITY_CRUMB: BreadcrumbSegment = { label: 'Agent observability', path: '/' };
 
 /**
  * Try to resolve an experiment name from the Redux store.
@@ -117,6 +119,7 @@ const buildSegments = (
   experimentName: string | undefined,
   runName: string | undefined,
   loggedModelName: string | undefined,
+  rootCrumb: BreadcrumbSegment,
 ): BreadcrumbSegment[] => {
   // Experiment list / index — no breadcrumbs
   if (pathname === '/' || pathname === '') {
@@ -130,7 +133,7 @@ const buildSegments = (
     const expLabel = experimentName || `Experiment ${experimentId}`;
     const rLabel = runName || runUuid;
     return [
-      EXPERIMENTS_CRUMB,
+      rootCrumb,
       { label: expLabel, path: `/${experimentId}` },
       { label: rLabel, path: `/${experimentId}/runs/${runUuid}` },
     ];
@@ -148,7 +151,7 @@ const buildSegments = (
     const expLabel = experimentName || `Experiment ${experimentId}`;
     const mLabel = loggedModelName || loggedModelId;
     return [
-      EXPERIMENTS_CRUMB,
+      rootCrumb,
       { label: expLabel, path: `/${experimentId}` },
       { label: mLabel, path: `/${experimentId}/models/${loggedModelId}` },
     ];
@@ -159,7 +162,7 @@ const buildSegments = (
   if (expMatch && isExpId(expMatch.params.experimentId)) {
     const { experimentId } = expMatch.params as { experimentId: string };
     const expLabel = experimentName || `Experiment ${experimentId}`;
-    return [EXPERIMENTS_CRUMB, { label: expLabel, path: `/${experimentId}` }];
+    return [rootCrumb, { label: expLabel, path: `/${experimentId}` }];
   }
 
   // Direct run page (no experiment context): /runs/:runUuid
@@ -167,7 +170,7 @@ const buildSegments = (
   if (directRunMatch) {
     const { runUuid } = directRunMatch.params as { runUuid: string };
     const rLabel = runName || runUuid;
-    return [EXPERIMENTS_CRUMB, { label: rLabel, path: `/runs/${runUuid}` }];
+    return [rootCrumb, { label: rLabel, path: `/runs/${runUuid}` }];
   }
 
   // Compare runs — query params contain the source experiment(s).
@@ -176,27 +179,27 @@ const buildSegments = (
     if (expIds.length === 1) {
       const expLabel = experimentName || `Experiment ${expIds[0]}`;
       return [
-        EXPERIMENTS_CRUMB,
+        rootCrumb,
         { label: expLabel, path: `/${expIds[0]}` },
         { label: 'Compare Runs', path: `${pathname}${search}` },
       ];
     }
     if (expIds.length > 1) {
       return [
-        EXPERIMENTS_CRUMB,
+        rootCrumb,
         { label: 'Compare Experiments', path: `/compare-experiments/s?experiments=${JSON.stringify(expIds)}` },
         { label: 'Compare Runs', path: `${pathname}${search}` },
       ];
     }
-    return [EXPERIMENTS_CRUMB, { label: 'Compare Runs', path: `${pathname}${search}` }];
+    return [rootCrumb, { label: 'Compare Runs', path: `${pathname}${search}` }];
   }
   if (matchPath('/compare-experiments/:searchString', pathname)) {
-    return [EXPERIMENTS_CRUMB, { label: 'Compare Experiments', path: `${pathname}${search}` }];
+    return [rootCrumb, { label: 'Compare Experiments', path: `${pathname}${search}` }];
   }
 
   // Metric
   if (matchPath('/metric/*', pathname)) {
-    return [EXPERIMENTS_CRUMB, { label: 'Metric', path: pathname }];
+    return [rootCrumb, { label: 'Metric', path: pathname }];
   }
 
   // Top-level prompts
@@ -216,8 +219,9 @@ const buildSegments = (
  * Renders nothing. Watches route changes and calls onBreadcrumbChange
  * with structured breadcrumb segments.
  */
-export const BreadcrumbReporter: React.FC<BreadcrumbReporterProps> = ({ onBreadcrumbChange }) => {
+export const BreadcrumbReporter: React.FC<BreadcrumbReporterProps> = ({ workflowType, onBreadcrumbChange }) => {
   const { pathname, search } = useLocation();
+  const rootCrumb = workflowType === WorkflowType.GENAI ? AGENT_OBSERVABILITY_CRUMB : EXPERIMENTS_CRUMB;
 
   // Extract IDs from the pathname for entity name lookups
   const expMatch = matchPath('/:experimentId/*', pathname);
@@ -254,7 +258,7 @@ export const BreadcrumbReporter: React.FC<BreadcrumbReporterProps> = ({ onBreadc
     if (!onBreadcrumbChange) return;
     if (isWaitingForNames) return;
 
-    const segments = buildSegments(pathname, search, experimentName, runName, loggedModelName);
+    const segments = buildSegments(pathname, search, experimentName, runName, loggedModelName, rootCrumb);
     const json = JSON.stringify(segments);
 
     // Only call back when segments actually change
@@ -262,7 +266,7 @@ export const BreadcrumbReporter: React.FC<BreadcrumbReporterProps> = ({ onBreadc
       prevJsonRef.current = json;
       onBreadcrumbChange(segments);
     }
-  }, [pathname, search, experimentName, runName, loggedModelName, onBreadcrumbChange, isWaitingForNames]);
+  }, [pathname, search, experimentName, runName, loggedModelName, rootCrumb, onBreadcrumbChange, isWaitingForNames]);
 
   return null;
 };

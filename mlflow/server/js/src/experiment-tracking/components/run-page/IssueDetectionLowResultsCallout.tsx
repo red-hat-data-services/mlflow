@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { useNavigate, useParams } from '../../../common/utils/RoutingUtils';
 import Routes from '../../routes';
 import { ExperimentPageTabName } from '../../constants';
+import { shouldEnableIssueDetection } from '../../../common/utils/FeatureUtils';
 
 const LOW_TRACE_COUNT_WARNING_THRESHOLD = 30;
 const USER_FEEDBACK_DOCS_URL = 'https://mlflow.org/docs/latest/genai/tracing/collect-user-feedback/';
@@ -112,21 +113,23 @@ export const IssueDetectionLowResultsCallout = ({
               />
             </li>
           </ul>
-          <Button
-            componentId="mlflow.traces.issue-detection.low-results-callout.run-again"
-            data-testid="low-results-run-again"
-            size="small"
-            onClick={() => {
-              if (experimentId) {
-                navigate(`${Routes.getExperimentPageTracesTabRoute(experimentId)}?detectIssues=true`);
-              }
-            }}
-          >
-            <FormattedMessage
-              defaultMessage="Adjust and run again"
-              description="Button to adjust issue detection settings and run from the low-results callout"
-            />
-          </Button>
+          {shouldEnableIssueDetection() && (
+            <Button
+              componentId="mlflow.traces.issue-detection.low-results-callout.run-again"
+              data-testid="low-results-run-again"
+              size="small"
+              onClick={() => {
+                if (experimentId) {
+                  navigate(`${Routes.getExperimentPageTracesTabRoute(experimentId)}?detectIssues=true`);
+                }
+              }}
+            >
+              <FormattedMessage
+                defaultMessage="Adjust and run again"
+                description="Button to adjust issue detection settings and run from the low-results callout"
+              />
+            </Button>
+          )}
         </div>
       }
     />

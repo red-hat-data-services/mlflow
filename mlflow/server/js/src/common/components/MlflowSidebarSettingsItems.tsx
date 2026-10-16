@@ -5,6 +5,7 @@ import { matchPath, useSearchParams } from '../utils/RoutingUtils';
 import type { Location } from '../utils/RoutingUtils';
 import { MlflowSidebarLink } from './MlflowSidebarLink';
 import {
+  isSettingsPathSegment,
   SETTINGS_RETURN_TO_PARAM,
   SETTINGS_SECTION_GENERAL,
   SETTINGS_SECTION_LLM_CONNECTIONS,
@@ -68,15 +69,17 @@ export const MlflowSidebarSettingsItems = ({ collapsed }: { collapsed: boolean }
       >
         <FormattedMessage defaultMessage="General" description="Sidebar link: Settings > General" />
       </MlflowSidebarLink>
-      <MlflowSidebarLink
-        css={{ paddingLeft: collapsed ? undefined : theme.spacing.lg }}
-        to={sectionTo(SETTINGS_SECTION_LLM_CONNECTIONS)}
-        componentId="mlflow.sidebar.settings_llm_connections_link"
-        isActive={matchSettingsSection(SETTINGS_SECTION_LLM_CONNECTIONS)}
-        collapsed={collapsed}
-      >
-        <FormattedMessage defaultMessage="LLM Connections" description="Sidebar link: Settings > LLM Connections" />
-      </MlflowSidebarLink>
+      {isSettingsPathSegment(SETTINGS_SECTION_LLM_CONNECTIONS) && (
+        <MlflowSidebarLink
+          css={{ paddingLeft: collapsed ? undefined : theme.spacing.lg }}
+          to={sectionTo(SETTINGS_SECTION_LLM_CONNECTIONS)}
+          componentId="mlflow.sidebar.settings_llm_connections_link"
+          isActive={matchSettingsSection(SETTINGS_SECTION_LLM_CONNECTIONS)}
+          collapsed={collapsed}
+        >
+          <FormattedMessage defaultMessage="LLM Connections" description="Sidebar link: Settings > LLM Connections" />
+        </MlflowSidebarLink>
+      )}
       <MlflowSidebarLink
         css={{ paddingLeft: collapsed ? undefined : theme.spacing.lg }}
         to={sectionTo(SETTINGS_SECTION_WEBHOOKS)}

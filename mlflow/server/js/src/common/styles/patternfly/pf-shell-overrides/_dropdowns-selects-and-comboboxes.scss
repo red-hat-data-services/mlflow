@@ -141,9 +141,7 @@
 
   /* Dialog combobox - styled like Button for PatternFly consistency */
   .du-bois-light-dialogcombobox,
-  .du-bois-dark-dialogcombobox,
-  .du-bois-dark-selectv2,
-  .du-bois-light-selectv2 {
+  .du-bois-dark-dialogcombobox {
     background-color: transparent !important;
     button {
       position: relative;
@@ -216,6 +214,71 @@
 
         &::after {
           display: none !important;
+        }
+      }
+    }
+  }
+
+  /* SimpleSelect (selectv2) — form control tokens (match adjacent inputs / PF controls) */
+  .du-bois-dark-selectv2,
+  .du-bois-light-selectv2 {
+    background-color: transparent !important;
+    button {
+      position: relative;
+      color: var(--pf-t--global--text--color--regular) !important;
+      background-color: var(--pf-t--global--background--color--control--default) !important;
+      border: var(--pf-t--global--border--width--control--default) solid
+        var(--pf-t--global--border--color--control--default) !important;
+      border-radius: var(--pf-t--global--border--radius--small) !important;
+      box-sizing: border-box !important;
+      box-shadow: none !important;
+      outline: none !important;
+      font-size: var(--pf-t--global--font--size--body--default) !important;
+      /* Match Input height (~37px); Parallel Coordinates LegacySelect uses page-level sizing */
+      @include control-min-height;
+      padding-block: var(--pf-t--global--spacer--xs) !important;
+      padding-inline: var(--pf-t--global--spacer--sm) !important;
+
+      /* Kill DuBois brand/focus ring (same ::after pattern as DialogCombobox) */
+      &::before,
+      &::after {
+        display: none !important;
+        content: none !important;
+      }
+
+      span > svg {
+        color: var(--pf-t--global--icon--color--regular) !important;
+      }
+
+      &:hover {
+        background-color: var(--pf-t--global--background--color--control--default) !important;
+        box-shadow: none !important;
+        outline: none !important;
+        border-color: var(--pf-t--global--border--color--hover) !important;
+      }
+
+      /* Thicker clicked border on keyboard focus / open — matches PF form controls */
+      &:focus,
+      &:focus-visible,
+      &[aria-expanded='true'],
+      &:active {
+        background-color: var(--pf-t--global--background--color--control--default) !important;
+        box-shadow: none !important;
+        outline: none !important;
+        border-width: var(--pf-t--global--border--width--control--clicked) !important;
+        border-color: var(--pf-t--global--border--color--clicked) !important;
+      }
+      &[aria-invalid='true'] {
+        border-color: var(--pf-t--global--border--color--status--danger--default) !important;
+      }
+      &:disabled,
+      &[aria-disabled='true'] {
+        color: var(--pf-t--global--text--color--on-disabled) !important;
+        background-color: var(--pf-t--global--background--color--disabled--default) !important;
+        border-color: transparent !important;
+
+        span > svg {
+          color: var(--pf-t--global--text--color--on-disabled) !important;
         }
       }
     }

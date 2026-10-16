@@ -9,6 +9,7 @@ import { useLocation, useNavigate, useParams } from '../common/utils/RoutingUtil
 import { useDarkThemeContext } from '../common/contexts/DarkThemeContext';
 import { ApiKeysPageInner } from '../gateway/pages/ApiKeysPage';
 import Routes from '../experiment-tracking/routes';
+import { SERVER_FEATURE_KEYS, useFeatureEnabled } from '../experiment-tracking/hooks/useServerInfo';
 import WebhooksSettings from './WebhooksSettings';
 import {
   isSettingsPathSegment,
@@ -100,6 +101,7 @@ const SettingsPage = () => {
     }
   }, [sectionParam, navigate, location.search, location.state]);
 
+  const isServerTelemetryEnabled = useFeatureEnabled(SERVER_FEATURE_KEYS.TELEMETRY, false);
   const [isTelemetryEnabled, setIsTelemetryEnabled] = useLocalStorage({
     key: TELEMETRY_ENABLED_STORAGE_KEY,
     version: TELEMETRY_ENABLED_STORAGE_VERSION,
@@ -165,10 +167,17 @@ const SettingsPage = () => {
                 <FormattedMessage defaultMessage="General" description="Settings content section title: general" />
               }
               subtitle={
-                <FormattedMessage
-                  defaultMessage="Appearance, product feedback, telemetry, and workspace demo data."
-                  description="Settings content section subtitle for general preferences including demo data"
-                />
+                isServerTelemetryEnabled ? (
+                  <FormattedMessage
+                    defaultMessage="Appearance, product feedback, telemetry, and workspace demo data."
+                    description="Settings content section subtitle for general preferences including demo data"
+                  />
+                ) : (
+                  <FormattedMessage
+                    defaultMessage="Appearance, product feedback, and workspace demo data."
+                    description="Settings content section subtitle for general preferences when UI telemetry is disabled by the server"
+                  />
+                )
               }
             />
             <Card componentId="mlflow.settings.general.preferences-card" css={{ padding: 0, overflow: 'hidden' }}>
@@ -199,46 +208,48 @@ const SettingsPage = () => {
                   />
                 </Typography.Text>
               </SettingsRow>
-              <SettingsRow
-                trailing={
-                  <Switch
-                    componentId="mlflow.settings.telemetry.toggle-switch"
-                    checked={isTelemetryEnabled}
-                    onChange={handleTelemetryToggle}
-                    label={
-                      isTelemetryEnabled
-                        ? intl.formatMessage({ defaultMessage: 'On', description: 'Telemetry enabled label' })
-                        : intl.formatMessage({ defaultMessage: 'Off', description: 'Telemetry disabled label' })
-                    }
-                    activeLabel={intl.formatMessage({ defaultMessage: 'On', description: 'Telemetry enabled label' })}
-                    inactiveLabel={intl.formatMessage({
-                      defaultMessage: 'Off',
-                      description: 'Telemetry disabled label',
-                    })}
-                  />
-                }
-              >
-                <Typography.Title level={4} withoutMargins>
-                  <FormattedMessage defaultMessage="Enable telemetry" description="Enable telemetry settings title" />
-                </Typography.Title>
-                <Typography.Text>
-                  <FormattedMessage
-                    defaultMessage="This setting enables UI telemetry data collection. Learn more about what types of data are collected in our {documentation}."
-                    description="Enable telemetry settings description"
-                    values={{
-                      documentation: (
-                        <Typography.Link
-                          componentId="mlflow.settings.telemetry.documentation-link"
-                          href="https://mlflow.org/docs/latest/community/usage-tracking.html"
-                          openInNewTab
-                        >
-                          <FormattedMessage defaultMessage="documentation" description="Documentation link text" />
-                        </Typography.Link>
-                      ),
-                    }}
-                  />
-                </Typography.Text>
-              </SettingsRow>
+              {isServerTelemetryEnabled && (
+                <SettingsRow
+                  trailing={
+                    <Switch
+                      componentId="mlflow.settings.telemetry.toggle-switch"
+                      checked={isTelemetryEnabled}
+                      onChange={handleTelemetryToggle}
+                      label={
+                        isTelemetryEnabled
+                          ? intl.formatMessage({ defaultMessage: 'On', description: 'Telemetry enabled label' })
+                          : intl.formatMessage({ defaultMessage: 'Off', description: 'Telemetry disabled label' })
+                      }
+                      activeLabel={intl.formatMessage({ defaultMessage: 'On', description: 'Telemetry enabled label' })}
+                      inactiveLabel={intl.formatMessage({
+                        defaultMessage: 'Off',
+                        description: 'Telemetry disabled label',
+                      })}
+                    />
+                  }
+                >
+                  <Typography.Title level={4} withoutMargins>
+                    <FormattedMessage defaultMessage="Enable telemetry" description="Enable telemetry settings title" />
+                  </Typography.Title>
+                  <Typography.Text>
+                    <FormattedMessage
+                      defaultMessage="This setting enables UI telemetry data collection. Learn more about what types of data are collected in our {documentation}."
+                      description="Enable telemetry settings description"
+                      values={{
+                        documentation: (
+                          <Typography.Link
+                            componentId="mlflow.settings.telemetry.documentation-link"
+                            href="https://mlflow.org/docs/latest/community/usage-tracking.html"
+                            openInNewTab
+                          >
+                            <FormattedMessage defaultMessage="documentation" description="Documentation link text" />
+                          </Typography.Link>
+                        ),
+                      }}
+                    />
+                  </Typography.Text>
+                </SettingsRow>
+              )}
               <SettingsRow
                 trailing={
                   <Button

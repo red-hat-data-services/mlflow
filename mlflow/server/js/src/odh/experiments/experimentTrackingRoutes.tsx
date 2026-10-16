@@ -11,12 +11,21 @@
 import React from 'react';
 import { Route, createLazyRouteElement } from '../../common/utils/RoutingUtils';
 import { WorkflowTypeProvider } from '../../common/contexts/WorkflowTypeContext';
+import type { WorkflowType } from '../../common/contexts/WorkflowTypeContext';
+
+// The upstream provider reads :experimentId for its setter; a forced type comes from the wrapper's provider instead.
+const getExperimentPageTabsElement = (workflowType?: WorkflowType) => {
+  const experimentPageTabs = createLazyRouteElement(
+    () => import('../../experiment-tracking/pages/experiment-page-tabs/ExperimentPageTabs'),
+  );
+  return workflowType ? experimentPageTabs : <WorkflowTypeProvider>{experimentPageTabs}</WorkflowTypeProvider>;
+};
 
 /**
  * Returns Route elements for experiment tracking pages.
  * Used inside a <Routes> component in the wrapper.
  */
-export const getExperimentTrackingRouteElements = () => (
+export const getExperimentTrackingRouteElements = (workflowType?: WorkflowType) => (
   <>
     {/* Experiment list */}
     <Route
@@ -25,16 +34,7 @@ export const getExperimentTrackingRouteElements = () => (
     />
 
     {/* Single experiment with tabs */}
-    <Route
-      path=":experimentId"
-      element={
-        <WorkflowTypeProvider>
-          {createLazyRouteElement(
-            () => import('../../experiment-tracking/pages/experiment-page-tabs/ExperimentPageTabs'),
-          )}
-        </WorkflowTypeProvider>
-      }
-    >
+    <Route path=":experimentId" element={getExperimentPageTabsElement(workflowType)}>
       <Route
         path="overview/:overviewTab?"
         element={createLazyRouteElement(
@@ -94,7 +94,14 @@ export const getExperimentTrackingRouteElements = () => (
         path="datasets"
         element={createLazyRouteElement(
           () =>
-            import('../../experiment-tracking/pages/experiment-evaluation-datasets/ExperimentEvaluationDatasetsPage'),
+            import('../../experiment-tracking/pages/experiment-evaluation-datasets-v2/ExperimentEvaluationDatasetsRouter'),
+        )}
+      />
+      <Route
+        path="datasets/:datasetId"
+        element={createLazyRouteElement(
+          () =>
+            import('../../experiment-tracking/pages/experiment-evaluation-datasets-v2/ExperimentEvaluationDatasetDetailPage'),
         )}
       />
       <Route
