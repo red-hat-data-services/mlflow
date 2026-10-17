@@ -24,6 +24,102 @@
   ) !important;
 }
 
+// PF form-control select trigger (MenuToggle): regular text on the control fill with the control
+// border; the clicked border on keyboard focus / open. Shared by SimpleSelect and the DialogComboboxes
+// that act as form fields.
+@mixin form-control-trigger {
+  position: relative;
+  color: var(--pf-t--global--text--color--regular) !important;
+  background-color: var(--pf-t--global--background--color--control--default) !important;
+  border: var(--pf-t--global--border--width--control--default) solid
+    var(--pf-t--global--border--color--control--default) !important;
+  border-radius: var(--pf-t--global--border--radius--small) !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  outline: none !important;
+  font-size: var(--pf-t--global--font--size--body--default) !important;
+  /* Match Input height (~37px); Parallel Coordinates LegacySelect uses page-level sizing */
+  @include control-min-height;
+  padding-block: var(--pf-t--global--spacer--xs) !important;
+  padding-inline: var(--pf-t--global--spacer--sm) !important;
+
+  /* Kill DuBois brand/focus ring (same ::after pattern as DialogCombobox) */
+  &::before,
+  &::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  span > svg {
+    color: var(--pf-t--global--icon--color--regular) !important;
+  }
+
+  &:hover {
+    color: var(--pf-t--global--text--color--regular) !important;
+    background-color: var(--pf-t--global--background--color--control--default) !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-color: var(--pf-t--global--border--color--hover) !important;
+
+    span > svg {
+      color: var(--pf-t--global--icon--color--regular) !important;
+    }
+  }
+
+  /* Thicker clicked border on keyboard focus / open — matches PF form controls */
+  &:focus,
+  &:focus-visible,
+  &[aria-expanded='true'],
+  &:active {
+    color: var(--pf-t--global--text--color--regular) !important;
+    background-color: var(--pf-t--global--background--color--control--default) !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-width: var(--pf-t--global--border--width--control--clicked) !important;
+    border-color: var(--pf-t--global--border--color--clicked) !important;
+
+    span > svg {
+      color: var(--pf-t--global--icon--color--regular) !important;
+    }
+  }
+  &[aria-invalid='true'] {
+    border-color: var(--pf-t--global--border--color--status--danger--default) !important;
+  }
+  &:disabled,
+  &[aria-disabled='true'] {
+    color: var(--pf-t--global--text--color--on-disabled) !important;
+    background-color: var(--pf-t--global--background--color--disabled--default) !important;
+    border-color: transparent !important;
+
+    span > svg {
+      color: var(--pf-t--global--text--color--on-disabled) !important;
+    }
+  }
+}
+
+// PF text-input frame: control border, small radius, control height. Focus thickens the border with an
+// inset shadow (rather than a wider border) so typing doesn't shift the layout.
+@mixin form-control-input-frame {
+  border: var(--pf-t--global--border--width--control--default) solid
+    var(--pf-t--global--border--color--control--default) !important;
+  border-radius: var(--pf-t--global--border--radius--small) !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  outline: none !important;
+  @include control-min-height;
+
+  &:hover {
+    border-color: var(--pf-t--global--border--color--hover) !important;
+  }
+
+  &:focus,
+  &:focus-within {
+    border-color: var(--pf-t--global--border--color--clicked) !important;
+    box-shadow: inset 0 0 0 var(--pf-t--global--border--width--control--default)
+      var(--pf-t--global--border--color--clicked) !important;
+  }
+}
+
 @mixin subtle-section-label-text {
   font-weight: var(--pf-t--global--font--weight--body--bold) !important;
   font-size: var(--pf-t--global--font--size--body--sm) !important;
@@ -224,63 +320,29 @@
   .du-bois-light-selectv2 {
     background-color: transparent !important;
     button {
-      position: relative;
-      color: var(--pf-t--global--text--color--regular) !important;
-      background-color: var(--pf-t--global--background--color--control--default) !important;
-      border: var(--pf-t--global--border--width--control--default) solid
-        var(--pf-t--global--border--color--control--default) !important;
-      border-radius: var(--pf-t--global--border--radius--small) !important;
-      box-sizing: border-box !important;
-      box-shadow: none !important;
-      outline: none !important;
-      font-size: var(--pf-t--global--font--size--body--default) !important;
-      /* Match Input height (~37px); Parallel Coordinates LegacySelect uses page-level sizing */
-      @include control-min-height;
-      padding-block: var(--pf-t--global--spacer--xs) !important;
-      padding-inline: var(--pf-t--global--spacer--sm) !important;
+      @include form-control-trigger;
+    }
+  }
 
-      /* Kill DuBois brand/focus ring (same ::after pattern as DialogCombobox) */
-      &::before,
-      &::after {
-        display: none !important;
-        content: none !important;
-      }
+  /* DialogComboboxes that are form fields in filter rows (traces Key, Overview → Usage Field/Value,
+     GenAI traces table Field/Name/Value) sit next to SimpleSelect Operator pickers, so they take the same
+     PF form-control trigger instead of the pill button above. Toolbar DialogCombobox filters keep the pill. */
+  :is(.du-bois-light-dialogcombobox, .du-bois-dark-dialogcombobox):is(
+      [data-component-id='web-shared.traces-table.filter.key-combobox'],
+      [data-component-id='mlflow.usage.metrics_filter.column'],
+      [data-component-id='mlflow.usage.metrics_filter.value'],
+      [data-component-id='mlflow.evaluations_review.table_ui.filter_column']
+    )
+    > button {
+    @include form-control-trigger;
 
-      span > svg {
-        color: var(--pf-t--global--icon--color--regular) !important;
-      }
+    /* The PF caret is a mask on ::after, colored brand for pill DialogCombobox triggers in the trees partial. */
+    > span[role='img']::after {
+      background-color: var(--pf-t--global--icon--color--regular);
+    }
 
-      &:hover {
-        background-color: var(--pf-t--global--background--color--control--default) !important;
-        box-shadow: none !important;
-        outline: none !important;
-        border-color: var(--pf-t--global--border--color--hover) !important;
-      }
-
-      /* Thicker clicked border on keyboard focus / open — matches PF form controls */
-      &:focus,
-      &:focus-visible,
-      &[aria-expanded='true'],
-      &:active {
-        background-color: var(--pf-t--global--background--color--control--default) !important;
-        box-shadow: none !important;
-        outline: none !important;
-        border-width: var(--pf-t--global--border--width--control--clicked) !important;
-        border-color: var(--pf-t--global--border--color--clicked) !important;
-      }
-      &[aria-invalid='true'] {
-        border-color: var(--pf-t--global--border--color--status--danger--default) !important;
-      }
-      &:disabled,
-      &[aria-disabled='true'] {
-        color: var(--pf-t--global--text--color--on-disabled) !important;
-        background-color: var(--pf-t--global--background--color--disabled--default) !important;
-        border-color: transparent !important;
-
-        span > svg {
-          color: var(--pf-t--global--text--color--on-disabled) !important;
-        }
-      }
+    &:disabled > span[role='img']::after {
+      background-color: var(--pf-t--global--text--color--on-disabled);
     }
   }
 
@@ -345,6 +407,81 @@
     span[role='button'][aria-label='Clear selection']:hover {
       color: var(--pf-t--global--icon--color--subtle) !important;
     }
+  }
+
+  /* Typeahead inputs: PF typeahead (MenuToggle typeahead) frame and text inset. The placeholder keeps the
+     PF placeholder color from the shared input rule. */
+  :is(.du-bois-light-typeahead-combobox, .du-bois-dark-typeahead-combobox)
+    input:is(.du-bois-light-input, .du-bois-dark-input) {
+    @include form-control-input-frame;
+    padding-inline-start: var(--pf-t--global--spacer--control--horizontal--default) !important;
+    color: var(--pf-t--global--text--color--regular) !important;
+  }
+
+  /* Filter-row value inputs sit next to the PF-styled Field/Operator pickers, so they take the same frame. */
+  input:is(.du-bois-light-input, .du-bois-dark-input):is(
+      [data-component-id='web-shared.traces-table.filter.value'],
+      [data-component-id='mlflow.usage.metrics_filter.value'],
+      [data-component-id='mlflow.evaluations_review.table_ui.filter_key'],
+      [data-component-id='mlflow.evaluations_review.table_ui.filter_value'],
+      [data-component-id='mlflow.evaluations_review.table_ui.filter_value_numeric']
+    ) {
+    @include form-control-input-frame;
+  }
+
+  /* Toolbar search boxes (TableFilterInput and Inputs with a search prefix): PF TextInputGroup frame and
+     search icon. DuBois gives them no class of their own, so they're matched by their search componentIds
+     (the two codegen ids are the model list and dataset schema searches). Search boxes inside dropdowns
+     and popovers (column selectors, DialogCombobox option-list search) and the experiment list's
+     attached-button input group keep their own styling. */
+  :is(span.du-bois-light-input-affix-wrapper, span.du-bois-dark-input-affix-wrapper):has(
+      > input:is(
+          [data-component-id$='.search'],
+          [data-component-id$='search-input'],
+          [data-component-id$='.filter_input'],
+          [data-component-id$='modellistfilters.tsx_118'],
+          [data-component-id$='experimentviewdatasetschema.tsx_92']
+        )
+    ):not(
+      [role='listbox'] *,
+      [role='menu'] *,
+      [data-radix-popper-content-wrapper] *,
+      .du-bois-light-input-group *,
+      .du-bois-dark-input-group *
+    ) {
+    @include form-control-input-frame;
+
+    .du-bois-light-input-prefix,
+    .du-bois-dark-input-prefix {
+      margin-inline-end: calc(var(--pf-t--global--spacer--sm) + var(--pf-t--global--spacer--xs)) !important;
+
+      > span[role='img'] {
+        position: relative;
+        width: var(--pf-t--global--icon--size--font--body--default);
+        height: var(--pf-t--global--icon--size--font--body--default);
+        color: var(--pf-t--global--icon--color--regular) !important;
+
+        svg {
+          visibility: hidden !important;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-color: currentColor;
+          @include icons.pf-mask-icon(icons.$pf-icon-search);
+        }
+      }
+    }
+  }
+
+  /* Search boxes with an attached search button (TableFilterInput showSearchButton, e.g. the experiment
+     list) draw their border on the input group, so the group takes the frame instead of the input. */
+  :is(.du-bois-light-input-group, .du-bois-dark-input-group):has(
+      input:is([data-component-id$='.search'], [data-component-id$='search-input'])
+    ):not([role='listbox'] *, [role='menu'] *, [data-radix-popper-content-wrapper] *) {
+    @include form-control-input-frame;
   }
 
   /* Combobox option list */

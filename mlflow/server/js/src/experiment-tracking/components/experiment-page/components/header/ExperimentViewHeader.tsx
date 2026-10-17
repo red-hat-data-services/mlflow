@@ -39,6 +39,7 @@ import { useWorkflowType } from '@mlflow/mlflow/src/common/contexts/WorkflowType
 import { getTabDisplayIcon, getTabDisplayName } from './ExperimentViewHeader.utils';
 import { formatTraceArchivalRetentionForDisplay } from '../../../../../common/utils/traceArchival';
 import { MlflowSidebarWorkflowSwitch } from '@mlflow/mlflow/src/common/components/MlflowSidebarWorkflowSwitch';
+import { useLockedWorkflowSwitch } from '@mlflow/mlflow/src/odh/contexts/LockedWorkflowSwitchContext';
 
 const getDocLinkHref = (experimentKind: ExperimentKind) => {
   if (isGenAIExperimentKind(experimentKind)) {
@@ -103,6 +104,9 @@ export const ExperimentViewHeader = React.memo(
 
     const { tabName: activeTabByRoute } = useGetExperimentPageActiveTabByRoute();
     const { workflowType, setWorkflowType, isLocked: isWorkflowTypeLocked } = useWorkflowType();
+    const lockedWorkflowSwitch = useLockedWorkflowSwitch();
+    const workflowSwitchProps =
+      lockedWorkflowSwitch ?? (isWorkflowTypeLocked ? undefined : { workflowType, setWorkflowType });
     const enableWorkflowBasedNavigation = shouldEnableWorkflowBasedNavigation();
     const showExperimentPageSideNav = !enableWorkflowBasedNavigation || isEmbedded;
     const tabDisplayName = activeTabByRoute ? getTabDisplayName(activeTabByRoute, workflowType) : undefined;
@@ -297,8 +301,11 @@ export const ExperimentViewHeader = React.memo(
               </div>
             )}
             {getInfoTooltip()}
-            {isEmbedded && enableWorkflowBasedNavigation && !isWorkflowTypeLocked && (
-              <MlflowSidebarWorkflowSwitch workflowType={workflowType} setWorkflowType={setWorkflowType} />
+            {isEmbedded && enableWorkflowBasedNavigation && workflowSwitchProps && (
+              <MlflowSidebarWorkflowSwitch
+                workflowType={workflowSwitchProps.workflowType}
+                setWorkflowType={workflowSwitchProps.setWorkflowType}
+              />
             )}
           </div>
           <div />

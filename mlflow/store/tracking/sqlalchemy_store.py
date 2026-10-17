@@ -18,6 +18,7 @@ from urllib.parse import urlparse
 
 import sqlalchemy
 import sqlalchemy.orm
+from cachetools import TTLCache
 from sqlalchemy import and_, case, exists, func, or_, select, sql
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Query, Session, aliased, joinedload, selectinload
@@ -174,6 +175,10 @@ from mlflow.store.tracking.gateway.sqlalchemy_mixin import SqlAlchemyGatewayStor
 from mlflow.store.tracking.mcp_server_registry.sqlalchemy_mixin import (
     SqlAlchemyMCPServerRegistryMixin,
 )
+from mlflow.store.tracking.skill_registry.sqlalchemy_mixin import (
+    SqlAlchemySkillRegistryMixin,
+)
+from mlflow.store.tracking.sqlalchemy_store_upsert_utils import _bulk_upsert
 from mlflow.store.tracking.utils.sql_trace_metrics_utils import (
     query_metrics,
     validate_query_trace_metrics_params,
@@ -260,6 +265,7 @@ from mlflow.utils.file_utils import local_file_uri_to_path
 from mlflow.utils.mlflow_tags import (
     MLFLOW_ARTIFACT_LOCATION,
     MLFLOW_DATASET_CONTEXT,
+    MLFLOW_EXPERIMENT_KIND,
     MLFLOW_LOGGED_MODELS,
     MLFLOW_RUN_NAME,
     MLFLOW_USER,
@@ -308,6 +314,12 @@ _T = TypeVar("_T")
 
 _logger = logging.getLogger(__name__)
 
+# Kind given to an experiment that receives traces before anyone has set its kind. The
+# "_inferred" suffix marks it as guessed by the server rather than chosen by a user.
+_TRACED_EXPERIMENT_KIND = "genai_development_inferred"
+_TRACED_EXPERIMENT_KIND_CACHE_MAXSIZE = 10_000
+_TRACED_EXPERIMENT_KIND_CACHE_TTL_SECONDS = 3600
+
 _RUN_DELETE_CASCADE_MODELS = (SqlMetric, SqlLatestMetric, SqlParam, SqlTag)
 
 # Chunk size for exact-identity recovery lookups in _log_metrics.
@@ -338,7 +350,12 @@ class DatasetFilter(TypedDict, total=False):
     dataset_digest: str
 
 
-class SqlAlchemyStore(SqlAlchemyMCPServerRegistryMixin, SqlAlchemyGatewayStoreMixin, AbstractStore):
+class SqlAlchemyStore(
+    SqlAlchemySkillRegistryMixin,
+    SqlAlchemyMCPServerRegistryMixin,
+    SqlAlchemyGatewayStoreMixin,
+    AbstractStore,
+):
     """
     SQLAlchemy compliant backend store for tracking meta data for MLflow entities. MLflow
     supports the database dialects ``mysql``, ``mssql``, ``sqlite``, and ``postgresql``.
@@ -438,6 +455,14 @@ class SqlAlchemyStore(SqlAlchemyMCPServerRegistryMixin, SqlAlchemyGatewayStoreMi
         # This avoids permission errors in read-only environments (e.g., K8s containers)
         # when the artifact root is local but never actually used.
 
+        # (workspace, experiment ID) pairs whose kind tag was already checked after a trace
+        # write, so later traces skip the lookup. Entries expire so a removed tag comes back.
+        self._traced_experiment_kind_checked: TTLCache[tuple[str, str], bool] = TTLCache(
+            maxsize=_TRACED_EXPERIMENT_KIND_CACHE_MAXSIZE,
+            ttl=_TRACED_EXPERIMENT_KIND_CACHE_TTL_SECONDS,
+        )
+        self._traced_experiment_kind_checked_lock = threading.Lock()
+
         self._initialize_store_state()
 
     @property
@@ -461,7 +486,6 @@ class SqlAlchemyStore(SqlAlchemyMCPServerRegistryMixin, SqlAlchemyGatewayStoreMi
         """
         Return a query for ``model``. Workspace-aware subclasses override this to enforce scoping.
         """
-
         return session.query(model)
 
     @staticmethod
@@ -3708,7 +3732,21 @@ class SqlAlchemyStore(SqlAlchemyMCPServerRegistryMixin, SqlAlchemyGatewayStoreMi
         for comp in comparisons:
             comp_func = SearchUtils.get_sql_comparison_func(comp.op, dialect)
             if comp.entity.type == EntityType.ATTRIBUTE:
-                attr_filters.append(comp_func(getattr(SqlLoggedModel, comp.entity.key), comp.value))
+                value = comp.value
+                if comp.entity.key == "status":
+                    if comp.op not in ("=", "!=", "IN", "NOT IN"):
+                        raise MlflowException.invalid_parameter_value(
+                            f"Invalid comparison operator for status: {comp.op}"
+                        )
+                    values = value if comp.op in ("IN", "NOT IN") else (value,)
+                    try:
+                        statuses = [LoggedModelStatus(status).to_int() for status in values]
+                    except ValueError as e:
+                        raise MlflowException.invalid_parameter_value(
+                            f"Unknown model status in filter: {value!r}"
+                        ) from e
+                    value = statuses if comp.op in ("IN", "NOT IN") else statuses[0]
+                attr_filters.append(comp_func(getattr(SqlLoggedModel, comp.entity.key), value))
             elif comp.entity.type == EntityType.METRIC:
                 has_metric_filters = True
                 metric_filters = [
@@ -3879,7 +3917,59 @@ class SqlAlchemyStore(SqlAlchemyMCPServerRegistryMixin, SqlAlchemyGatewayStoreMi
         """
         # Retry on DB deadlocks so a concurrent log_spans()/start_trace() race does not
         # drop the trace. Each attempt opens a fresh managed session.
-        return self._run_with_deadlock_retry(self._start_trace_once, trace_info)
+        trace_info = self._run_with_deadlock_retry(self._start_trace_once, trace_info)
+        self._set_traced_experiment_kind(trace_info.experiment_id)
+        return trace_info
+
+    def _set_traced_experiment_kind(self, experiment_id: str) -> None:
+        """
+        Mark an experiment that receives traces as a GenAI experiment if it has no kind tag
+        yet, so GenAI-only experiment lists include experiments created outside the UI. An
+        existing kind, such as one chosen when the experiment was created, is never changed.
+
+        Runs after the trace write has committed and never fails it.
+        """
+        try:
+            cache_key = (self._get_active_workspace(), str(experiment_id))
+            with self._traced_experiment_kind_checked_lock:
+                if cache_key in self._traced_experiment_kind_checked:
+                    return
+            self._insert_traced_experiment_kind(experiment_id)
+        except Exception:
+            # Includes losing an insert race to a concurrent writer. The result isn't cached,
+            # so the next trace finds that writer's tag and caches it.
+            _logger.debug("Failed to set the kind of experiment %s", experiment_id, exc_info=True)
+            return
+        with self._traced_experiment_kind_checked_lock:
+            self._traced_experiment_kind_checked[cache_key] = True
+
+    def _insert_traced_experiment_kind(self, experiment_id: str) -> None:
+        # Check and insert in one primary session, and only ever insert: a kind that is not on
+        # a read replica yet, or that someone sets concurrently, must not be overwritten. A
+        # concurrent insert of the same tag fails on the primary key instead.
+        with self.ManagedSessionMaker(read_only=False) as session:
+            experiment = self._get_experiment(session, experiment_id, ViewType.ACTIVE_ONLY)
+            if not self._experiment_has_kind(session, experiment.experiment_id):
+                session.add(
+                    SqlExperimentTag(
+                        experiment_id=experiment.experiment_id,
+                        key=MLFLOW_EXPERIMENT_KIND,
+                        value=_TRACED_EXPERIMENT_KIND,
+                    )
+                )
+
+    @staticmethod
+    def _experiment_has_kind(session, experiment_id: int) -> bool:
+        return (
+            session
+            .query(SqlExperimentTag.key)
+            .filter(
+                SqlExperimentTag.experiment_id == experiment_id,
+                SqlExperimentTag.key == MLFLOW_EXPERIMENT_KIND,
+            )
+            .first()
+            is not None
+        )
 
     def _start_trace_once(self, trace_info: "TraceInfo") -> TraceInfo:
         trace_name = validate_trace_name(trace_info.tags.get(TraceTagKey.TRACE_NAME))
@@ -5695,9 +5785,12 @@ class SqlAlchemyStore(SqlAlchemyMCPServerRegistryMixin, SqlAlchemyGatewayStoreMi
         """
         # Retry on DB deadlocks so a concurrent start_trace()/log_spans() race does not
         # drop metadata. Each attempt opens a fresh managed session.
-        return self._run_with_deadlock_retry(
+        logged_spans = self._run_with_deadlock_retry(
             self._log_spans_once, location, spans, tracking_uri=tracking_uri
         )
+        if logged_spans:
+            self._set_traced_experiment_kind(location)
+        return logged_spans
 
     def _log_spans_once(self, location: str, spans: list[Span], tracking_uri=None) -> list[Span]:
         if not spans:
@@ -8442,7 +8535,10 @@ class SqlAlchemyStore(SqlAlchemyMCPServerRegistryMixin, SqlAlchemyGatewayStoreMi
             )
             session.add(trace_info)
 
-            return TraceInfoV2.from_v3(trace_info.to_mlflow_entity())
+            trace_info_v2 = TraceInfoV2.from_v3(trace_info.to_mlflow_entity())
+
+        self._set_traced_experiment_kind(experiment_id)
+        return trace_info_v2
 
     def deprecated_end_trace_v2(
         self,
@@ -10178,7 +10274,7 @@ def _get_search_experiments_filter_clauses(parsed_filters, dialect):
     for f in parsed_filters:
         type_ = f["type"]
         key = f["key"]
-        comparator = f["comparator"]
+        comparator = f["comparator"].upper()
         value = f["value"]
         if type_ == "attribute":
             if key == "experiment_id":
@@ -10931,76 +11027,3 @@ class _TraceAggregate:
 # re-fetch before retrying. 10 attempts reduces span drops in high-concurrency
 # scenarios without significant backend load increase (log_spans runs async).
 _LOG_SPANS_MAX_TRACE_CREATE_RETRIES = 10
-
-
-def _bulk_upsert(session: Session, model_class: type, rows: list[dict[str, Any]]) -> None:
-    """Bulk upsert rows using dialect-specific INSERT ON CONFLICT.
-
-    Rows are inserted in batches to stay within database limits (e.g., SQLite's
-    SQLITE_MAX_VARIABLE_NUMBER on older versions, MySQL's max_allowed_packet).
-
-    Falls back to per-row session.merge() for unsupported dialects (e.g., MSSQL).
-    """
-    if not rows:
-        return
-
-    dialect = session.bind.dialect.name
-    table = model_class.__table__
-    pk_columns = [col.name for col in table.primary_key.columns]
-    # Only update columns present in the inserted rows. Updating omitted columns
-    # references missing insert aliases on MySQL (`new.<col>`) and can overwrite
-    # columns that are intentionally absent from the incoming rows.
-    provided_columns = set.intersection(*(set(row) for row in rows))
-    update_columns = [
-        c.name
-        for c in table.columns
-        if c.name not in pk_columns and not c.computed and c.name in provided_columns
-    ]
-
-    batch_size = 100
-    for i in range(0, len(rows), batch_size):
-        batch = rows[i : i + batch_size]
-        _upsert_batch(session, model_class, table, batch, pk_columns, update_columns, dialect)
-
-
-def _upsert_batch(
-    session: Session,
-    model_class: type,
-    table: sqlalchemy.Table,
-    rows: list[dict[str, Any]],
-    pk_columns: list[str],
-    update_columns: list[str],
-    dialect: str,
-) -> None:
-    match dialect:
-        case "sqlite" | "postgresql":
-            if dialect == "sqlite":
-                from sqlalchemy.dialects.sqlite import insert
-            else:
-                from sqlalchemy.dialects.postgresql import insert
-
-            stmt = insert(table).values(rows)
-            if update_columns:
-                stmt = stmt.on_conflict_do_update(
-                    index_elements=pk_columns,
-                    set_={col: stmt.excluded[col] for col in update_columns},
-                )
-            else:
-                stmt = stmt.on_conflict_do_nothing()
-            session.execute(stmt)
-        case "mysql":
-            from sqlalchemy.dialects.mysql import insert
-
-            stmt = insert(table).values(rows)
-            if update_columns:
-                stmt = stmt.on_duplicate_key_update({
-                    col: stmt.inserted[col] for col in update_columns
-                })
-            else:
-                # No-op update on PK to silently skip duplicates
-                stmt = stmt.on_duplicate_key_update({pk_columns[0]: stmt.inserted[pk_columns[0]]})
-            session.execute(stmt)
-        case _:
-            # Fallback for MSSQL and other dialects
-            for row in rows:
-                session.merge(model_class(**row))

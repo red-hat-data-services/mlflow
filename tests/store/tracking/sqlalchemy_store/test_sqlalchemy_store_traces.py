@@ -80,7 +80,7 @@ from mlflow.tracing.constant import (
 )
 from mlflow.tracing.utils import TraceJSONEncoder, dump_span_attribute_value
 from mlflow.utils.file_utils import TempDir, local_file_uri_to_path
-from mlflow.utils.mlflow_tags import MLFLOW_ARTIFACT_LOCATION
+from mlflow.utils.mlflow_tags import MLFLOW_ARTIFACT_LOCATION, MLFLOW_EXPERIMENT_KIND
 from mlflow.utils.time import get_current_time_millis
 from mlflow.utils.uri import append_to_uri_path
 from mlflow.utils.workspace_context import WorkspaceContext
@@ -316,6 +316,87 @@ def test_start_trace_rejects_oversized_promoted_dimensions(
 
     with pytest.raises(MlflowException, match=rf"maximum length of {limit}"):
         store.start_trace(trace_info)
+
+
+def _write_trace(store: SqlAlchemyStore, write: str, experiment_id: str) -> str:
+    trace_id = f"tr-{uuid.uuid4().hex}"
+    if write == "start_trace":
+        _create_trace(store, trace_id, experiment_id=experiment_id)
+    elif write == "log_spans":
+        store.log_spans(experiment_id, [create_test_span(trace_id, span_type="CHAIN")])
+    else:
+        trace_id = store.deprecated_start_trace_v2(
+            experiment_id=experiment_id, timestamp_ms=0, request_metadata={}, tags={}
+        ).request_id
+    return trace_id
+
+
+@pytest.mark.parametrize("write", ["start_trace", "log_spans", "deprecated_start_trace_v2"])
+def test_trace_write_sets_experiment_kind(store: SqlAlchemyStore, write):
+    experiment_id = store.create_experiment("traced_experiment")
+
+    _write_trace(store, write, experiment_id)
+
+    tags = store.get_experiment(experiment_id).tags
+    assert tags[MLFLOW_EXPERIMENT_KIND] == "genai_development_inferred"
+
+
+def test_trace_write_keeps_existing_experiment_kind(store: SqlAlchemyStore):
+    experiment_id = store.create_experiment(
+        "model_training_experiment",
+        tags=[ExperimentTag(MLFLOW_EXPERIMENT_KIND, "custom_model_development")],
+    )
+
+    _write_trace(store, "start_trace", experiment_id)
+
+    tags = store.get_experiment(experiment_id).tags
+    assert tags[MLFLOW_EXPERIMENT_KIND] == "custom_model_development"
+
+
+def test_trace_write_checks_experiment_kind_once_until_cache_expires(store: SqlAlchemyStore):
+    experiment_id = store.create_experiment("traced_experiment")
+    _write_trace(store, "start_trace", experiment_id)
+    store.delete_experiment_tag(experiment_id, MLFLOW_EXPERIMENT_KIND)
+
+    _write_trace(store, "log_spans", experiment_id)
+    assert MLFLOW_EXPERIMENT_KIND not in store.get_experiment(experiment_id).tags
+
+    store._traced_experiment_kind_checked.clear()
+    _write_trace(store, "log_spans", experiment_id)
+    tags = store.get_experiment(experiment_id).tags
+    assert tags[MLFLOW_EXPERIMENT_KIND] == "genai_development_inferred"
+
+
+def test_trace_write_succeeds_when_setting_experiment_kind_fails(store: SqlAlchemyStore):
+    experiment_id = store.create_experiment("traced_experiment")
+
+    with mock.patch.object(
+        store, "_insert_traced_experiment_kind", side_effect=MlflowException("boom")
+    ):
+        trace_id = _write_trace(store, "start_trace", experiment_id)
+
+    assert store.get_trace_info(trace_id).trace_id == trace_id
+    assert MLFLOW_EXPERIMENT_KIND not in store.get_experiment(experiment_id).tags
+
+    # A failed check isn't cached, so the next trace sets the kind
+    _write_trace(store, "start_trace", experiment_id)
+    tags = store.get_experiment(experiment_id).tags
+    assert tags[MLFLOW_EXPERIMENT_KIND] == "genai_development_inferred"
+
+
+def test_trace_write_does_not_overwrite_kind_set_by_a_concurrent_writer(store: SqlAlchemyStore):
+    experiment_id = store.create_experiment(
+        "model_training_experiment",
+        tags=[ExperimentTag(MLFLOW_EXPERIMENT_KIND, "custom_model_development")],
+    )
+
+    # The concurrent writer's tag lands after the check, so the insert hits the primary key
+    with mock.patch.object(SqlAlchemyStore, "_experiment_has_kind", return_value=False):
+        trace_id = _write_trace(store, "start_trace", experiment_id)
+
+    assert store.get_trace_info(trace_id).trace_id == trace_id
+    tags = store.get_experiment(experiment_id).tags
+    assert tags[MLFLOW_EXPERIMENT_KIND] == "custom_model_development"
 
 
 def test_set_trace_tag_rejects_oversized_trace_name(store_and_trace_info):

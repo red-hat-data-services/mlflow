@@ -25,6 +25,74 @@ These break CI after every rebase. Fix them proactively before pushing.
 
 ---
 
+## Interim snapshot: v3.17.0 → f566a42d64
+
+**Date:** 2026-10-16
+**Exact upstream base:** `f566a42d64fce8997fe187edb5229221ace09713`
+**Previous upstream base:** `v3.17.0` (`6dd94c6de2932d22767769eec5b644e48c457ce8`)
+**Starting ODH tip:** `29439eba03b4104e26abe9b2dea25265a7a1b3df`
+**Prepared branch:** `rebase-snapshot-f566a42d`
+
+Interim snapshot to consume Skills Registry with its upstream dependencies; **not a 3.18
+release**. Package versions remain 3.17.0 and chart version/appVersion remain 3.16.1.
+No release or operator version bumps were performed.
+
+### Retained changes and history
+
+- Reconstructed the downstream delta as three squash commits: scaffolding, backend, and UI.
+  Original commits are listed in their messages. Linked the starting ODH history with
+  `git merge -s ours`, preserving the rebased tree; no late ODH changes needed replay.
+- Retained workspace isolation, Kubernetes auth, migration-gap repair, feature guards,
+  prompt model filtering, PatternFly styling, module federation, embedded routing,
+  session-expiry handling, Konflux builds, and downstream CI policy.
+- Dropped `a3dbabfb7d` (Restore View All): upstream original
+  `9b574f263f3446138c241c2028b5b070e1770a0e` is an ancestor of the target, and its five
+  implementation/test files match. Retained the broader downstream dataset-refresh test
+  alongside upstream coverage, although its implementation is already upstream.
+
+### Major conflict and compatibility decisions
+
+- **CI:** preserved downstream workflow deletions and reduced jobs, plus ODH model-catalog
+  release-asset synchronization. Adopted applicable upstream action updates.
+- **Embedded UI:** combined downstream header/routing behavior with upstream current-page
+  bulk-delete guards; prompt pagination resets include the downstream model filter.
+- **Telemetry/navigation:** preserved hidden telemetry settings and Assistant controls while
+  retaining upstream effective-preference/loading guards and the new AI Registry icon.
+- **Backend:** production changes merged without manual conflicts, retaining registry
+  workspace plumbing and downstream feature guards. Tracing tests retain the downstream
+  dynamic OpenTelemetry service-name expectation.
+- **Dependencies:** retained conditional/fail-fast Compose installs plus upstream's psycopg
+  driver. Regenerated runtime/build locks for all four architectures and the PyPI lock;
+  added required `python-multipart==0.0.32` while preserving security constraints and P7D cooldown.
+  Subsequently pinned released `mlflow-kubernetes-plugins==2.1.0` and regenerated requirements
+  to resolve the Skills Registry authorization failure during operator-managed startup.
+  Compose startup checks the PostgreSQL driver selected by its backend URI, avoiding an
+  unnecessary psycopg installation that fails in the non-root ODH image.
+
+### Validation
+
+- Registry/API, workspace, migration, artifact, feature-guard, and CLI checks:
+  **1,680 passed, 14 skipped**; SQLite downgrade/re-upgrade included.
+- Plugin suite against rebased source: **446 passed, 1 skipped**. Released 2.1.0 wheel
+  against installed snapshot wheels on Python 3.12: **452 passed, 1 skipped**. Authorization
+  audit covers all **66 registry** and **147 native application** route/method pairs, plus
+  Flask compilation; released-wheel startup authorization validation also passes.
+- Frontend: **793 suites, 7,676 tests, 23 snapshots passed; 7 tests skipped**.
+- Python packaging, Konflux Python builder, standalone/federated UI builds, TypeScript,
+  lint, formatting, translations, required pre-commit hooks, and workflow/file-retention audits pass.
+- CSS selector audit passes against its existing baseline. Browser visual checks, remote CI,
+  the complete final image, other database engines, and OpenShift remain outstanding.
+  CSS versions were not marked visually verified.
+
+### Base for the later 3.18 rebase
+
+Use **`f566a42d64fce8997fe187edb5229221ace09713` as `UPSTREAM_BASE`**, regardless of package
+version. Back up the then-current ODH tip as `SQUASH_BASE`, derive its downstream delta against
+this SHA, verify later backports against the actual 3.18 tag, and reapply retained changes.
+Check late ODH additions before linking histories with the workflow's `git merge -s ours`.
+
+---
+
 ## Rebase: v3.15.2 → v3.17.0
 
 **Date:** 2026-10-08

@@ -41,6 +41,18 @@ describe('CreateExperimentModal', () => {
     expect(wrapper.find(GenericInputModal).length).toBe(1);
     expect(wrapper.length).toBe(1);
   });
+  test('handleCreateExperiment passes the tags to createExperimentApi', async () => {
+    const createExperimentApi = jest.fn((..._args: any[]) =>
+      Promise.resolve({ value: { experiment_id: fakeExperimentId } }),
+    );
+    const tags = [{ key: 'mlflow.experimentKind', value: 'genai_development' }];
+    wrapper = shallow(
+      <CreateExperimentModalImpl {...minimalProps} createExperimentApi={createExperimentApi} tags={tags} />,
+    );
+    await wrapper.instance().handleCreateExperiment({ experimentName: 'myNewExp', artifactLocation: 'artifactLoc' });
+
+    expect(createExperimentApi).toHaveBeenCalledWith('myNewExp', 'artifactLoc', undefined, tags);
+  });
   test('handleCreateExperiment redirects user to newly-created experiment page', async () => {
     instance = wrapper.instance();
     await instance.handleCreateExperiment({

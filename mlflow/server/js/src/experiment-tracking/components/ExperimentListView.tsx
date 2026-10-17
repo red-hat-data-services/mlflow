@@ -34,12 +34,16 @@ import { useSearchParams } from '../../common/utils/RoutingUtils';
 import { useIsIntegrated } from '../../common/utils/embedUtils';
 import { fireMiscTrackingEvent } from '../../odh/analytics/segmentUtils';
 import { MLflowEventNames } from '../../odh/analytics/trackingProperties';
+import { WorkflowType, useWorkflowType } from '../../common/contexts/WorkflowTypeContext';
 
 export const ExperimentListView = () => {
   const [searchParams] = useSearchParams();
   const workspacesEnabled = shouldEnableWorkspaces();
   const workspaceFromUrl = extractWorkspaceFromSearchParams(searchParams);
   const isEmbedded = useIsIntegrated();
+  const { workflowType, isLocked: isWorkflowTypeLocked } = useWorkflowType();
+  // The host locks the workflow type to GenAI on its Agent traces page, which lists only GenAI experiments
+  const genAIOnly = Boolean(isWorkflowTypeLocked) && workflowType === WorkflowType.GENAI;
 
   const [searchFilter, setSearchFilter] = useSearchFilter();
   const { tagsFilter, setTagsFilter, isTagsFilterOpen, setIsTagsFilterOpen } = useTagsFilter();
@@ -55,7 +59,7 @@ export const ExperimentListView = () => {
     pageSizeSelect,
     sorting,
     setSorting,
-  } = useExperimentListQuery({ searchFilter, tagsFilter });
+  } = useExperimentListQuery({ searchFilter, tagsFilter, genAIOnly });
   const invalidateExperimentList = useInvalidateExperimentList();
 
   const { EditTagsModal, showEditExperimentTagsModal } = useUpdateExperimentTags({
@@ -94,6 +98,8 @@ export const ExperimentListView = () => {
   const checkedKeys = Object.entries(rowSelection)
     .filter(([_, value]) => value)
     .map(([key, _]) => key);
+  // Row selection survives search and pagination, so only checked experiments in the current list can be deleted
+  const checkedExperiments = (experiments ?? []).filter(({ experimentId }) => checkedKeys.includes(experimentId));
 
   const isEmptyState = !isLoading && !error && !experiments?.length && !searchFilter && !tagsFilter.length;
   // creation is disabled if workspaces are enabled and a workspace is not selected
@@ -138,7 +144,7 @@ export const ExperimentListView = () => {
         componentId="mlflow.experiment_list_view.bulk_delete_button"
         onClick={() => setShowBulkDeleteExperimentModal(true)}
         data-testid="delete-experiments-button"
-        disabled={checkedKeys.length < 1}
+        disabled={checkedExperiments.length < 1}
         danger
       >
         <FormattedMessage
@@ -255,7 +261,7 @@ export const ExperimentListView = () => {
         onExperimentCreated={invalidateExperimentList}
       />
       <BulkDeleteExperimentModal
-        experiments={(experiments ?? []).filter(({ experimentId }) => checkedKeys.includes(experimentId))}
+        experiments={checkedExperiments}
         isOpen={showBulkDeleteExperimentModal}
         onClose={() => setShowBulkDeleteExperimentModal(false)}
         onExperimentsDeleted={() => {

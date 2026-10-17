@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from '@databricks/i18n';
 import { useLocalStorage } from '@databricks/web-shared/hooks';
 import { TELEMETRY_ENABLED_STORAGE_KEY, TELEMETRY_ENABLED_STORAGE_VERSION } from '../telemetry/utils';
 import { telemetryClient } from '../telemetry';
+import { useTelemetryConfig } from '../telemetry/hooks/useTelemetryConfig';
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { fetchEndpointRaw, HTTPMethods } from '../common/utils/FetchUtils';
 import { useLocation, useNavigate, useParams } from '../common/utils/RoutingUtils';
@@ -102,14 +103,21 @@ const SettingsPage = () => {
   }, [sectionParam, navigate, location.search, location.state]);
 
   const isServerTelemetryEnabled = useFeatureEnabled(SERVER_FEATURE_KEYS.TELEMETRY, false);
-  const [isTelemetryEnabled, setIsTelemetryEnabled] = useLocalStorage({
+  const { data: telemetryConfig, isLoading: isTelemetryConfigLoading } = useTelemetryConfig();
+  const isTelemetryDisabledByServer = telemetryConfig?.disable_ui_telemetry ?? false;
+  const isTelemetryToggleDisabled = isTelemetryConfigLoading || isTelemetryDisabledByServer;
+  const [telemetryPreference, setIsTelemetryEnabled] = useLocalStorage({
     key: TELEMETRY_ENABLED_STORAGE_KEY,
     version: TELEMETRY_ENABLED_STORAGE_VERSION,
     initialValue: true,
   });
+  const isTelemetryEnabled = !isTelemetryToggleDisabled && telemetryPreference;
 
   const handleTelemetryToggle = useCallback(
     (checked: boolean) => {
+      if (isTelemetryToggleDisabled) {
+        return;
+      }
       setIsTelemetryEnabled(checked);
       if (checked) {
         telemetryClient.start();
@@ -117,7 +125,7 @@ const SettingsPage = () => {
         telemetryClient.shutdown();
       }
     },
-    [setIsTelemetryEnabled],
+    [isTelemetryToggleDisabled, setIsTelemetryEnabled],
   );
   const handleThemeToggle = useCallback(
     (checked: boolean) => {
@@ -214,6 +222,7 @@ const SettingsPage = () => {
                     <Switch
                       componentId="mlflow.settings.telemetry.toggle-switch"
                       checked={isTelemetryEnabled}
+                      disabled={isTelemetryToggleDisabled}
                       onChange={handleTelemetryToggle}
                       label={
                         isTelemetryEnabled

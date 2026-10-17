@@ -1,4 +1,4 @@
-import { jest, test, expect } from '@jest/globals';
+import { beforeEach, jest, test, expect } from '@jest/globals';
 import userEvent from '@testing-library/user-event';
 import { screen, renderWithIntl, waitFor } from '../../common/utils/TestUtils.react18';
 import { BrowserRouter } from '../../common/utils/RoutingUtils';
@@ -12,6 +12,8 @@ import { DesignSystemProvider } from '@databricks/design-system';
 import { useExperimentListQuery } from './experiment-page/hooks/useExperimentListQuery';
 import { useUpdateExperimentTags } from './experiment-page/hooks/useUpdateExperimentTags';
 import { useTagsFilter } from './experiment-page/hooks/useTagsFilter';
+import { WorkflowType, WorkflowTypeContext } from '../../common/contexts/WorkflowTypeContext';
+import { MlflowService } from '../sdk/MlflowService';
 
 jest.mock('./experiment-page/hooks/useExperimentListQuery', () => ({
   useExperimentListQuery: jest.fn(),
@@ -26,11 +28,25 @@ jest.mock('./experiment-page/hooks/useTagsFilter', () => ({
   useTagsFilter: jest.fn(),
 }));
 
-const mountComponent = (props: { experiments: any[]; tagsFilter?: any[] }) => {
+beforeEach(() => {
+  // The search filter lives in the URL, which jsdom keeps between tests
+  // eslint-disable-next-line no-restricted-properties
+  window.history.replaceState({}, '', '/');
+});
+
+const mountComponent = (props: {
+  experiments: any[];
+  tagsFilter?: any[];
+  filterBySearch?: boolean;
+  workflowType?: WorkflowType;
+  isLocked?: boolean;
+}) => {
   const mockStore = configureStore([thunk, promiseMiddleware()]);
 
-  jest.mocked(useExperimentListQuery).mockImplementation(() => ({
-    data: props.experiments.slice(25),
+  jest.mocked(useExperimentListQuery).mockImplementation((params) => ({
+    data: props.filterBySearch
+      ? props.experiments.filter(({ name }) => name.includes(params?.searchFilter ?? ''))
+      : props.experiments.slice(25),
     error: undefined,
     isLoading: false,
     hasNextPage: false,
@@ -71,7 +87,15 @@ const mountComponent = (props: { experiments: any[]; tagsFilter?: any[] }) => {
         })}
       >
         <BrowserRouter>
-          <ExperimentListView />
+          {props.workflowType ? (
+            <WorkflowTypeContext.Provider
+              value={{ workflowType: props.workflowType, setWorkflowType: jest.fn(), isLocked: props.isLocked }}
+            >
+              <ExperimentListView />
+            </WorkflowTypeContext.Provider>
+          ) : (
+            <ExperimentListView />
+          )}
         </BrowserRouter>
       </Provider>
     </DesignSystemProvider>,
@@ -136,3 +160,55 @@ test('Tag filter button shows no count when no filters are applied', () => {
   expect(tagButton).toBeInTheDocument();
   expect(tagButton).not.toHaveTextContent('·');
 });
+
+test('Delete button is disabled when checked experiments are hidden by the search filter', async () => {
+  mountComponent({
+    experiments: [
+      Fixtures.createExperiment({ experimentId: '1', name: 'alpha-exp' }),
+      Fixtures.createExperiment({ experimentId: '2', name: 'beta-exp' }),
+    ],
+    filterBySearch: true,
+  });
+
+  await userEvent.type(screen.getByTestId('search-experiment-input'), 'alpha{Enter}');
+  await userEvent.click(screen.getByTestId('experiment-list-item-check-box'));
+  expect(screen.getByTestId('delete-experiments-button')).toBeEnabled();
+
+  await userEvent.clear(screen.getByTestId('search-experiment-input'));
+  await userEvent.type(screen.getByTestId('search-experiment-input'), 'beta{Enter}');
+  expect(await screen.findByText('beta-exp')).toBeInTheDocument();
+  expect(screen.queryByText('alpha-exp')).not.toBeInTheDocument();
+  expect(screen.getByTestId('delete-experiments-button')).toBeDisabled();
+});
+
+test.each([
+  [WorkflowType.GENAI, true, true],
+  [WorkflowType.GENAI, false, false],
+  [WorkflowType.MACHINE_LEARNING, true, false],
+  [WorkflowType.MACHINE_LEARNING, false, false],
+])('when the workflow type is %s and locked is %s, genAIOnly is %s', (workflowType, isLocked, genAIOnly) => {
+  mountComponent({ experiments: [], workflowType, isLocked });
+
+  expect(useExperimentListQuery).toHaveBeenLastCalledWith(expect.objectContaining({ genAIOnly }));
+});
+
+test.each([
+  [WorkflowType.GENAI, true, [{ key: 'mlflow.experimentKind', value: 'genai_development' }]],
+  [WorkflowType.GENAI, false, [{ key: 'mlflow.experimentKind', value: 'genai_development' }]],
+  [WorkflowType.MACHINE_LEARNING, true, undefined],
+  [WorkflowType.MACHINE_LEARNING, false, undefined],
+])(
+  'when the workflow type is %s and locked is %s, new experiments get the tags %j',
+  async (workflowType, isLocked, expectedTags) => {
+    const createExperiment = jest.spyOn(MlflowService, 'createExperiment').mockResolvedValue({ experiment_id: '1' });
+    mountComponent({ experiments: [], workflowType, isLocked });
+
+    await userEvent.click(screen.getByTestId('create-experiment-table-empty-state-button'));
+    await userEvent.type(screen.getByPlaceholderText('Input an experiment name'), 'my-agent');
+    await userEvent.click(screen.getByRole('button', { name: 'Create' }));
+
+    await waitFor(() => expect(createExperiment).toHaveBeenCalledWith(expect.objectContaining({ name: 'my-agent' })));
+    expect(createExperiment.mock.calls[0][0].tags).toEqual(expectedTags);
+    createExperiment.mockRestore();
+  },
+);

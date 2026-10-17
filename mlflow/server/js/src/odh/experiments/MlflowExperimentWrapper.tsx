@@ -5,6 +5,7 @@ import { WorkflowType } from '../../common/contexts/WorkflowTypeContext';
 import { getExperimentTrackingRouteElements } from './experimentTrackingRoutes';
 import { BreadcrumbReporter } from './BreadcrumbReporter';
 import { UnsupportedTabGuard } from './UnsupportedTabGuard';
+import { LockedWorkflowSwitchProvider } from '../contexts/LockedWorkflowSwitchContext';
 import type { UnsupportedTabInfo } from './UnsupportedTabGuard';
 import MlflowWrapperBase from '@mlflow/mlflow/src/odh/wrappers/MlflowWrapperBase';
 import { EXPERIMENTS_DEFAULT_BASENAME } from '../const';
@@ -24,6 +25,7 @@ const MlflowExperimentWrapper: React.FC<{
   }, [workflowType, validWorkflowType]);
 
   const routeElements = useMemo(() => getExperimentTrackingRouteElements(validWorkflowType), [validWorkflowType]);
+  const routes = <Routes>{routeElements}</Routes>;
   return (
     <MlflowWrapperBase
       basename={basename}
@@ -34,10 +36,14 @@ const MlflowExperimentWrapper: React.FC<{
     >
       {validWorkflowType ? (
         <UnsupportedTabGuard workflowType={validWorkflowType} onUnsupportedTab={onUnsupportedTab}>
-          <Routes>{routeElements}</Routes>
+          {validWorkflowType === WorkflowType.MACHINE_LEARNING ? (
+            <LockedWorkflowSwitchProvider onUnsupportedTab={onUnsupportedTab}>{routes}</LockedWorkflowSwitchProvider>
+          ) : (
+            routes
+          )}
         </UnsupportedTabGuard>
       ) : (
-        <Routes>{routeElements}</Routes>
+        routes
       )}
     </MlflowWrapperBase>
   );

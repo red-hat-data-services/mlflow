@@ -19,12 +19,12 @@ const renderReporter = (workflowType: WorkflowType | undefined, onBreadcrumbChan
   );
 
 describe('BreadcrumbReporter', () => {
-  test('labels the root crumb Agent observability when workflowType is genai', () => {
+  test('labels the root crumb Agent traces when workflowType is genai', () => {
     const onBreadcrumbChange = jest.fn();
     renderReporter(WorkflowType.GENAI, onBreadcrumbChange);
 
     expect(onBreadcrumbChange).toHaveBeenLastCalledWith([
-      { label: 'Agent observability', path: '/' },
+      { label: 'Agent traces', path: '/' },
       { label: 'my-experiment', path: '/123' },
     ]);
   });

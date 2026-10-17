@@ -156,7 +156,7 @@ jobs:
           docker save -o "runtime-image/${MLFLOW_RUNTIME_ARTIFACT}.tar" "$MLFLOW_RUNTIME_IMAGE"
 
       - name: Upload MLflow image artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ env.MLFLOW_RUNTIME_ARTIFACT }}
           path: runtime-image/${{ env.MLFLOW_RUNTIME_ARTIFACT }}.tar
@@ -242,7 +242,7 @@ jobs:
           docker save -o "operator-image/${OPERATOR_RUNTIME_ARTIFACT}.tar" "$OPERATOR_RUNTIME_IMAGE"
 
       - name: Upload MLflow operator image artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ env.OPERATOR_RUNTIME_ARTIFACT }}
           path: operator-image/${{ env.OPERATOR_RUNTIME_ARTIFACT }}.tar
@@ -270,7 +270,7 @@ jobs:
           docker save -o "test-image/${MLFLOW_TESTS_RUNTIME_ARTIFACT}.tar" "$MLFLOW_TESTS_RUNTIME_IMAGE"
 
       - name: Upload MLflow tests image artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ env.MLFLOW_TESTS_RUNTIME_ARTIFACT }}
           path: test-image/${{ env.MLFLOW_TESTS_RUNTIME_ARTIFACT }}.tar
@@ -363,7 +363,7 @@ jobs:
         run: mlflow-tests/images/run-integration-tests.sh
 
       - name: Upload test results
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: "!cancelled()"
         with:
           name: integration-test-results-${{ matrix.k8s_version }}-${{ matrix.backend_store }}-${{ matrix.registry_store }}-${{ matrix.artifact_backends }}-${{ matrix.serve_artifacts }}-postgres_tls_${{ matrix.postgres_tls || 'false' }}-seaweedfs_tls_${{ matrix.seaweedfs_tls || 'false' }}
@@ -380,7 +380,7 @@ jobs:
             --output-dir debug-logs
 
       - name: Upload debug logs
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: failure() && !cancelled()
         with:
           name: debug-logs-${{ matrix.k8s_version }}-${{ matrix.backend_store }}-${{ matrix.registry_store }}-${{ matrix.artifact_backends }}-${{ matrix.serve_artifacts }}-postgres_tls_${{ matrix.postgres_tls || 'false' }}-seaweedfs_tls_${{ matrix.seaweedfs_tls || 'false' }}

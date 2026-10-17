@@ -57,6 +57,11 @@ from mlflow.store.tracking.dbmodels.models import (
     SqlAssessmentDailyRollup,
     SqlEntityAssociation,
     SqlExperiment,
+    SqlSkill,
+    SqlSkillAlias,
+    SqlSkillTag,
+    SqlSkillVersion,
+    SqlSkillVersionTag,
     SqlSpanCostDailyRollup,
     SqlTraceInfo,
     SqlTraceMetricDailyRollup,
@@ -74,7 +79,7 @@ from mlflow.tracing.constant import SpanAttributeKey, TraceMetadataKey, TraceMet
 from mlflow.tracing.utils import generate_request_id_v2
 from mlflow.tracking._tracking_service import utils as tracking_utils
 from mlflow.tracking._tracking_service.client import TrackingServiceClient
-from mlflow.utils.mlflow_tags import MLFLOW_DATASET_CONTEXT
+from mlflow.utils.mlflow_tags import MLFLOW_DATASET_CONTEXT, MLFLOW_EXPERIMENT_KIND
 from mlflow.utils.uri import append_to_uri_path
 from mlflow.utils.workspace_context import WorkspaceContext
 from mlflow.utils.workspace_utils import DEFAULT_WORKSPACE_NAME
@@ -1224,6 +1229,25 @@ def test_log_spans_locks_and_recomputes_token_usage_in_workspace(workspace_track
 
         trace_info = workspace_tracking_store.get_trace_info(trace_id)
         assert trace_info.token_usage["total_tokens"] == 300
+
+
+def test_trace_writes_set_experiment_kind_within_workspace(workspace_tracking_store):
+    with WorkspaceContext("team-a"):
+        exp_a = workspace_tracking_store.create_experiment("traced-team-a")
+    with WorkspaceContext("team-b"):
+        exp_b = workspace_tracking_store.create_experiment("traced-team-b")
+
+    with WorkspaceContext("team-a"):
+        _create_trace(workspace_tracking_store, f"tr-{uuid.uuid4().hex}", experiment_id=exp_a)
+        tags_a = workspace_tracking_store.get_experiment(exp_a).tags
+        assert tags_a[MLFLOW_EXPERIMENT_KIND] == "genai_development_inferred"
+
+    with WorkspaceContext("team-b"):
+        assert MLFLOW_EXPERIMENT_KIND not in workspace_tracking_store.get_experiment(exp_b).tags
+
+        workspace_tracking_store.log_spans(exp_b, [create_test_span(f"tr-{uuid.uuid4().hex}")])
+        tags_b = workspace_tracking_store.get_experiment(exp_b).tags
+        assert tags_b[MLFLOW_EXPERIMENT_KIND] == "genai_development_inferred"
 
 
 def test_start_trace_conflict_update_is_workspace_scoped(
@@ -3318,3 +3342,63 @@ def test_review_queue_question_lock_holds_in_workspace_store(workspace_tracking_
             workspace_tracking_store.update_review_queue(queue.queue_id, schema_ids=[ls1.schema_id])
         updated = workspace_tracking_store.update_review_queue(queue.queue_id, users=["alice"])
         assert updated.users == ["alice"]
+
+
+def _seed_skill_registry_graph(session, workspace):
+    """One row in every skill-registry table, all belonging to *workspace*."""
+    session.add(SqlSkill(workspace=workspace, organization="acme", name="code-review"))
+    session.add(
+        SqlSkillVersion(
+            workspace=workspace,
+            organization="acme",
+            name="code-review",
+            version=1,
+            source_type="git",
+            source="s.git",
+        )
+    )
+    session.add(
+        SqlSkillTag(
+            workspace=workspace, organization="acme", name="code-review", key="k", value="v"
+        )
+    )
+    session.add(
+        SqlSkillVersionTag(
+            workspace=workspace,
+            organization="acme",
+            name="code-review",
+            version=1,
+            key="k",
+            value="v",
+        )
+    )
+    session.add(
+        SqlSkillAlias(
+            workspace=workspace, organization="acme", name="code-review", alias="prod", version=1
+        )
+    )
+
+
+@pytest.mark.parametrize(
+    ("model", "workspace_attribute"),
+    [
+        (SqlSkill, "workspace"),
+        (SqlSkillVersion, "workspace"),
+        (SqlSkillTag, "workspace"),
+        (SqlSkillVersionTag, "workspace"),
+        (SqlSkillAlias, "workspace"),
+    ],
+)
+def test_get_query_scopes_skill_registry_models_to_active_workspace(
+    workspace_tracking_store, model, workspace_attribute
+):
+    # Identical rows in two workspaces: a query that forgot to filter returns both.
+    with workspace_tracking_store.ManagedSessionMaker(read_only=False) as session:
+        _seed_skill_registry_graph(session, "team-a")
+        _seed_skill_registry_graph(session, "team-b")
+
+    for workspace in ("team-a", "team-b"):
+        with WorkspaceContext(workspace):
+            with workspace_tracking_store.ManagedSessionMaker() as session:
+                rows = workspace_tracking_store._get_query(session, model).all()
+                assert [getattr(row, workspace_attribute) for row in rows] == [workspace]

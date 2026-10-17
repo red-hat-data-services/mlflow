@@ -9,6 +9,8 @@ import type { SortingState } from '@tanstack/react-table';
 import type { TagFilter } from './useTagsFilter';
 import { isDemoExperiment } from '../../../utils/isDemoExperiment';
 import { EXPERIMENT_IS_GATEWAY_TAG } from '../utils/experimentPage.common-utils';
+import { EXPERIMENT_KIND_TAG_KEY } from '../../../utils/ExperimentKindUtils';
+import { ExperimentKind } from '../../../constants';
 
 const STORE_KEY = {
   PAGE_SIZE: 'experiments_page.page_size',
@@ -20,7 +22,14 @@ const ExperimentListQueryKeyHeader = 'experiment_list';
 
 type ExperimentListQueryKey = [
   typeof ExperimentListQueryKeyHeader,
-  { searchFilter?: string; tagsFilter?: TagFilter[]; pageToken?: string; pageSize?: number; sorting?: SortingState },
+  {
+    searchFilter?: string;
+    tagsFilter?: TagFilter[];
+    genAIOnly?: boolean;
+    pageToken?: string;
+    pageSize?: number;
+    sorting?: SortingState;
+  },
 ];
 
 export const useInvalidateExperimentList = () => {
@@ -41,7 +50,11 @@ function tagFilterToSql(tagFilter: TagFilter) {
   }
 }
 
-function getFilters({ searchFilter, tagsFilter }: Pick<ExperimentListQueryKey['1'], 'searchFilter' | 'tagsFilter'>) {
+function getFilters({
+  searchFilter,
+  tagsFilter,
+  genAIOnly,
+}: Pick<ExperimentListQueryKey['1'], 'searchFilter' | 'tagsFilter' | 'genAIOnly'>) {
   const filters = [];
 
   if (searchFilter) {
@@ -55,11 +68,16 @@ function getFilters({ searchFilter, tagsFilter }: Pick<ExperimentListQueryKey['1
   // Exclude gateway experiments server-side to ensure consistent page sizes
   filters.push(`tags.\`${EXPERIMENT_IS_GATEWAY_TAG}\` IS NULL`);
 
+  if (genAIOnly) {
+    // The prefix matches both the explicit and the inferred GenAI kind
+    filters.push(`tags.\`${EXPERIMENT_KIND_TAG_KEY}\` LIKE '${ExperimentKind.GENAI_DEVELOPMENT}%'`);
+  }
+
   return ['filter', filters.join(' AND ')];
 }
 
 const queryFn = ({ queryKey }: QueryFunctionContext<ExperimentListQueryKey>) => {
-  const [, { searchFilter, tagsFilter, pageToken, pageSize, sorting }] = queryKey;
+  const [, { searchFilter, tagsFilter, genAIOnly, pageToken, pageSize, sorting }] = queryKey;
 
   // NOTE: REST API docs are not detailed enough, see: mlflow/store/tracking/abstract_store.py#search_experiments
   const orderBy = sorting?.map((column) => ['order_by', `${column.id} ${column.desc ? 'DESC' : 'ASC'}`]) ?? [];
@@ -67,7 +85,7 @@ const queryFn = ({ queryKey }: QueryFunctionContext<ExperimentListQueryKey>) => 
   const data: (string[] | undefined)[] = [['max_results', String(pageSize)], ...orderBy];
 
   // NOTE: undefined values are fine, they're filtered out by the request helpers inside `MlflowService`
-  data.push(getFilters({ searchFilter, tagsFilter }));
+  data.push(getFilters({ searchFilter, tagsFilter, genAIOnly }));
 
   if (pageToken) {
     data.push(['page_token', pageToken]);
@@ -79,7 +97,8 @@ const queryFn = ({ queryKey }: QueryFunctionContext<ExperimentListQueryKey>) => 
 export const useExperimentListQuery = ({
   searchFilter,
   tagsFilter,
-}: { searchFilter?: string; tagsFilter?: TagFilter[] } = {}) => {
+  genAIOnly,
+}: { searchFilter?: string; tagsFilter?: TagFilter[]; genAIOnly?: boolean } = {}) => {
   const previousPageTokens = useRef<(string | undefined)[]>([]);
 
   const [currentPageToken, setCurrentPageToken] = useState<string | undefined>(undefined);
@@ -100,7 +119,7 @@ export const useExperimentListQuery = ({
   useEffect(() => {
     setCurrentPageToken(undefined);
     previousPageTokens.current = [];
-  }, [searchFilter, tagsFilter, sorting]);
+  }, [searchFilter, tagsFilter, genAIOnly, sorting]);
 
   const pageSizeSelect: CursorPaginationProps['pageSizeSelect'] = {
     options: [10, 25, 50, 100],
@@ -116,10 +135,16 @@ export const useExperimentListQuery = ({
     Error,
     SearchExperimentsApiResponse,
     ExperimentListQueryKey
-  >([ExperimentListQueryKeyHeader, { searchFilter, tagsFilter, pageToken: currentPageToken, pageSize, sorting }], {
-    queryFn,
-    retry: false,
-  });
+  >(
+    [
+      ExperimentListQueryKeyHeader,
+      { searchFilter, tagsFilter, genAIOnly, pageToken: currentPageToken, pageSize, sorting },
+    ],
+    {
+      queryFn,
+      retry: false,
+    },
+  );
 
   const onNextPage = useCallback(() => {
     previousPageTokens.current.push(currentPageToken);

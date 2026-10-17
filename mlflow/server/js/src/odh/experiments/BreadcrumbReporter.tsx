@@ -24,7 +24,7 @@ interface BreadcrumbReporterProps {
 }
 
 const EXPERIMENTS_CRUMB: BreadcrumbSegment = { label: 'Experiments', path: '/' };
-const AGENT_OBSERVABILITY_CRUMB: BreadcrumbSegment = { label: 'Agent observability', path: '/' };
+const AGENT_TRACES_CRUMB: BreadcrumbSegment = { label: 'Agent traces', path: '/' };
 
 /**
  * Try to resolve an experiment name from the Redux store.
@@ -221,7 +221,7 @@ const buildSegments = (
  */
 export const BreadcrumbReporter: React.FC<BreadcrumbReporterProps> = ({ workflowType, onBreadcrumbChange }) => {
   const { pathname, search } = useLocation();
-  const rootCrumb = workflowType === WorkflowType.GENAI ? AGENT_OBSERVABILITY_CRUMB : EXPERIMENTS_CRUMB;
+  const rootCrumb = workflowType === WorkflowType.GENAI ? AGENT_TRACES_CRUMB : EXPERIMENTS_CRUMB;
 
   // Extract IDs from the pathname for entity name lookups
   const expMatch = matchPath('/:experimentId/*', pathname);

@@ -405,4 +405,34 @@ describe('useExperimentListQuery', () => {
       expect(filterParam?.[1]).toContain('tags.`mlflow.experiment.isGateway` IS NULL');
     });
   });
+
+  describe('GenAI experiment filtering', () => {
+    const getFilterParam = () =>
+      mockSearchExperiments.mock.calls[0][0].find((param: [string, string]) => param?.[0] === 'filter')?.[1];
+
+    it('filters on the GenAI experiment kind when genAIOnly is set', async () => {
+      mockSearchExperiments.mockResolvedValueOnce(createMockResponse(['1'], undefined));
+
+      renderHook(() => useExperimentListQuery({ searchFilter: 'agent', genAIOnly: true }), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => expect(mockSearchExperiments).toHaveBeenCalled());
+
+      expect(getFilterParam()).toContain("name ILIKE '%agent%'");
+      expect(getFilterParam()).toContain("tags.`mlflow.experimentKind` LIKE 'genai_development%'");
+    });
+
+    it('does not filter on the experiment kind by default', async () => {
+      mockSearchExperiments.mockResolvedValueOnce(createMockResponse(['1'], undefined));
+
+      renderHook(() => useExperimentListQuery(), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => expect(mockSearchExperiments).toHaveBeenCalled());
+
+      expect(getFilterParam()).not.toContain('mlflow.experimentKind');
+    });
+  });
 });

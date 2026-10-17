@@ -33,6 +33,9 @@ import { HeaderVisibilityProvider, useHeaderVisibility } from './ExperimentPageH
 import { ExperimentViewSavedViewsButton } from '../../components/experiment-page/components/header/ExperimentViewSavedViewsButton';
 import { SharedViewActionsBridgeProvider } from '../../components/experiment-page/hooks/useSharedViewActionsBridge';
 import type { ExperimentEntity } from '../../types';
+import { WorkflowType } from '@mlflow/mlflow/src/common/contexts/WorkflowTypeContext';
+import { useLockedWorkflowSwitch } from '@mlflow/mlflow/src/odh/contexts/LockedWorkflowSwitchContext';
+import { AgentTracesNotice } from '@mlflow/mlflow/src/odh/experiments/AgentTracesNotice';
 
 const ExperimentPageTabsImpl = () => {
   const { experimentId, tabName } = useParams();
@@ -97,6 +100,7 @@ const ExperimentPageTabsImpl = () => {
   const enableWorkflowBasedNavigation = shouldEnableWorkflowBasedNavigation();
   const isEmbedded = useIsIntegrated();
   const showExperimentPageSideNav = !enableWorkflowBasedNavigation || isEmbedded;
+  const showAgentTracesNotice = useLockedWorkflowSwitch()?.workflowType === WorkflowType.GENAI;
 
   const {
     inferredExperimentKind,
@@ -229,7 +233,9 @@ const ExperimentPageTabsImpl = () => {
           }
         />
       )}
-      {!enableWorkflowBasedNavigation || showExperimentPageSideNav ? (
+      {showAgentTracesNotice ? (
+        <AgentTracesNotice experimentId={experimentId} tabName={activeTab} />
+      ) : !enableWorkflowBasedNavigation || showExperimentPageSideNav ? (
         <div css={{ display: 'flex', flex: 1, minWidth: 0, minHeight: 0 }}>
           {loadingExperiment || inferringExperimentType ? (
             <ExperimentPageSideNavSkeleton />
