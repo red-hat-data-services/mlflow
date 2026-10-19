@@ -831,7 +831,7 @@ class Utils {
     return qs.parse(search, {
       ignoreQueryPrefix: true,
       comma: true,
-      arrayLimit: 500,
+      arrayLimit: 501,
       decoder(str, defaultDecoder, charset, type) {
         if (type === 'value') {
           if (str === 'true') {
@@ -859,7 +859,12 @@ class Utils {
         replaced[key] = state[key];
       }
     }
-    return qs.stringify(replaced, { arrayFormat: 'comma', encodeValuesOnly: true });
+    return qs.stringify(replaced, {
+      arrayFormat: 'comma',
+      encodeValuesOnly: true,
+      // Preserve bracket notation for single-item arrays so they round-trip as arrays.
+      commaRoundTrip: true,
+    } as qs.IStringifyOptions & { commaRoundTrip: boolean });
   }
 
   static compareByTimestamp(history1: any, history2: any) {
