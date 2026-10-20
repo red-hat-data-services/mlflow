@@ -18,6 +18,9 @@ boto3
 prometheus-client
 kubernetes
 
+# CVE fix: GHSA-537c-gmf6-5ccf
+cryptography>=48.0.1
+
 # Cross-arch constraints: pin packages to versions available on all target
 # architectures (aarch64, ppc64le, x86_64) on the AIPCC index.
 matplotlib==3.10.8
