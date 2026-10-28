@@ -23,7 +23,8 @@ tiktoken
 # Required by progress bar tests
 tqdm[notebook]
 # Required for LLM eval in `mlflow.evaluate`
-openai
+# Pin until gateway compatibility tests handle changes to SDK exception messages.
+openai==3.37.0
 # Required for showing pytest stats
 psutil
 pyspark<4.1.0
