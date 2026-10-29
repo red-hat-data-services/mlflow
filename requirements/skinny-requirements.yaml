@@ -20,7 +20,7 @@ python-dotenv:
 
 gitpython:
   pip_release: gitpython
-  minimum: "3.1.9"
+  minimum: "3.1.60"
   max_major_version: 3
 
 pyyaml:
