@@ -47,8 +47,8 @@ pillow>=13.0.0
 pyasn1>=0.6.4
 
 # Security constraints for shipped runtime dependencies.
-# GitPython 3.1.60+ validates git directory locations before repository operations.
-gitpython>=3.1.60
+# GitPython 3.2.0+ validates git directory locations before repository operations.
+gitpython>=3.2.0
 # CVE-2026-75507: graphql-core <=3.2.11 DoS via uncontrolled resource consumption.
 graphql-core>=3.2.12
 # sqlparse 0.6.0+ bounds work while lexing and grouping adversarial SQL.

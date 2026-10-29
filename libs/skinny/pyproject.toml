@@ -30,7 +30,7 @@ dependencies = [
   "cloudpickle<4",
   "databricks-sdk<1,>=0.20.0",
   "fastapi<1",
-  "gitpython<4,>=3.1.60",
+  "gitpython<4,>=3.2.0",
   "importlib_metadata<9,>=3.7.0,!=4.7.0",
   "opentelemetry-api<3,>=1.9.0",
   "opentelemetry-proto<3,>=1.9.0",
