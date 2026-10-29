@@ -70,6 +70,9 @@ MULTIARCH_TARGETS = [
             "--extra",
             "kubernetes",
             "--prerelease=allow",
+            # AIPCC lacks the security-fixed graphql-core 3.2.x releases.
+            "--find-links",
+            "https://pypi.org/simple/graphql-core/",
         ],
     ),
     CompileTarget(

@@ -10,6 +10,8 @@
 #
 #   python requirements/compile.py
 
+# AIPCC stops at 3.2.11; 3.2.12+ fixes CVE-2026-75507. Graphene requires <3.3.
+graphql-core>=3.2.12,<3.3
 mlflow-kubernetes-plugins==1.1.1
 # AIPCC 3.4 does not have 4.0.0; earlier oauthlib releases have CVE-2026-49265.
 oauthlib==4.0.0
