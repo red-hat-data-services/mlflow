@@ -240,7 +240,13 @@
     "postcss@npm:^8.4.33": "npm:8.5.12",
     "postcss@npm:^8.4.40": "npm:8.5.12",
     "postcss@npm:^8.4.47": "npm:8.5.12",
-    "source-map-js": "1.2.2"
+    "source-map-js": "1.2.2",
+    "brace-expansion@npm:^1.1.7": "npm:1.1.20",
+    "brace-expansion@npm:^2.0.1": "npm:2.1.6",
+    "uri-js@npm:^4.2.2": "npm:4.4.1",
+    "fast-uri@npm:^3.0.1": "npm:3.1.6",
+    "webpack-dev-middleware@npm:^3.7.3": "npm:5.3.4",
+    "webpack-dev-middleware@npm:^4.1.0": "npm:5.3.4"
   },
   "//": "homepage is hard to configure without resorting to env variables and doesn't play nicely with other webpack settings. This field should be removed.",
   "homepage": "static-files",
