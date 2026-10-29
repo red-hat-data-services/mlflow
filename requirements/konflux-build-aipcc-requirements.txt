@@ -16,6 +16,8 @@ pathspec==1.1.1 \
     --hash=sha256:19f453436f4bb6c9de7c6b67127dc34afd9f65a9828ad50c36b0417ffbce05bc
 pluggy==1.6.0 \
     --hash=sha256:984df28329611bee51530a6c39a6b3267a07abc257ea752a83b40146e1923b87
+poetry-core==2.4.1 \
+    --hash=sha256:44979545fa52dd6ade367aa5da401cdeb5c47d2e994d793390752b08050842fe
 pyproject-hooks==1.2.0 \
     --hash=sha256:23f914be06e835a1cac214a3c08daffbdf4d33f685194c76b38b079d8cf1dc62
 setuptools==83.0.0 \
