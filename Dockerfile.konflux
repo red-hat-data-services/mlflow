@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=registry.redhat.io/ubi9/ubi-minimal-pqc@sha256:b3a0b012de0c578082e1bc5b01c8bc27461b4eeb571a0b1a2b21a07dbd845a62
+ARG BASE_IMAGE=registry.redhat.io/ubi9/ubi-minimal-pqc@sha256:58d09489b1d9123e24d691e47af6c390fe5e08f50c7f4f2967bb64df7ab72aa0
 
 FROM registry.access.redhat.com/ubi9/nodejs-24:9.7@sha256:06a4942584cad8a566450b5775c9564a09802f07a5c3cf2c9ea440aa84cec357 AS ui-builder
 WORKDIR /opt/app-root/src
@@ -64,6 +64,21 @@ RUN set -eux; \
         /tmp/dist/starlette-*.whl && \
     microdnf clean all && \
     rm -rf /tmp/dist /tmp/konflux-aipcc-requirements.txt
+
+# Fail if the installed packages' declared requirements conflict.
+RUN python3.12 -m pip check
+
+# Exercise CMD's import phase; --help exits before the server starts.
+RUN python3.12 -m mlflow server --help > /dev/null
+
+# Load the plugin entry points CMD depends on (kubernetes-auth app and
+# kubernetes:// workspace store) so missing dependencies, broken entry
+# points, or native import crashes fail the build instead of the server.
+RUN python3.12 - <<'PY'
+from importlib.metadata import entry_points
+entry_points(group="mlflow.workspace_provider")["kubernetes"].load()
+entry_points(group="mlflow.app")["kubernetes-auth"].load()
+PY
 
 # Copy built UI from builder stage
 COPY --from=ui-builder /opt/app-root/src/build /tmp/mlflow-ui-build
