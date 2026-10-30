@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import Any
 
 from pip._internal.network.session import PipSession
+from pip._vendor.packaging.markers import Marker
 from piptools._compat.pip_compat import parse_requirements
 from piptools.utils import format_requirement, get_hashes_from_ireq
 
@@ -36,8 +37,8 @@ DEFAULT_DOCKER_IMAGE = "registry.access.redhat.com/ubi9/python-312:9.7"
 
 ARCHES = ["amd64", "arm64", "ppc64le", "s390x"]
 
-# Packages that are expected to be unavailable on specific architectures
-# (e.g. greenlet has no s390x wheel and is excluded via platform markers).
+# Packages that may be absent from the resolved dependencies on specific
+# architectures (e.g. SQLAlchemy does not require greenlet on s390x).
 ARCH_MISSING_ALLOWLIST: dict[str, set[str]] = {
     "ppc64le": {"hf-xet"},
     "s390x": {"greenlet", "hf-xet"},
@@ -211,6 +212,16 @@ def parse_and_collect_hashes(
                     "All architectures must resolve the same set of packages. "
                     "If this is expected, add the package to ARCH_MISSING_ALLOWLIST."
                 )
+            # A native uv compile can omit platform markers. Restore exclusions
+            # for architectures where the package was not resolved before merging.
+            machines = {"amd64": "x86_64", "arm64": "aarch64"}
+            marker = " and ".join(
+                f'platform_machine != "{machines.get(arch, arch)}"' for arch in sorted(missing)
+            )
+            ireq = canonical_ireqs[name]
+            if ireq.markers:
+                marker = f"({ireq.markers}) and ({marker})"
+            ireq.markers = Marker(marker)
         unique = set(arch_versions.values())
         if len(unique) > 1:
             detail = ", ".join(f"{a}: {v}" for a, v in sorted(arch_versions.items()))
@@ -252,7 +263,7 @@ def write_multiarch_output(
             continue
         ireq = canonical_ireqs[name]
         hashes = merged_hashes[name]
-        parts.append(format_requirement(ireq, hashes=hashes) + "\n")
+        parts.append(format_requirement(ireq, marker=ireq.markers, hashes=hashes) + "\n")
 
     out_path.write_text("".join(parts))
     log(f"  wrote {target.out_file}")
