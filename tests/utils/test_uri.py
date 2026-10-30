@@ -31,6 +31,24 @@ from mlflow.utils.uri import (
 )
 
 
+@pytest.mark.parametrize(
+    ("uri_or_path", "scheme"),
+    [
+        ("C:/Windows", ""),
+        ("d:/data", ""),
+        (r"C:\Windows\System32", ""),
+        ("C:relative", ""),
+        ("prompt-template", ""),
+        ("file:///tmp/prompts", "file"),
+        ("s3://bucket/prompts/1", "s3"),
+        ("https://example.com/prompts/1", "https"),
+        ("mlflow-artifacts:/prompts/1", "mlflow-artifacts"),
+    ],
+)
+def test_get_uri_scheme(uri_or_path, scheme):
+    assert get_uri_scheme(uri_or_path) == scheme
+
+
 def test_extract_db_type_from_uri():
     uri = "{}://username:password@host:port/database"
     for legit_db in DATABASE_ENGINES:
