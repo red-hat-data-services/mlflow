@@ -38,13 +38,21 @@ yarl==1.25.1
 pillow>=13.0.0
 
 # pyasn1 0.6.4+ fixes CVE-2026-59884/59885/59886 (DoS via crafted ASN.1 inputs).
+# 0.6.5 is not yet available on the AIPCC index.
 pyasn1>=0.6.4
 
 # GitPython 3.2.0+ fixes CVE-2026-67325 (and CVE-2026-67323) command injection issues in the shipped runtime image.
 gitpython>=3.2.0
 
-# graphql-core 3.2.12+ fixes security vulnerabilities in the shipped runtime image.
-graphql-core>=3.2.12
+# graphql-core 3.2.12 fixes CVE-2026-75507/75508 and is available on the AIPCC index.
+# Stay on the 3.2 series required by Graphene; the 3.3.1 validator fix does not affect 3.2.
+graphql-core>=3.2.12,<3.3
+
+# certifi 2026.10.18+ removes expired/distrusted root certificates.
+certifi>=2026.10.18
+
+# urllib3 2.8.0+ fixes security vulnerabilities in the shipped runtime image.
+urllib3>=2.8.0
 
 # sqlparse 0.6.0+ fixes CVE-2026-71491 (quadratic CPU consumption in comment grouping).
 sqlparse>=0.6.0
