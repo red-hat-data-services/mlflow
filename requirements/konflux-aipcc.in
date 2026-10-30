@@ -43,8 +43,8 @@ yarl==1.25.1
 # CVE-2026-59199
 pillow>=13.0.0
 
-# pyasn1 0.6.4+ fixes CVE-2026-59884 (DoS via crafted BER/CER/DER long-form tag IDs).
-pyasn1>=0.6.4
+# pyasn1 0.6.5+ fixes vulnerabilities including CVE-2026-59884.
+pyasn1>=0.6.5
 
 # Security constraints for shipped runtime dependencies.
 # GitPython 3.2.0+ validates git directory locations before repository operations.
