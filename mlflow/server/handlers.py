@@ -254,10 +254,16 @@ from mlflow.server.workspace_helpers import (
 )
 from mlflow.store.artifact.artifact_repo import (
     ARTIFACT_STREAM_CHUNK_SIZE,
+    ArtifactRepository,
     MultipartUploadMixin,
     StreamUploadMixin,
 )
 from mlflow.store.artifact.artifact_repository_registry import get_artifact_repository
+from mlflow.store.artifact.host_policy import (
+    host_addressed_rejection_message,
+    rejected_host_addressed_scheme,
+    validate_artifact_uri_host,
+)
 from mlflow.store.db.db_types import DATABASE_ENGINES
 from mlflow.store.jobs.abstract_store import AbstractJobStore
 from mlflow.store.model_registry.abstract_store import AbstractStore as AbstractModelRegistryStore
@@ -464,7 +470,7 @@ def _get_trace_artifact_repo(trace_info: TraceInfo):
         # e.g. s3://<experiment_id>/traces/<request_id>
         artifact_repo = get_artifact_repository(artifact_uri)
     else:
-        artifact_repo = get_artifact_repository(artifact_uri)
+        artifact_repo = _get_artifact_repository_for_uri(artifact_uri)
     return artifact_repo
 
 
@@ -1128,6 +1134,25 @@ def _disable_gateway(func):
     return wrapper
 
 
+def _validate_artifact_uri_scheme(uri: str, field_name: str) -> None:
+    scheme = rejected_host_addressed_scheme(uri)
+    if scheme is not None:
+        raise MlflowException.invalid_parameter_value(
+            host_addressed_rejection_message(scheme, field_name=field_name)
+        )
+
+
+def _get_artifact_repository_for_uri(artifact_uri: str) -> ArtifactRepository:
+    """
+    Build the artifact repository for a stored location the server did not configure itself,
+    refusing to connect to hosts outside its configured artifact storage. The registry applies the
+    same policy to every repository built in a server process; this explicit check keeps the
+    handlers covered when the server is run without the `mlflow server` CLI environment.
+    """
+    validate_artifact_uri_host(artifact_uri)
+    return get_artifact_repository(artifact_uri)
+
+
 def _validate_artifact_root_uri(value: str, field_name: str) -> str:
     parsed = urllib.parse.urlparse(value)
     if parsed.fragment or parsed.params:
@@ -1136,6 +1161,7 @@ def _validate_artifact_root_uri(value: str, field_name: str) -> str:
         )
 
     validate_query_string(parsed.query)
+    _validate_artifact_uri_scheme(value, field_name)
     _validate_experiment_artifact_location(value)
     _validate_experiment_artifact_location_length(value)
     return value
@@ -2239,7 +2265,7 @@ def upload_artifact_handler():
             )
             path_to_log = _get_workspace_scoped_repo_path_if_enabled(path_to_log)
         else:
-            artifact_repo = get_artifact_repository(artifact_dir)
+            artifact_repo = _get_artifact_repository_for_uri(artifact_dir)
             path_to_log = dirname
 
         artifact_repo.log_artifact(file, path_to_log)
@@ -2290,7 +2316,7 @@ def _search_experiments():
 
 @catch_mlflow_exception
 def _get_artifact_repo(run):
-    return get_artifact_repository(run.info.artifact_uri)
+    return _get_artifact_repository_for_uri(run.info.artifact_uri)
 
 
 @catch_mlflow_exception
@@ -2729,6 +2755,7 @@ def _create_model_version():
             _validate_source_model(request_message.source, request_message.model_id)
         else:
             _validate_source_run(request_message.source, request_message.run_id)
+    _validate_artifact_uri_scheme(request_message.source, "source")
 
     store = _get_model_registry_store()
     model_version = store.create_model_version(
@@ -2815,7 +2842,7 @@ def get_model_version_artifact_handler():
         )
         artifact_path = _get_workspace_scoped_repo_path_if_enabled(artifact_path)
     else:
-        artifact_repo = get_artifact_repository(artifact_uri)
+        artifact_repo = _get_artifact_repository_for_uri(artifact_uri)
         artifact_path = path
 
     return _send_artifact(artifact_repo, artifact_path)
@@ -4201,7 +4228,7 @@ def get_logged_model_artifact_handler(model_id: str):
         )
         artifact_path = _get_workspace_scoped_repo_path_if_enabled(artifact_path)
     else:
-        artifact_repo = get_artifact_repository(logged_model.artifact_location)
+        artifact_repo = _get_artifact_repository_for_uri(logged_model.artifact_location)
         artifact_path = artifact_file_path
 
     return _send_artifact(artifact_repo, artifact_path)
@@ -4396,7 +4423,7 @@ def _list_logged_model_artifacts_impl(
             relative_path=artifact_directory_path,
         )
     else:
-        artifacts = get_artifact_repository(logged_model.artifact_location).list_artifacts(
+        artifacts = _get_artifact_repository_for_uri(logged_model.artifact_location).list_artifacts(
             artifact_directory_path
         )
 
