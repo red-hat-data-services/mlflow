@@ -1,6 +1,7 @@
-ARG BASE_IMAGE=registry.redhat.io/ubi9/ubi-minimal-pqc@sha256:c7fdcf2617a608d07f95fa01d8936fc8bf898096a60e5ebc432aae8ead50ea6c
+# UBI 10 — RHEL 10 has PQC crypto by default (no ubi-minimal-pqc / crypto-policies step).
+ARG BASE_IMAGE=registry.access.redhat.com/ubi10/ubi-minimal@sha256:c3fe95ec9f53a3888c47314eb4d08bde09ebde646a428137b445091afe1daf89
 
-FROM registry.access.redhat.com/ubi9/nodejs-24:9.7@sha256:06a4942584cad8a566450b5775c9564a09802f07a5c3cf2c9ea440aa84cec357 AS ui-builder
+FROM registry.access.redhat.com/ubi10/nodejs-24@sha256:57212ff4d61b69442054ba664b9801d0c9368310417847e86bcdc644e46e1e29 AS ui-builder
 WORKDIR /opt/app-root/src
 USER 0
 COPY --chown=1001:0 mlflow/server/js/ .
@@ -21,9 +22,12 @@ RUN if [ -f /cachi2/cachi2.env ]; then \
     && NODE_OPTIONS="--max_old_space_size=3072" yarn build \
     && NODE_OPTIONS="--max_old_space_size=3072" MLFLOW_API_BASE_URL=/mlflow yarn build:federated
 
-FROM registry.access.redhat.com/ubi9/python-312:9.7@sha256:ff373f4b42b662e99954adea770ca87b4ea963186cc752174ccb94aa08fa702d AS python-builder
+FROM registry.access.redhat.com/ubi10/python-312-minimal@sha256:16cd9d766f812e706f4994aaacb656d338b1054952dcd0ce9627c32011d9574e AS python-builder
 WORKDIR /src
 USER 0
+# psycopg2 has no el10 wheel on PyPI — needs pg_config + a C toolchain to build the sdist.
+RUN microdnf install -y --setopt=tsflags=nodocs libpq-devel gcc python3-devel && \
+    microdnf clean all && rm -rf /var/cache/dnf/*
 COPY --chown=1001:0 . .
 RUN if [ -f /cachi2/cachi2.env ]; then . /cachi2/cachi2.env; fi && \
     python -m pip install --no-cache-dir --require-hashes --no-deps \
@@ -35,7 +39,7 @@ RUN if [ -f /cachi2/cachi2.env ]; then . /cachi2/cachi2.env; fi && \
     python -m build --wheel --outdir /tmp/dist libs/skinny && \
     python -m build --wheel --outdir /tmp/dist .
 
-FROM ${BASE_IMAGE}
+FROM ${BASE_IMAGE} AS runtime
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     MLFLOW_DISABLE_TELEMETRY=true \
@@ -48,13 +52,15 @@ WORKDIR /app
 USER 0
 COPY --from=python-builder /tmp/dist/ /tmp/dist/
 COPY requirements/konflux-aipcc-requirements.txt /tmp/konflux-aipcc-requirements.txt
+# UBI 10: python3 provides 3.12; libpq replaces postgresql-libs.
 RUN set -eux; \
-    microdnf install -y --setopt=tsflags=nodocs python3.12 python3.12-pip postgresql-libs openblas-threads sqlite && \
-    ln -s "$(command -v python3.12)" /usr/local/bin/python && \
+    microdnf install -y --setopt=tsflags=nodocs python3 python3-pip libpq openblas-threads sqlite && \
+    ln -sf "$(command -v python3)" /usr/local/bin/python && \
+    ln -sf "$(command -v python3)" /usr/local/bin/python3.12 && \
     if [ -f /cachi2/cachi2.env ]; then . /cachi2/cachi2.env; fi && \
-    python3.12 -m pip install --no-cache-dir --require-hashes --no-deps \
+    python3 -m pip install --no-cache-dir --require-hashes --no-deps \
         -r /tmp/konflux-aipcc-requirements.txt && \
-    python3.12 -m pip install --no-cache-dir --no-deps \
+    python3 -m pip install --no-cache-dir --no-deps \
         /tmp/dist/mlflow_tracing-*.whl \
         /tmp/dist/mlflow_skinny-*.whl \
         /tmp/dist/mlflow-*.whl \
@@ -66,15 +72,15 @@ RUN set -eux; \
     rm -rf /tmp/dist /tmp/konflux-aipcc-requirements.txt
 
 # Fail if the installed packages' declared requirements conflict.
-RUN python3.12 -m pip check
+RUN python3 -m pip check
 
 # Exercise CMD's import phase; --help exits before the server starts.
-RUN python3.12 -m mlflow server --help > /dev/null
+RUN python3 -m mlflow server --help > /dev/null
 
 # Load the plugin entry points CMD depends on (kubernetes-auth app and
 # kubernetes:// workspace store) so missing dependencies, broken entry
 # points, or native import crashes fail the build instead of the server.
-RUN python3.12 - <<'PY'
+RUN python3 - <<'PY'
 from importlib.metadata import entry_points
 entry_points(group="mlflow.workspace_provider")["kubernetes"].load()
 entry_points(group="mlflow.app")["kubernetes-auth"].load()
@@ -85,7 +91,7 @@ COPY --from=ui-builder /opt/app-root/src/build /tmp/mlflow-ui-build
 
 RUN set -eux; \
     # Copy the UI build into the installed mlflow package
-    py_site=$(python3.12 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])'); \
+    py_site=$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])'); \
     mkdir -p "$py_site/mlflow/server/js/build"; \
     rm -rf "$py_site/mlflow/server/js/build"/* || true; \
     cp -r /tmp/mlflow-ui-build/* "$py_site/mlflow/server/js/build/"; \
@@ -95,10 +101,10 @@ EXPOSE 5000
 
 # Default command. Override in Kubernetes as needed.
 USER 1001
-CMD ["python3.12", "-m", "mlflow", "server", "--host", "0.0.0.0", "--port", "5000", "--app-name", "kubernetes-auth", "--enable-workspaces", "--workspace-store-uri", "kubernetes://", "--serve-artifacts"]
+CMD ["python3", "-m", "mlflow", "server", "--host", "0.0.0.0", "--port", "5000", "--app-name", "kubernetes-auth", "--enable-workspaces", "--workspace-store-uri", "kubernetes://", "--serve-artifacts"]
 
-LABEL com.redhat.component="odh-mlflow-rhel9" \
-      name="rhoai/odh-mlflow-rhel9" \
+LABEL com.redhat.component="odh-mlflow-rhel10" \
+      name="rhoai/odh-mlflow-rhel10" \
       description="odh-mlflow" \
       summary="odh-mlflow" \
       maintainer="['managed-open-data-hub@redhat.com']" \
