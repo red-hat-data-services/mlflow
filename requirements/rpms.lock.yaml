@@ -74,20 +74,20 @@ arches:
     name: sqlite
     evr: 3.34.1-11.el9_8
     sourcerpm: sqlite-3.34.1-11.el9_8.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/aarch64/baseos/os/Packages/e/expat-2.5.0-6.el9_8.7.aarch64.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/aarch64/baseos/os/Packages/e/expat-2.5.0-9.el9_9.4.aarch64.rpm
     repoid: ubi-9-for-aarch64-baseos-rpms
-    size: 123207
-    checksum: sha256:991979acbff4494fee979934ec88d1c252f46baa77a2f1b35ec69251dd9c39ff
+    size: 123156
+    checksum: sha256:bcaa948dd26957b4633325ad07beae7074cceab75ad9f1ff664c244ecb40ca78
     name: expat
-    evr: 2.5.0-6.el9_8.7
-    sourcerpm: expat-2.5.0-6.el9_8.7.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/aarch64/baseos/os/Packages/l/libgfortran-11.5.0-14.el9.aarch64.rpm
+    evr: 2.5.0-9.el9_9.4
+    sourcerpm: expat-2.5.0-9.el9_9.4.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/aarch64/baseos/os/Packages/l/libgfortran-11.5.0-17.el9_9.aarch64.rpm
     repoid: ubi-9-for-aarch64-baseos-rpms
-    size: 435007
-    checksum: sha256:dffccd2856eae33a06d19180c60cf3d6944e9e6e08712b54cf83c49d77b21903
+    size: 441869
+    checksum: sha256:23f8511df2ba9faca54fce4272f72122966c81df550df03871f64093596e0d91
     name: libgfortran
-    evr: 11.5.0-14.el9
-    sourcerpm: gcc-11.5.0-14.el9.src.rpm
+    evr: 11.5.0-17.el9_9
+    sourcerpm: gcc-11.5.0-17.el9_9.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/aarch64/baseos/os/Packages/l/libtirpc-1.3.3-9.el9.aarch64.rpm
     repoid: ubi-9-for-aarch64-baseos-rpms
     size: 98735
@@ -145,18 +145,18 @@ arches:
     checksum: sha256:8c42914fd3691cee14049a40d523a9ff1ebcd8fbf9e74b801b94f0f422ddb064
     name: python3.12-setuptools
     evr: 68.2.2-5.el9_6
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/aarch64/baseos/source/SRPMS/Packages/e/expat-2.5.0-6.el9_8.7.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/aarch64/baseos/source/SRPMS/Packages/e/expat-2.5.0-9.el9_9.4.src.rpm
     repoid: ubi-9-for-aarch64-baseos-source-rpms
-    size: 8414665
-    checksum: sha256:c02441639a25646db44bb3e04f47b91131646ac0f1c87e3ff919dae4ec3de08c
+    size: 8414151
+    checksum: sha256:c461966c67935df3c01d4755d76b9b9ff8894936aaf99000716976ffad14acda
     name: expat
-    evr: 2.5.0-6.el9_8.7
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/aarch64/baseos/source/SRPMS/Packages/g/gcc-11.5.0-14.el9.src.rpm
+    evr: 2.5.0-9.el9_9.4
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/aarch64/baseos/source/SRPMS/Packages/g/gcc-11.5.0-17.el9_9.src.rpm
     repoid: ubi-9-for-aarch64-baseos-source-rpms
-    size: 81978017
-    checksum: sha256:19dec462f2880508570ca42a82c2f76fbd95fcad8d3e3ff812e9ca50cdeb2d8f
+    size: 81995623
+    checksum: sha256:2b68dc5e93cbbf5151bfb7ecc436571c6f3cff0fee5d671bb41251e281e108c5
     name: gcc
-    evr: 11.5.0-14.el9
+    evr: 11.5.0-17.el9_9
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/aarch64/baseos/source/SRPMS/Packages/l/libtirpc-1.3.3-9.el9.src.rpm
     repoid: ubi-9-for-aarch64-baseos-source-rpms
     size: 589716
@@ -242,27 +242,27 @@ arches:
     name: sqlite
     evr: 3.34.1-11.el9_8
     sourcerpm: sqlite-3.34.1-11.el9_8.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/os/Packages/e/expat-2.5.0-6.el9_8.7.ppc64le.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/os/Packages/e/expat-2.5.0-9.el9_9.4.ppc64le.rpm
     repoid: ubi-9-for-ppc64le-baseos-rpms
-    size: 133968
-    checksum: sha256:3b8e1cec5a79edb3e96b2bdde21f9c71ff71cd66c27e8742adb4dfabdfb9a0e6
+    size: 133945
+    checksum: sha256:494d3f75e906f24f4161ce474230ee04a8421b1285ee9f968427dab8b9e1a594
     name: expat
-    evr: 2.5.0-6.el9_8.7
-    sourcerpm: expat-2.5.0-6.el9_8.7.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/os/Packages/l/libgfortran-11.5.0-14.el9.ppc64le.rpm
+    evr: 2.5.0-9.el9_9.4
+    sourcerpm: expat-2.5.0-9.el9_9.4.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/os/Packages/l/libgfortran-11.5.0-17.el9_9.ppc64le.rpm
     repoid: ubi-9-for-ppc64le-baseos-rpms
-    size: 517166
-    checksum: sha256:2a50e5adc5f3c0b9c80c14dc7c90169abd38284a52f8660a5276b8c7e8bd982d
+    size: 519748
+    checksum: sha256:5de3ac9d26f4947016dccc9b9ec1a52769dff6e28c23316801c14a69c41a2a24
     name: libgfortran
-    evr: 11.5.0-14.el9
-    sourcerpm: gcc-11.5.0-14.el9.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/os/Packages/l/libquadmath-11.5.0-14.el9.ppc64le.rpm
+    evr: 11.5.0-17.el9_9
+    sourcerpm: gcc-11.5.0-17.el9_9.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/os/Packages/l/libquadmath-11.5.0-17.el9_9.ppc64le.rpm
     repoid: ubi-9-for-ppc64le-baseos-rpms
-    size: 192305
-    checksum: sha256:5b1425277383dc64753d8e865a2f388ac376f1a97b4a2c25a9b34c0c80a1136f
+    size: 195016
+    checksum: sha256:7d93575684ca1e113625d1c419769937318b16fa8b69e39a383f823c6a65102c
     name: libquadmath
-    evr: 11.5.0-14.el9
-    sourcerpm: gcc-11.5.0-14.el9.src.rpm
+    evr: 11.5.0-17.el9_9
+    sourcerpm: gcc-11.5.0-17.el9_9.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/os/Packages/l/libtirpc-1.3.3-9.el9.ppc64le.rpm
     repoid: ubi-9-for-ppc64le-baseos-rpms
     size: 112487
@@ -320,18 +320,18 @@ arches:
     checksum: sha256:8c42914fd3691cee14049a40d523a9ff1ebcd8fbf9e74b801b94f0f422ddb064
     name: python3.12-setuptools
     evr: 68.2.2-5.el9_6
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/source/SRPMS/Packages/e/expat-2.5.0-6.el9_8.7.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/source/SRPMS/Packages/e/expat-2.5.0-9.el9_9.4.src.rpm
     repoid: ubi-9-for-ppc64le-baseos-source-rpms
-    size: 8414665
-    checksum: sha256:c02441639a25646db44bb3e04f47b91131646ac0f1c87e3ff919dae4ec3de08c
+    size: 8414151
+    checksum: sha256:c461966c67935df3c01d4755d76b9b9ff8894936aaf99000716976ffad14acda
     name: expat
-    evr: 2.5.0-6.el9_8.7
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/source/SRPMS/Packages/g/gcc-11.5.0-14.el9.src.rpm
+    evr: 2.5.0-9.el9_9.4
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/source/SRPMS/Packages/g/gcc-11.5.0-17.el9_9.src.rpm
     repoid: ubi-9-for-ppc64le-baseos-source-rpms
-    size: 81978017
-    checksum: sha256:19dec462f2880508570ca42a82c2f76fbd95fcad8d3e3ff812e9ca50cdeb2d8f
+    size: 81995623
+    checksum: sha256:2b68dc5e93cbbf5151bfb7ecc436571c6f3cff0fee5d671bb41251e281e108c5
     name: gcc
-    evr: 11.5.0-14.el9
+    evr: 11.5.0-17.el9_9
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/ppc64le/baseos/source/SRPMS/Packages/l/libtirpc-1.3.3-9.el9.src.rpm
     repoid: ubi-9-for-ppc64le-baseos-source-rpms
     size: 589716
@@ -417,20 +417,20 @@ arches:
     name: sqlite
     evr: 3.34.1-11.el9_8
     sourcerpm: sqlite-3.34.1-11.el9_8.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/s390x/baseos/os/Packages/e/expat-2.5.0-6.el9_8.7.s390x.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/s390x/baseos/os/Packages/e/expat-2.5.0-9.el9_9.4.s390x.rpm
     repoid: ubi-9-for-s390x-baseos-rpms
-    size: 125332
-    checksum: sha256:e286d3efd8b202e2345d20548c34cb6d28556160634731ec59a447c70121e0f1
+    size: 125235
+    checksum: sha256:905c0cc4f85571df533a582fd689cdef3049a769dc8ca3030f5f701b1de4083c
     name: expat
-    evr: 2.5.0-6.el9_8.7
-    sourcerpm: expat-2.5.0-6.el9_8.7.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/s390x/baseos/os/Packages/l/libgfortran-11.5.0-14.el9.s390x.rpm
+    evr: 2.5.0-9.el9_9.4
+    sourcerpm: expat-2.5.0-9.el9_9.4.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/s390x/baseos/os/Packages/l/libgfortran-11.5.0-17.el9_9.s390x.rpm
     repoid: ubi-9-for-s390x-baseos-rpms
-    size: 489372
-    checksum: sha256:840f299bbb969efd46cc6a08f197d5717bb98c30d59704ccd54607d7060e9f49
+    size: 494993
+    checksum: sha256:9634e6912011b95cd6d7ddf33a2e829d9ff2895b44139d133ee99a1be310c69d
     name: libgfortran
-    evr: 11.5.0-14.el9
-    sourcerpm: gcc-11.5.0-14.el9.src.rpm
+    evr: 11.5.0-17.el9_9
+    sourcerpm: gcc-11.5.0-17.el9_9.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/s390x/baseos/os/Packages/l/libtirpc-1.3.3-9.el9.s390x.rpm
     repoid: ubi-9-for-s390x-baseos-rpms
     size: 96807
@@ -488,18 +488,18 @@ arches:
     checksum: sha256:8c42914fd3691cee14049a40d523a9ff1ebcd8fbf9e74b801b94f0f422ddb064
     name: python3.12-setuptools
     evr: 68.2.2-5.el9_6
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/s390x/baseos/source/SRPMS/Packages/e/expat-2.5.0-6.el9_8.7.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/s390x/baseos/source/SRPMS/Packages/e/expat-2.5.0-9.el9_9.4.src.rpm
     repoid: ubi-9-for-s390x-baseos-source-rpms
-    size: 8414665
-    checksum: sha256:c02441639a25646db44bb3e04f47b91131646ac0f1c87e3ff919dae4ec3de08c
+    size: 8414151
+    checksum: sha256:c461966c67935df3c01d4755d76b9b9ff8894936aaf99000716976ffad14acda
     name: expat
-    evr: 2.5.0-6.el9_8.7
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/s390x/baseos/source/SRPMS/Packages/g/gcc-11.5.0-14.el9.src.rpm
+    evr: 2.5.0-9.el9_9.4
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/s390x/baseos/source/SRPMS/Packages/g/gcc-11.5.0-17.el9_9.src.rpm
     repoid: ubi-9-for-s390x-baseos-source-rpms
-    size: 81978017
-    checksum: sha256:19dec462f2880508570ca42a82c2f76fbd95fcad8d3e3ff812e9ca50cdeb2d8f
+    size: 81995623
+    checksum: sha256:2b68dc5e93cbbf5151bfb7ecc436571c6f3cff0fee5d671bb41251e281e108c5
     name: gcc
-    evr: 11.5.0-14.el9
+    evr: 11.5.0-17.el9_9
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/s390x/baseos/source/SRPMS/Packages/l/libtirpc-1.3.3-9.el9.src.rpm
     repoid: ubi-9-for-s390x-baseos-source-rpms
     size: 589716
@@ -585,27 +585,27 @@ arches:
     name: sqlite
     evr: 3.34.1-11.el9_8
     sourcerpm: sqlite-3.34.1-11.el9_8.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/e/expat-2.5.0-6.el9_8.7.x86_64.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/e/expat-2.5.0-9.el9_9.4.x86_64.rpm
     repoid: ubi-9-for-x86_64-baseos-rpms
-    size: 129370
-    checksum: sha256:289c8f4e65e7db02f5cc1c47caf5dcc0353660520ee4f840a3d27b0fa71680f7
+    size: 129305
+    checksum: sha256:9e8c9375b2d88064de2dbaff424a72a913bb0c2809c6cddb48d00cd2176e61ee
     name: expat
-    evr: 2.5.0-6.el9_8.7
-    sourcerpm: expat-2.5.0-6.el9_8.7.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/l/libgfortran-11.5.0-14.el9.x86_64.rpm
+    evr: 2.5.0-9.el9_9.4
+    sourcerpm: expat-2.5.0-9.el9_9.4.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/l/libgfortran-11.5.0-17.el9_9.x86_64.rpm
     repoid: ubi-9-for-x86_64-baseos-rpms
-    size: 813380
-    checksum: sha256:11d2f1c6c2ca35bdf7e866e80615d17d10601bc512905c8ef4f74ff8b0a3015a
+    size: 816211
+    checksum: sha256:9e4f8ce526bd9cd5d62abd9c8fb19c7447f85aa5b1759a3d5c81e23526578866
     name: libgfortran
-    evr: 11.5.0-14.el9
-    sourcerpm: gcc-11.5.0-14.el9.src.rpm
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/l/libquadmath-11.5.0-14.el9.x86_64.rpm
+    evr: 11.5.0-17.el9_9
+    sourcerpm: gcc-11.5.0-17.el9_9.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/l/libquadmath-11.5.0-17.el9_9.x86_64.rpm
     repoid: ubi-9-for-x86_64-baseos-rpms
-    size: 188925
-    checksum: sha256:6fd5a850dc8e0a5b17c95089a8da0319beb8bf6ba68b633366d509458b332448
+    size: 191727
+    checksum: sha256:95889fdc33cf38fbea219d56279e570feb2db4680139499fd6e2cf2c84aab71b
     name: libquadmath
-    evr: 11.5.0-14.el9
-    sourcerpm: gcc-11.5.0-14.el9.src.rpm
+    evr: 11.5.0-17.el9_9
+    sourcerpm: gcc-11.5.0-17.el9_9.src.rpm
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/os/Packages/l/libtirpc-1.3.3-9.el9.x86_64.rpm
     repoid: ubi-9-for-x86_64-baseos-rpms
     size: 98934
@@ -663,18 +663,18 @@ arches:
     checksum: sha256:8c42914fd3691cee14049a40d523a9ff1ebcd8fbf9e74b801b94f0f422ddb064
     name: python3.12-setuptools
     evr: 68.2.2-5.el9_6
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/e/expat-2.5.0-6.el9_8.7.src.rpm
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/e/expat-2.5.0-9.el9_9.4.src.rpm
     repoid: ubi-9-for-x86_64-baseos-source-rpms
-    size: 8414665
-    checksum: sha256:c02441639a25646db44bb3e04f47b91131646ac0f1c87e3ff919dae4ec3de08c
+    size: 8414151
+    checksum: sha256:c461966c67935df3c01d4755d76b9b9ff8894936aaf99000716976ffad14acda
     name: expat
-    evr: 2.5.0-6.el9_8.7
-  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/g/gcc-11.5.0-14.el9.src.rpm
+    evr: 2.5.0-9.el9_9.4
+  - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/g/gcc-11.5.0-17.el9_9.src.rpm
     repoid: ubi-9-for-x86_64-baseos-source-rpms
-    size: 81978017
-    checksum: sha256:19dec462f2880508570ca42a82c2f76fbd95fcad8d3e3ff812e9ca50cdeb2d8f
+    size: 81995623
+    checksum: sha256:2b68dc5e93cbbf5151bfb7ecc436571c6f3cff0fee5d671bb41251e281e108c5
     name: gcc
-    evr: 11.5.0-14.el9
+    evr: 11.5.0-17.el9_9
   - url: https://cdn-ubi.redhat.com/content/public/ubi/dist/ubi9/9/x86_64/baseos/source/SRPMS/Packages/l/libtirpc-1.3.3-9.el9.src.rpm
     repoid: ubi-9-for-x86_64-baseos-source-rpms
     size: 589716
